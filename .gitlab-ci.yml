@@ -1,0 +1,39 @@
+stages:
+    - test
+    - build
+    - deploy
+    
+test:
+    tags:
+        - dalfcs_gitlab_docker_ci
+    stage: test
+    script:
+        - echo "Testing"
+        - sh mvnw compile
+        - sh mvnw test
+        
+        
+        
+build:
+    tags:
+        - dalfcs_gitlab_docker_ci
+    stage: build
+    script:
+        - echo "Building"
+        - sh mvnw clean
+        - sh mvnw install
+        - ls target
+    artifacts:
+        paths:
+            - target/*.jar
+            
+            
+
+
+deploy:
+    tags:
+        - dalfcs_gitlab_docker_ci
+    stage: deploy
+    script:
+        - echo "Deploying"
+        - ls target
