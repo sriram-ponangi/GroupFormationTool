@@ -2,6 +2,8 @@ stages:
     - test
     - build
     - deploy
+
+image: openjdk:8-alpine
     
 test:
     tags:
