@@ -7,7 +7,7 @@ image: openjdk:8-alpine
     
 test:
     tags:
-        - ugrad
+        - grad
     stage: test
     script:
         - echo "Testing"
@@ -18,7 +18,7 @@ test:
         
 build:
     tags:
-        - ugrad
+        - grad
     stage: build
     script:
         - echo "Building"
@@ -36,7 +36,9 @@ deploy:
     tags:
         - DalOpenStack
     stage: deploy
-    
+    only:
+        - develop
+        
     before_script:
         - ls target
         - docker container stop group14_project || exit_code=$?
