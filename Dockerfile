@@ -6,7 +6,7 @@ WORKDIR /app
 
 COPY ./target/group14-0.0.1-SNAPSHOT.jar .
 
-ETRYPOINT java -jar 
+ENTRYPOINT java -jar 
 
 CMD ["-Dspring.profiles.active=test", "group14-0.0.1-SNAPSHOT.jar"]
 
