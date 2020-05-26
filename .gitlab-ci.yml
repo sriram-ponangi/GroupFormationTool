@@ -36,13 +36,15 @@ deploy:
     tags:
         - DalOpenStack
     stage: deploy
-    only:
-        - develop
+
     script:
         - echo "Deploying"
         - ls target
+        - docker container stop group14_project
+        - docker container rm group14_project
         - docker build -t group14_project .
         - docker images
-        - docker run -p 8080:8080 -d group14_project
-        - docker container ls
+        - docker run -p 8080:8080 -d --name group14_project group14_project
+        - docker ps
+        - docker logs group14_project
 

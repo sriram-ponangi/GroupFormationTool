@@ -6,6 +6,8 @@ WORKDIR /app
 
 COPY ./target/group14-0.0.1-SNAPSHOT.jar .
 
-CMD java -jar group14-0.0.1-SNAPSHOT.jar
+ETRYPOINT java -jar 
 
-EXPOSE 8080
+CMD ["-Dspring.profiles.active=test", "group14-0.0.1-SNAPSHOT.jar"]
+
+EXPOSE 8080 
