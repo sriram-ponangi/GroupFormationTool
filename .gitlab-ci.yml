@@ -1,0 +1,48 @@
+stages:
+    - test
+    - build
+    - deploy
+
+image: openjdk:8-alpine
+    
+test:
+    tags:
+        - grad
+    stage: test
+    script:
+        - echo "Testing"
+        - sh mvnw compile
+        - sh mvnw test
+        
+        
+        
+build:
+    tags:
+        - grad
+    stage: build
+    script:
+        - echo "Building"
+        - sh mvnw clean
+        - sh mvnw install
+        - ls target
+    artifacts:
+        paths:
+            - target/*.jar
+            
+            
+
+
+deploy:
+    tags:
+        - DalOpenStack
+    stage: deploy
+    only:
+        - develop
+    script:
+        - echo "Deploying"
+        - ls target
+        - docker build -t group14_project .
+        - docker images
+        - docker run -p 8080:8080 -d group14_project
+        - docker container ls
+
