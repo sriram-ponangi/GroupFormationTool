@@ -7,7 +7,7 @@ image: openjdk:8-alpine
     
 test:
     tags:
-        - dalfcs_gitlab_docker_ci
+        - DalOpenStack
     stage: test
     script:
         - echo "Testing"
@@ -18,7 +18,7 @@ test:
         
 build:
     tags:
-        - dalfcs_gitlab_docker_ci
+        - DalOpenStack
     stage: build
     script:
         - echo "Building"
@@ -34,7 +34,7 @@ build:
 
 deploy:
     tags:
-        - dalfcs_gitlab_docker_ci
+        - DalOpenStack
     stage: deploy
     script:
         - echo "Deploying"
