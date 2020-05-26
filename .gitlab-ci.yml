@@ -7,7 +7,7 @@ image: openjdk:8-alpine
     
 test:
     tags:
-        - grad
+        - ugrad
     stage: test
     script:
         - echo "Testing"
@@ -18,7 +18,7 @@ test:
         
 build:
     tags:
-        - grad
+        - ugrad
     stage: build
     script:
         - echo "Building"
