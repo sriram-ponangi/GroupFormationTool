@@ -40,11 +40,14 @@ deploy:
     script:
         - echo "Deploying"
         - ls target
-        - docker container stop group14_project
-        - docker container rm group14_project
+        - docker container stop group14_project || exit_code=$?
+        - if [ $exit_code -ne 0 ]; then echo "container does not exist"; fi;
+        - docker container rm group14_project || exit_code=$?
+        - if [ $exit_code -ne 0 ]; then echo "container does not exist"; fi;
         - docker build -t group14_project .
         - docker images
         - docker run -p 8080:8080 -d --name group14_project group14_project
         - docker ps
+        - ifconfig
         - docker logs group14_project
 
