@@ -7,7 +7,7 @@ image: openjdk:8-alpine
     
 test:
     tags:
-        - DalOpenStack
+        - grad
     stage: test
     script:
         - echo "Testing"
@@ -18,7 +18,7 @@ test:
         
 build:
     tags:
-        - DalOpenStack
+        - grad
     stage: build
     script:
         - echo "Building"
