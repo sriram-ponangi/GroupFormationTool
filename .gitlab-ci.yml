@@ -6,6 +6,7 @@ stages:
 image: openjdk:8-alpine
 
 variables:
+    GRADLE_OPTS: "-Dorg.gradle.daemon=false"
     GIT_STRATEGY: clone
     
 test:
