@@ -11,7 +11,7 @@ variables:
     
 test:
     tags:
-        - grad
+        - ${GITLAB_RUNNER_TAG:ugrad} 
     stage: test
     script:
         - echo "Testing"
@@ -21,7 +21,7 @@ test:
         
 build:
     tags:
-        - grad
+        - ${GITLAB_RUNNER_TAG:ugrad}
     stage: build
     script:
         - echo "Building"
@@ -38,8 +38,8 @@ deploy:
     tags:
         - DalOpenStack
     stage: deploy
-#    only:
-#        - develop
+    only:
+        - develop
         
     before_script:
         - ls build/libs
@@ -56,6 +56,7 @@ deploy:
     after_script:
         - docker ps
         - ifconfig
+        - sleep 20
         - docker logs group14_project
         
 #    when: manual
