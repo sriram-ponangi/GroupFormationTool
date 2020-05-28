@@ -69,8 +69,8 @@ deploy_staging:
         - dalfcs_gitlab_docker_ci
     image: ruby:2.6
     stage: deploy_staging
-#    only:
-#        - develop
+    only:
+        - develop
     script:
         - apt-get update -qy
         - apt-get install -y ruby-dev
