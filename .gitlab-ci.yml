@@ -42,7 +42,7 @@ deploy:
 #        - develop
         
     before_script:
-        - ls target
+        - ls build/libs
         - docker container stop group14_project || exit_code=$?
         - if [ $exit_code -ne 0 ]; then echo "container does not exist"; fi;
         - docker container rm group14_project || exit_code=$?
@@ -58,5 +58,5 @@ deploy:
         - ifconfig
         - docker logs group14_project
         
-    when: manual
+#    when: manual
 
