@@ -4,30 +4,32 @@ stages:
     - deploy
 
 image: openjdk:8-alpine
+
+variables:
+    GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+    GIT_STRATEGY: clone
     
 test:
     tags:
-        - ugrad
+        - grad
     stage: test
     script:
         - echo "Testing"
-        - sh mvnw compile
-        - sh mvnw test
+        - sh gradlew check test
         
         
         
 build:
     tags:
-        - ugrad
+        - grad
     stage: build
     script:
         - echo "Building"
-        - sh mvnw clean
-        - sh mvnw install
-        - ls target
+        - sh gradlew clean build
+        - ls build/libs
     artifacts:
         paths:
-            - target/*.jar
+            - build/libs/*.jar
             
             
 
@@ -40,7 +42,7 @@ deploy:
         - develop
         
     before_script:
-        - ls target
+        - ls build/libs
         - docker container stop group14_project || exit_code=$?
         - if [ $exit_code -ne 0 ]; then echo "container does not exist"; fi;
         - docker container rm group14_project || exit_code=$?
@@ -54,5 +56,8 @@ deploy:
     after_script:
         - docker ps
         - ifconfig
+        - sleep 20
         - docker logs group14_project
+        
+#    when: manual
 

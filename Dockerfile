@@ -4,7 +4,7 @@ RUN mkdir /app
 
 WORKDIR /app
 
-COPY ./target/group14-0.0.1-SNAPSHOT.jar .
+COPY ./build/libs/group14-0.0.1-SNAPSHOT.jar .
 
 ENTRYPOINT ["java", "-jar"] 
 
