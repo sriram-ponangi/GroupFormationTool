@@ -4,30 +4,31 @@ stages:
     - deploy
 
 image: openjdk:8-alpine
+
+variables:
+    GIT_STRATEGY: clone
     
 test:
     tags:
-        - ugrad
+        - grad
     stage: test
     script:
         - echo "Testing"
-        - sh mvnw compile
-        - sh mvnw test
+        - sh gradlew check test
         
         
         
 build:
     tags:
-        - ugrad
+        - grad
     stage: build
     script:
         - echo "Building"
-        - sh mvnw clean
-        - sh mvnw install
-        - ls target
+        - sh gradlew clean build
+        - ls build/libs
     artifacts:
         paths:
-            - target/*.jar
+            - build/libs/*.jar
             
             
 
@@ -36,8 +37,8 @@ deploy:
     tags:
         - DalOpenStack
     stage: deploy
-    only:
-        - develop
+#    only:
+#        - develop
         
     before_script:
         - ls target
@@ -55,4 +56,6 @@ deploy:
         - docker ps
         - ifconfig
         - docker logs group14_project
+        
+    when: manual
 
