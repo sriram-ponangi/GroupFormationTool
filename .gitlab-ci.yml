@@ -11,7 +11,7 @@ variables:
     
 test:
     tags:
-        - ${GITLAB_RUNNER_TAG:ugrad} 
+        - $GITLAB_RUNNER_TAG
     stage: test
     script:
         - echo "Testing"
@@ -21,7 +21,7 @@ test:
         
 build:
     tags:
-        - ${GITLAB_RUNNER_TAG:ugrad}
+        - $GITLAB_RUNNER_TAG
     stage: build
     script:
         - echo "Building"
