@@ -1,1 +1,41 @@
+spring:
+  profiles:
+    active: dev
+
+server:
+  port: ${PORT:8080} 
+
+---
+spring:
+  application:
+    name: group14-project
+  profiles: dev
+  datasource:
+    url: jdbc:mysql://db-5308.cs.dal.ca:3306/CSCI5308_14_DEVINT
+    username: CSCI5308_14_DEVINT_USER
+    password: CSCI5308_14_DEVINT_14103
+
+---
+
+spring:
+  application:
+    name: group14-project
+  profiles: test
+  datasource:
+    url: jdbc:mysql://db-5308.cs.dal.ca:3306/CSCI5308_14_TEST
+    username: CSCI5308_14_TEST_USER
+    password: CSCI5308_14_TEST_14577
+  
+---
+
+spring:
+  application:
+    name: group14-project
+  profiles: prod
+  datasource:
+    url: jdbc:mysql://db-5308.cs.dal.ca:3306/CSCI5308_14_PRODUCTION
+    username: CSCI5308_14_PRODUCTION_USER
+    password: CSCI5308_14_PRODUCTION_14739
+
+
 

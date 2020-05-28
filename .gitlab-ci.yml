@@ -7,7 +7,7 @@ image: openjdk:8-alpine
     
 test:
     tags:
-        - grad
+        - ugrad
     stage: test
     script:
         - echo "Testing"
@@ -18,7 +18,7 @@ test:
         
 build:
     tags:
-        - grad
+        - ugrad
     stage: build
     script:
         - echo "Building"
@@ -38,11 +38,21 @@ deploy:
     stage: deploy
     only:
         - develop
-    script:
-        - echo "Deploying"
+        
+    before_script:
         - ls target
+        - docker container stop group14_project || exit_code=$?
+        - if [ $exit_code -ne 0 ]; then echo "container does not exist"; fi;
+        - docker container rm group14_project || exit_code=$?
+        - if [ $exit_code -ne 0 ]; then echo "container does not exist"; fi;
+    script:
+        - echo "Deploying"        
         - docker build -t group14_project .
         - docker images
-        - docker run -p 8080:8080 -d group14_project
-        - docker container ls
+        - docker run -p 8080:8080 -d --name group14_project group14_project
+        
+    after_script:
+        - docker ps
+        - ifconfig
+        - docker logs group14_project
 
