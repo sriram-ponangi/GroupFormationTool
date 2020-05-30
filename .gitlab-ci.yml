@@ -1,8 +1,9 @@
 stages:
     - test
-    - build
-    - deploy_prod
+    - build    
     - deploy_staging
+    - deploy_prod_openstack
+    - deploy_prod_heroku
 
 image: openjdk:8-alpine
 
@@ -34,11 +35,24 @@ build:
             
             
 
+deploy_staging:
+    tags:
+        - dalfcs_gitlab_docker_ci
+    image: ruby:2.6
+    stage: deploy_staging
+    only:
+        - develop
+    script:
+        - apt-get update -qy
+        - apt-get install -y ruby-dev
+        - gem install dpl
+        - dpl --provider=heroku --app=$HEROKU_STAGING_APP_NAME --api-key=$HEROKU_API_KEY
 
-deploy_prod:
+
+deploy_prod_openstack:
     tags:
         - DalOpenStack
-    stage: deploy_prod
+    stage: deploy_prod_openstack
     only:
         - master
         - release
@@ -62,18 +76,19 @@ deploy_prod:
         - docker logs group14_project
         
 #    when: manual
-
-
-deploy_staging:
+        
+deploy_prod_heroku:
     tags:
         - dalfcs_gitlab_docker_ci
     image: ruby:2.6
     stage: deploy_staging
     only:
-        - develop
+        - master
+        - release
     script:
         - apt-get update -qy
         - apt-get install -y ruby-dev
         - gem install dpl
         - dpl --provider=heroku --app=$HEROKU_APP_NAME --api-key=$HEROKU_API_KEY
 
+    when: manual
