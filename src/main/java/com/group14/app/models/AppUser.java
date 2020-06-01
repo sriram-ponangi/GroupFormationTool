@@ -25,6 +25,9 @@ public class AppUser {
 		this.courseRoles = null;
 		this.enabled = enabled;
 	}	
+	public AppUser() {
+		// TODO Auto-generated constructor stub
+	}
 	public String getUserId() {
 		return userId;
 	}
