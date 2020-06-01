@@ -2,20 +2,15 @@ package com.group14.app.models;
 
 public class Forgotpassword {
 	
-	private String email;
-	/* private String userId; */
-	
-	public String getEmail() {
-		return email;
+	private String banner;
+
+	public String getBanner() {
+		return banner;
 	}
-	public void setEmail(String email) {
-		this.email = email;
-		System.out.println("EMail: "+email);
+
+	public void setBanner(String banner) {
+		this.banner = banner;
 	}
-	/*
-	 * public String getUserId() { return userId; } public void setUserId(String
-	 * userId) { this.userId = userId; }
-	 */
 	
 	
 

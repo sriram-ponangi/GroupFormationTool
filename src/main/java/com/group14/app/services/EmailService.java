@@ -6,9 +6,8 @@ import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-
-import com.group14.app.models.AppUser;
 import com.group14.app.models.Forgotpassword;
+import com.group14.app.repositories.ForgotPasswordRepository;
 
 
 @Service
@@ -17,7 +16,10 @@ public class EmailService {
 	@Autowired
 	private JavaMailSender javaMailSender;
 	
+	ForgotPasswordRepository fPR = new ForgotPasswordRepository();
+	
 	String pass;
+	String email;
 	
 	
 	public EmailService(JavaMailSender javaMailSender)
@@ -28,35 +30,15 @@ public class EmailService {
 	public void sendMail(Forgotpassword forgotpassword) throws MailException
 	{
 		SimpleMailMessage mail = new SimpleMailMessage();
-		
-		mail.setTo(forgotpassword.getEmail());
+		email = fPR.readEmail(forgotpassword.getBanner().toString());
+		mail.setTo(email);
 		mail.setFrom("group14sdc@gmail.com");
 		mail.setSubject("Forgot Password Link");
 		
-		
-		try{  
-			Class.forName("com.mysql.cj.jdbc.Driver");  
-			Connection con=DriverManager.getConnection(  
-			"jdbc:mysql://db-5308.cs.dal.ca:3306/CSCI5308_14_DEVINT","CSCI5308_14_DEVINT_USER",
-			"CSCI5308_14_DEVINT_14103");  
-			
-			PreparedStatement stmt=con.prepareStatement("SELECT password FROM Users WHERE EMAIL = ?"); 
-			stmt.setString(1, forgotpassword.getEmail().toString());
-			ResultSet rs=stmt.executeQuery();  
-			
-			while(rs.next())  
-			{
-				pass = rs.getString(1);
-			}
-			
-			con.close();  
-			}
-		catch(Exception e)
-		{ 
-			System.out.println(e);
-		}  
+		pass = fPR.readPass(forgotpassword.getBanner().toString());
 		
 		mail.setText("Your password is "+pass);
+		fPR.closeConnection();
 		javaMailSender.send(mail);
 	}
 }
