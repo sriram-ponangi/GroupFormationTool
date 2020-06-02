@@ -38,7 +38,7 @@ public class EmailService {
 		pass = fPR.readPass(forgotpassword.getBanner().toString());
 		
 		mail.setText("Your password is "+pass);
-		fPR.closeConnection();
+		
 		javaMailSender.send(mail);
 	}
 }

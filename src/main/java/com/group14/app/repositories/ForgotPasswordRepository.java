@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+
 public class ForgotPasswordRepository {
 	static Connection con = null;
 	static
@@ -79,6 +80,8 @@ public class ForgotPasswordRepository {
 		
 		return banner;  
 	}
+	
+	
 	
 
 }
