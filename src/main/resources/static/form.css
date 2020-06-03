@@ -23,6 +23,25 @@ input[type=submit]:hover {
   background-color: #45a049;
 }
 
+table{
+	text-align: center;
+	border: medium;
+	padding: 2px;
+}
+
+
+#course {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  text-align: center;
+  width: 25%;
+  
+}
+
+#course td, #course th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
 
 div div{
   border-radius: 5px;

@@ -13,13 +13,13 @@ import com.group14.app.models.Courses;
 public class CourseRepository {
 	
 	static Connection con = null;
-	List<Courses> rows = new ArrayList<Courses>();
+	
 	static
 	{
 		try {
 		Class.forName("com.mysql.cj.jdbc.Driver");  
 		con=DriverManager.getConnection(  
-		"jdbc:mysql://db-5308.cs.dal.ca:3306/CSCI5308_14_DEVINT","CSCI5308_14_DEVINT_USER",
+		"jdbc:mysql://db-5308.cs.dal.ca:3306/CSCI5308_14_DEVINT?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","CSCI5308_14_DEVINT_USER",
 		"CSCI5308_14_DEVINT_14103");
 		}
 		catch(Exception e)
@@ -43,7 +43,7 @@ public class CourseRepository {
 	
 	
 	public List<Courses> list() throws SQLException {
-	
+		List<Courses> rows = new ArrayList<Courses>();
 		PreparedStatement stmt=con.prepareStatement("select * from Courses"); 
 	    ResultSet resultSet = null;
 
@@ -63,8 +63,35 @@ public class CourseRepository {
 	            
 	        }
 
-	    System.out.println("Inside repo: "+rows.size());
 	    return rows;
 	}
+	
+	public void addCourse(Courses courses) throws SQLException {
+		//List<Courses> courseList = course;
+		PreparedStatement stmt=con.prepareStatement("insert into Courses(course_id,name,year,term,description,enabled)"
+		+"values (?,?,?,?,?,?)"); 
+	    
+	    stmt.setString(1, courses.getCid());
+	    stmt.setString(2, courses.getName());
+	    stmt.setString(3, courses.getYear());
+	    stmt.setString(4, courses.getTerm());
+	    stmt.setString(5, courses.getDescription());
+	    stmt.setInt(6, 1);
+
+	    stmt.execute();
+	    
+	}
+	
+	/*
+	 * public void deleteCourse(Courses courses) throws SQLException {
+	 * //List<Courses> courseList = course; PreparedStatement
+	 * stmt=con.prepareStatement("delete from Courses where course_id=?");
+	 * 
+	 * stmt.setString(1, courses.getCid());
+	 * 
+	 * stmt.executeUpdate();
+	 * 
+	 * }
+	 */
 
 }

@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+<!-- <!DOCTYPE HTML>
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
     <title>Getting Started: Handling Form Submission</title>
@@ -7,9 +7,10 @@
 
 </head>
 <body>
+<center>
 <div>
 <h1>All Courses</h1>
-<center>
+
 <table id="course">
 <tr>
 <th>Course ID</th>
@@ -27,5 +28,26 @@
 </table>
 </div>
 </center>
+<h2>Delete Course</h2>
+<div>
+    <form action="#" th:action="@{/deleteCourse}" th:object="${deleteCourse}" method="post">
+    <table border="2">
+    	<tr>
+    	<td>Course Id (CSCI XXXX)</td>
+    	<td><input type="text" th:field="*{cid}" /></td>
+    	</tr>
+ 		
+    	<tr>
+    	<td></td>
+    	<td>
+    	<input type="submit" value="Submit" />
+    	</td>
+    	</tr>
+    	
+        
+    </table>
+    </form>
+    </div>
+
 </body>
-</html>
+</html> -->

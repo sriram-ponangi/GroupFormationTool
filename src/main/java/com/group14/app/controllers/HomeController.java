@@ -2,7 +2,6 @@ package com.group14.app.controllers;
 
 import java.sql.SQLException;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,7 +38,7 @@ public class HomeController {
 			List<Courses> courseL = course.list();
 			
 			model.addAttribute("allCourse", courseL);
-			course.closeConnection();
+			
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
@@ -50,7 +49,14 @@ public class HomeController {
 	
 	@PostMapping("/allCourse")
 	public String fallCoursesSubmit(@ModelAttribute Courses allCourse) {
-	System.out.println("In post: "+allCourse.getName());
+	
 	return "courses";	
-}
+	}
+	
+	@GetMapping("/adminopt")
+	public String adminOpt() 
+	{ 
+		return "adminOptions";
+	}
+	
 }

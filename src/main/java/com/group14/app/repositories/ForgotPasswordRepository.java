@@ -14,7 +14,7 @@ public class ForgotPasswordRepository {
 		try {
 		Class.forName("com.mysql.cj.jdbc.Driver");  
 		con=DriverManager.getConnection(  
-		"jdbc:mysql://db-5308.cs.dal.ca:3306/CSCI5308_14_DEVINT","CSCI5308_14_DEVINT_USER",
+		"jdbc:mysql://db-5308.cs.dal.ca:3306/CSCI5308_14_DEVINT?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","CSCI5308_14_DEVINT_USER",
 		"CSCI5308_14_DEVINT_14103");
 		}
 		catch(Exception e)
