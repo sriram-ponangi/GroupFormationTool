@@ -67,7 +67,7 @@ public class CourseRepository {
 	}
 	
 	public void addCourse(Courses courses) throws SQLException {
-		//List<Courses> courseList = course;
+
 		PreparedStatement stmt=con.prepareStatement("insert into Courses(course_id,name,year,term,description,enabled)"
 		+"values (?,?,?,?,?,?)"); 
 	    
@@ -89,6 +89,18 @@ public class CourseRepository {
 	    stmt.setString(1, courses.getCid());
 
 	    stmt.executeUpdate();
+	   
+	}
+	
+	public void addCourseI(String banner, String cid) throws SQLException {
+		PreparedStatement stmt=con.prepareStatement("insert into CourseRoleMapper(role_id,user_id,course_id)"
+				+"values (?,?,?)"); 
+				
+		stmt.setString(1,"INSTRUCTOR");
+		stmt.setString(2,banner);
+		stmt.setString(3, cid);
+		
+		stmt.execute();
 	   
 	}
 

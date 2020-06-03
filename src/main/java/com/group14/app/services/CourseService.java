@@ -33,4 +33,16 @@ public class CourseService {
 			e.printStackTrace();
 		}
 	}
+	
+	public void addCourseInstructor(String banner, String cid)
+	{
+		try 
+		{
+			courseRepository.addCourseI(banner, cid);;
+		}
+		catch (SQLException e) {
+		
+			e.printStackTrace();
+		}
+	}
 }
