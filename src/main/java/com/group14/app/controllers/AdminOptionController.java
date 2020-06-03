@@ -36,27 +36,32 @@ public class AdminOptionController {
 		return "redirect:/allCourse";	
 	}
 		
-	/*
-	 * @GetMapping("/deleteCourse") public String deleteCourses(Model model) { try {
-	 * List<Courses> courseL = course.list();
-	 * 
-	 * model.addAttribute("allCourse", courseL);
-	 * 
-	 * } catch (SQLException e) {
-	 * 
-	 * e.printStackTrace(); }
-	 * 
-	 * 
-	 * model.addAttribute("deleteCourse", new Courses()); return "deleteCourse";
-	 * 
-	 * 
-	 * }
-	 * 
-	 * @PostMapping("/deleteCourse") public String deleteCourses(@ModelAttribute
-	 * Courses allCourse) {
-	 * 
-	 * courseService.deleteCourse(allCourse); return "redirect:/allCourse"; }
-	 */
+		@GetMapping("/deleteCourse")
+		public String deleteCourses(Model model) 
+		{ 
+			try {
+				List<Courses> courseL = course.list();
+				
+				model.addAttribute("allCourse", courseL);
+				
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			}
+			
+			
+			model.addAttribute("deleteCourse", new Courses());
+			return "deleteCourse";
+			
+			
+		}
+		
+		@PostMapping("/deleteCourse")
+		public String deleteCourses(@ModelAttribute Courses allCourse) {
+		
+		courseService.deleteCourse(allCourse);
+		return "redirect:/allCourse";	
+	}
 
 		@GetMapping("/assignI")
 		public String assignInstructor()

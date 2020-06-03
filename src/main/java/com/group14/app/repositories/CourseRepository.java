@@ -82,16 +82,14 @@ public class CourseRepository {
 	    
 	}
 	
-	/*
-	 * public void deleteCourse(Courses courses) throws SQLException {
-	 * //List<Courses> courseList = course; PreparedStatement
-	 * stmt=con.prepareStatement("delete from Courses where course_id=?");
-	 * 
-	 * stmt.setString(1, courses.getCid());
-	 * 
-	 * stmt.executeUpdate();
-	 * 
-	 * }
-	 */
+	public void deleteCourse(Courses courses) throws SQLException {
+		//List<Courses> courseList = course;
+		PreparedStatement stmt=con.prepareStatement("delete from Courses where course_id=?"); 
+	    
+	    stmt.setString(1, courses.getCid());
+
+	    stmt.executeUpdate();
+	   
+	}
 
 }

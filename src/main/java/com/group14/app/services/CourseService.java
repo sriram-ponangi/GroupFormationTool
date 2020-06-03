@@ -22,10 +22,15 @@ public class CourseService {
 		}
 	}
 	
-	/*
-	 * public void deleteCourse(Courses courses) { try {
-	 * courseRepository.deleteCourse(courses); } catch (SQLException e) {
-	 * 
-	 * e.printStackTrace(); } }
-	 */
+	public void deleteCourse(Courses courses)
+	{
+		try 
+		{
+			courseRepository.deleteCourse(courses);
+		}
+		catch (SQLException e) {
+		
+			e.printStackTrace();
+		}
+	}
 }
