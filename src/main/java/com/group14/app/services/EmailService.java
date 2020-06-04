@@ -16,7 +16,9 @@ public class EmailService {
 	@Autowired
 	private JavaMailSender javaMailSender;
 	
-	ForgotPasswordRepository fPR = new ForgotPasswordRepository();
+//	ForgotPasswordRepository fPR = new ForgotPasswordRepository();
+	@Autowired
+	ForgotPasswordRepository fPR;
 	
 	String pass;
 	String email;
@@ -27,6 +29,10 @@ public class EmailService {
 		this.javaMailSender = javaMailSender;
 	}
 	
+	public EmailService()
+	{
+		
+	}
 	public void sendMail(Forgotpassword forgotpassword) throws MailException
 	{
 		SimpleMailMessage mail = new SimpleMailMessage();
@@ -40,6 +46,6 @@ public class EmailService {
 		mail.setText("Your password is "+pass);
 		
 		javaMailSender.send(mail);
-		fPR.closeConnection();
+//		fPR.closeConnection();
 	}
 }

@@ -7,10 +7,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import com.group14.app.models.Courses;
+import com.group14.app.models.SQLInput;
+import com.group14.app.utils.MySQLDBOperations;
 
-
+@Repository
 public class CourseRepository {
+	
+	@Autowired
+	private MySQLDBOperations db;
 	
 	static Connection con = null;
 	
@@ -83,12 +92,22 @@ public class CourseRepository {
 	}
 	
 	public void deleteCourse(Courses courses) throws SQLException {
-		//List<Courses> courseList = course;
-		PreparedStatement stmt=con.prepareStatement("delete from Courses where course_id=?"); 
-	    
-	    stmt.setString(1, courses.getCid());
-
-	    stmt.executeUpdate();
+//		//List<Courses> courseList = course;
+//		PreparedStatement stmt=con.prepareStatement("delete from Courses where course_id=?"); 
+//	    
+//	    stmt.setString(1, courses.getCid());
+//
+//	    stmt.executeUpdate();
+		
+		System.out.println(courses);
+		String SQL_DELETE_USER = "delete from CourseRoleMapper where course_id=?";
+		String SQL_DELETE_COURSE = "delete from Courses where course_id=?";
+		List<String> params = new ArrayList<>();
+		params.add(courses.getCid());
+		
+		int deleteData = db.save(new SQLInput( SQL_DELETE_USER, params));
+		int usersData = db.save(new SQLInput( SQL_DELETE_COURSE, params));
+		
 	   
 	}
 	

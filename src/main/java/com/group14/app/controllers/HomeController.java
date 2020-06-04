@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.group14.app.models.Courses;
+import com.group14.app.models.Forgotpassword;
 import com.group14.app.repositories.CourseRepository;
 
 
@@ -16,13 +17,16 @@ import com.group14.app.repositories.CourseRepository;
 public class HomeController {
 	
 	CourseRepository course = new CourseRepository();
+
 	
-	@GetMapping("/Dashboard")
+	@GetMapping("/guest/dashboard")
 	public String landingPage()
 	{
 		return "admin";
 		
 	}
+	
+	
 	
 	@GetMapping("/student/myCourse")
 	public String myCourses() 
@@ -31,7 +35,7 @@ public class HomeController {
 		return "adminDashboard";
 	}
 
-	@GetMapping("/allCourse")
+	@GetMapping("/admin/allCourse")
 	public String allCourses(Model model)
 	{
 		try {
@@ -47,7 +51,7 @@ public class HomeController {
 		
 	}
 	
-	@PostMapping("/allCourse")
+	@PostMapping("/admin/allCourse")
 	public String fallCoursesSubmit(@ModelAttribute Courses allCourse) {
 	
 	return "courses";	
