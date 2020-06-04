@@ -120,14 +120,12 @@ public class MySQLDBOperations implements CRUDRepository<SQLInput>{
 	}
 	
 	public Connection getConnection() {
-		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e1) {
 			e1.printStackTrace();
 		}  
 		try {
-
 			Connection con = DriverManager.getConnection(env.getProperty("spring.datasource.url"),
 					env.getProperty("spring.datasource.username"),
 					env.getProperty("spring.datasource.password"));
