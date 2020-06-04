@@ -16,7 +16,7 @@ public class CourseRoleMapperService {
 		try 
 		{
 			cRMP.addCourseI(banner, cid);;
-			cRMP.closeConnection();
+			
 		}
 		catch (SQLException e) {
 		

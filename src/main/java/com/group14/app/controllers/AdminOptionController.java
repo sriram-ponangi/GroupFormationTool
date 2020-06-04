@@ -21,9 +21,11 @@ import com.group14.app.services.CourseService;
 @Controller
 @RequestMapping("/admin")
 public class AdminOptionController {
-	
-		CourseRepository course = new CourseRepository();
-		CourseRoleMapperRepository courseMapper = new CourseRoleMapperRepository();
+		
+		@Autowired
+		CourseRepository course;
+		@Autowired
+		CourseRoleMapperRepository courseMapper;
 		@Autowired
 		CourseService courseService;
 		@Autowired
@@ -69,7 +71,7 @@ public class AdminOptionController {
 		
 		@PostMapping("/deleteCourse")
 		public String deleteCourses(@ModelAttribute Courses allCourse) {
-		
+		System.out.println(allCourse);
 		courseService.deleteCourse(allCourse);
 		return "redirect:/allCourse";	
 	}

@@ -38,5 +38,6 @@ public class ForgotPasswordController {
 		return "RecoverPass";	
 	}
 	
+	
 }
 

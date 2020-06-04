@@ -9,11 +9,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.group14.app.models.AppUser;
+import com.group14.app.models.Courses;
 import com.group14.app.models.UserPrincipal;
 import com.group14.app.services.CourseAdminService;
 
@@ -24,7 +26,23 @@ public class CourseAdminController {
 	
 	@Autowired
 	CourseAdminService courseAdminService;
+	
+	
+	@GetMapping("/ta/assignstudent")
+	public String assignStudent(Model model) {
+		model.addAttribute("courseAdmin", new Courses());
+		    return "courseAdmin";
+	}
 
+	
+	@PostMapping("/ta/assignstudent")
+	public String assignStudent(@ModelAttribute Courses courseAdmin) {
+	
+	//validate course id at later stage
+	return "redirect:/ta/upload-csv?courseId="+courseAdmin.getCid();	
+}
+	
+	
 	@GetMapping("/ta/upload-csv")
 	public String readUsersFromCSV(@RequestParam("courseId") String courseId, Model model) {
 		model.addAttribute("courseId", courseId);

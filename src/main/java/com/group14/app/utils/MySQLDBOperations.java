@@ -67,7 +67,7 @@ public class MySQLDBOperations implements CRUDRepository<SQLInput>{
 	public <S extends SQLInput> int save(S entity) {	
 		try(Connection connection = getConnection();
 				PreparedStatement stmt= connection.prepareStatement(entity.getSql())) {
-				
+				System.out.println(entity);
 				for(int i=0; i< entity.getParameters().size(); i++) 
 					stmt.setString(i+1, entity.getParameters().get(i));
 				
