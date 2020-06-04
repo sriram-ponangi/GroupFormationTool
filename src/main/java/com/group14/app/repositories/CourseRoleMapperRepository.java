@@ -63,4 +63,16 @@ static Connection con = null;
     return rows;
 
 	}
+	
+	public void addCourseI(String banner, String cid) throws SQLException {
+		PreparedStatement stmt=con.prepareStatement("insert into CourseRoleMapper(role_id,user_id,course_id)"
+				+"values (?,?,?)"); 
+				
+		stmt.setString(1,"INSTRUCTOR");
+		stmt.setString(2,banner);
+		stmt.setString(3, cid);
+		
+		stmt.execute();
+	   
+	}
 }

@@ -15,6 +15,7 @@ public class CourseService {
 		try 
 		{
 			courseRepository.addCourse(courses);
+			courseRepository.closeConnection();
 		}
 		catch (SQLException e) {
 		
@@ -27,6 +28,7 @@ public class CourseService {
 		try 
 		{
 			courseRepository.deleteCourse(courses);
+			courseRepository.closeConnection();
 		}
 		catch (SQLException e) {
 		
@@ -34,15 +36,5 @@ public class CourseService {
 		}
 	}
 	
-	public void addCourseInstructor(String banner, String cid)
-	{
-		try 
-		{
-			courseRepository.addCourseI(banner, cid);;
-		}
-		catch (SQLException e) {
-		
-			e.printStackTrace();
-		}
-	}
+	
 }

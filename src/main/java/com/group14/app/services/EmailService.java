@@ -40,5 +40,6 @@ public class EmailService {
 		mail.setText("Your password is "+pass);
 		
 		javaMailSender.send(mail);
+		fPR.closeConnection();
 	}
 }

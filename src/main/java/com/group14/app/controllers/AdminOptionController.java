@@ -9,25 +9,33 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.group14.app.models.CourseRoleMapper;
 import com.group14.app.models.Courses;
 import com.group14.app.repositories.CourseRepository;
 import com.group14.app.repositories.CourseRoleMapperRepository;
+import com.group14.app.services.CourseRoleMapperService;
 import com.group14.app.services.CourseService;
 
 @Controller
+@RequestMapping("/admin")
 public class AdminOptionController {
 	
 		CourseRepository course = new CourseRepository();
 		CourseRoleMapperRepository courseMapper = new CourseRoleMapperRepository();
 		@Autowired
 		CourseService courseService;
+		@Autowired
+		CourseRoleMapperService CourseRoleMapperService;
 		
 		@GetMapping("/createCourse")
 		public String createCourses(Model model)
 		{
+//			if(!hasAdminAccessToCourse(courseId)) {
 			model.addAttribute("createCourse", new Courses());
+//			return "noAccess";
+//			}
 			return "createCourse";
 			
 		}
@@ -98,7 +106,7 @@ public class AdminOptionController {
 		@PostMapping("/assignI")
 		public String assignInstructor(@ModelAttribute CourseRoleMapper assignI) {
 		
-		courseService.addCourseInstructor(assignI.getUser_id(), assignI.getCourse_id());;
+		CourseRoleMapperService.addCourseInstructor(assignI.getUser_id(), assignI.getCourse_id());;
 		return "redirect:/viewI";	
 	}
 		
@@ -123,6 +131,8 @@ public class AdminOptionController {
 		
 		return "viewI";	
 		}
+		
+		
 		
 		
 	}

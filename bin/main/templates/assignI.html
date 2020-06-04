@@ -3,7 +3,7 @@
 <head>
     <title>Getting Started: Handling Form Submission</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="form.css">
+    <link rel="stylesheet" href="/css/form.css" type="text/css">
 
 </head>
 <body>
@@ -48,7 +48,7 @@
 </center>
 <h2>Assign Instructor</h2>
 <div>
-    <form action="#" th:action="@{/assignI}" th:object="${assignI}" method="post">
+    <form action="#" th:action="@{/admin/assignI}" th:object="${assignI}" method="post">
     <table border="2">
     	<tr>
     	<td>Course Id (CSCI XXXX)</td>

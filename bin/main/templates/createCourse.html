@@ -1,9 +1,11 @@
 <!DOCTYPE HTML>
 <html xmlns:th="https://www.thymeleaf.org">
+
 <head>
     <title>Getting Started: Handling Form Submission</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="course.css">
+     <link rel="stylesheet" href="/css/course.css" type="text/css">
+ 
 
 </head>
 <body>
@@ -11,7 +13,7 @@
 <h2>Create Course</h2>
 
 <div>
-    <form action="#" th:action="@{/createCourse}" th:object="${createCourse}" method="post">
+    <form action="#" th:action="@{/admin/createCourse}" th:object="${createCourse}" method="post">
     <table border="2">
     	<tr>
     	<td>Course Id (CSCI XXXX)</td>

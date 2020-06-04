@@ -17,14 +17,14 @@ public class HomeController {
 	
 	CourseRepository course = new CourseRepository();
 	
-	@GetMapping("/adminDashboard")
+	@GetMapping("/Dashboard")
 	public String landingPage()
 	{
 		return "admin";
 		
 	}
 	
-	@GetMapping("/myCourse")
+	@GetMapping("/student/myCourse")
 	public String myCourses() 
 	{ 
 		
@@ -53,7 +53,7 @@ public class HomeController {
 	return "courses";	
 	}
 	
-	@GetMapping("/adminopt")
+	@GetMapping("/admin/adminopt")
 	public String adminOpt() 
 	{ 
 		return "adminOptions";
