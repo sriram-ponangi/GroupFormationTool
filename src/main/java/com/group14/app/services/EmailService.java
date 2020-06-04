@@ -16,7 +16,9 @@ public class EmailService {
 	@Autowired
 	private JavaMailSender javaMailSender;
 	
-	ForgotPasswordRepository fPR = new ForgotPasswordRepository();
+//	ForgotPasswordRepository fPR = new ForgotPasswordRepository();
+	@Autowired
+	ForgotPasswordRepository fPR;
 	
 	String pass;
 	String email;

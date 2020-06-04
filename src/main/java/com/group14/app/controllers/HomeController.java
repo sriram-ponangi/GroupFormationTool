@@ -17,7 +17,9 @@ public class HomeController {
 	
 	CourseRepository course = new CourseRepository();
 	
-	@GetMapping("/Dashboard")
+	
+	
+	@GetMapping("/guest/dashboard")
 	public String landingPage()
 	{
 		return "admin";
