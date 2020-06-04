@@ -5,11 +5,22 @@ spring:
 server:
   port: ${PORT:8080} 
 
+
 ---
 spring:
   application:
     name: group14-project
   profiles: dev
+  mail:
+    host: smtp.gmail.com
+    username: group14sdc@gmail.com
+    password: Group14SDC
+    port: 587
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
   datasource:
     url: jdbc:mysql://db-5308.cs.dal.ca:3306/CSCI5308_14_DEVINT?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     username: CSCI5308_14_DEVINT_USER
@@ -21,6 +32,16 @@ spring:
   application:
     name: group14-project
   profiles: test
+  mail:
+    host: smtp.gmail.com
+    username: group14sdc@gmail.com
+    password: Group14SDC
+    port: 587
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
   datasource:
     url: jdbc:mysql://db-5308.cs.dal.ca:3306/CSCI5308_14_TEST?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     username: CSCI5308_14_TEST_USER
@@ -32,8 +53,17 @@ spring:
   application:
     name: group14-project
   profiles: prod
+  mail:
+    host: smtp.gmail.com
+    username: group14sdc@gmail.com
+    password: Group14SDC
+    port: 587
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
   datasource:
     url: jdbc:mysql://db-5308.cs.dal.ca:3306/CSCI5308_14_PRODUCTION?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     username: CSCI5308_14_PRODUCTION_USER
     password: CSCI5308_14_PRODUCTION_14739
-

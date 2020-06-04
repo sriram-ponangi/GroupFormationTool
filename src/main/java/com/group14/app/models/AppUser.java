@@ -42,6 +42,7 @@ public class AppUser {
 		this.courseRoles = null;
 		this.enabled = enabled;
 	}	
+
 	public String getUserId() {
 		return userId;
 	}
