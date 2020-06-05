@@ -13,7 +13,7 @@ variables:
     
 test:
     tags:
-        - grad
+        - DalOpenStackDocker
     stage: test
     script:
         - echo "Testing"
@@ -23,7 +23,7 @@ test:
         
 build:
     tags:
-        - grad
+        - DalOpenStackDocker
     stage: build
     script:
         - echo "Building"
@@ -37,7 +37,7 @@ build:
 
 deploy_staging:
     tags:
-        - dalfcs_gitlab_docker_ci
+        - DalOpenStackDocker
     image: ruby:2.6
     stage: deploy_staging
     only:
@@ -79,7 +79,7 @@ deploy_prod_openstack:
         
 deploy_prod_heroku:
     tags:
-        - dalfcs_gitlab_docker_ci
+        - DalOpenStackDocker
     image: ruby:2.6
     stage: deploy_staging
     only:
