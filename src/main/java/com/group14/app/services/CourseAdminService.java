@@ -7,6 +7,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import com.group14.app.repositories.AppUserRepository;
@@ -19,10 +21,13 @@ public class CourseAdminService {
 	@Autowired
 	AppUserRepository appUserRepository;
 	
+	@Autowired
+	private JavaMailSender javaMailSender;
 
 	
 	public List<AppUser> enrollStudentsToCourse(MultipartFile file, String courseId) throws IOException{
 		byte[] bytes = file.getBytes();
+		SimpleMailMessage mail = new SimpleMailMessage();
         String completeData = new String(bytes);	            
         String[] rows = completeData.split("\\r?\\n");
         List<AppUser> validUsersList = new ArrayList<>();
@@ -46,6 +51,13 @@ public class CourseAdminService {
         	appUserRepository.enrollStudentToCourse(user,courseId);        			
     	
 			// Send Email saying that the user is enrolled with username, password and courseId 
+        	
+        	mail.setTo(user.getEmail());
+    		mail.setFrom("group14sdc@gmail.com");
+    		mail.setSubject("Registered for New Course");
+    		
+    		mail.setText("Username: "+user.getUserId()+" \nPassword: "+user.getPassword()+" \nNew Course Enrolled: "+courseId);
+        	javaMailSender.send(mail);
         }
         	
         	

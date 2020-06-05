@@ -1,16 +1,11 @@
 package com.group14.app.repositories;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import com.group14.app.models.Courses;
 import com.group14.app.models.SQLInput;
 import com.group14.app.utils.MySQLDBOperations;
@@ -21,84 +16,52 @@ public class CourseRepository {
 	@Autowired
 	private MySQLDBOperations db;
 	
-	static Connection con = null;
-	
-	static
-	{
-		try {
-		Class.forName("com.mysql.cj.jdbc.Driver");  
-		con=DriverManager.getConnection(  
-		"jdbc:mysql://db-5308.cs.dal.ca:3306/CSCI5308_14_DEVINT?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","CSCI5308_14_DEVINT_USER",
-		"CSCI5308_14_DEVINT_14103");
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
-	
-	public void closeConnection()
-	{
-			try
-			{
-				con.close();
-			} 
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			} 
-		
-	}
-	
 	
 	public List<Courses> list() throws SQLException {
-		List<Courses> rows = new ArrayList<Courses>();
-		PreparedStatement stmt=con.prepareStatement("select * from Courses"); 
-	    ResultSet resultSet = null;
 
-	        resultSet=stmt.executeQuery();
-	        
-	        while (resultSet.next()) 
-	        {
-	            Courses row = new Courses();
-	            row.setCid(resultSet.getString("course_id"));
-	            row.setName(resultSet.getString("name"));
-	            row.setDescription(resultSet.getString("description"));
-	            row.setTerm(resultSet.getString("term"));
-	            row.setYear(resultSet.getString("year"));
-	            row.setEnable(resultSet.getInt("enabled"));
-	            
-	            rows.add(row);
-	            
-	        }
+		
+		String SQL_GET_COURSES = "select * from Courses";
+		List<String> params = new ArrayList<>();
+		
+		final List<Courses> rows = new ArrayList<Courses>();
+		
+		List<HashMap<String,Object>> usersData = db.readData(new SQLInput( SQL_GET_COURSES, params));
+		
+		if(usersData!=null)
+			usersData.stream().forEach(row -> {
+				Courses course = new Courses();
+				course.setCid(((String) row.get("course_id")));
+				course.setName(((String) row.get("name")));
+				course.setTerm(((String) row.get("term")));
+				course.setYear(((String) row.get("year")));
+				course.setDescription(((String) row.get("description")));
+				course.setEnable(((int) row.get("enabled")));
+				rows.add(course);
+			});
+		else {
 
-	    return rows;
+			return null;
+		}
+		return rows;
 	}
 	
 	public void addCourse(Courses courses) throws SQLException {
-
-		PreparedStatement stmt=con.prepareStatement("insert into Courses(course_id,name,year,term,description,enabled)"
-		+"values (?,?,?,?,?,?)"); 
-	    
-	    stmt.setString(1, courses.getCid());
-	    stmt.setString(2, courses.getName());
-	    stmt.setString(3, courses.getYear());
-	    stmt.setString(4, courses.getTerm());
-	    stmt.setString(5, courses.getDescription());
-	    stmt.setInt(6, 1);
-
-	    stmt.execute();
+		
+		String SQL_GET_USER = "insert into Courses(course_id,name,year,term,description) values (?,?,?,?,?)";
+		List<String> params = new ArrayList<>();
+		params.add(courses.getCid());
+		params.add(courses.getName());
+		params.add(courses.getYear());
+		params.add(courses.getTerm());
+		params.add(courses.getDescription());
+		
+		
+		int usersData = db.save(new SQLInput( SQL_GET_USER, params));
 	    
 	}
 	
 	public void deleteCourse(Courses courses) throws SQLException {
-//		//List<Courses> courseList = course;
-//		PreparedStatement stmt=con.prepareStatement("delete from Courses where course_id=?"); 
-//	    
-//	    stmt.setString(1, courses.getCid());
-//
-//	    stmt.executeUpdate();
-		
+
 		System.out.println(courses);
 		String SQL_DELETE_USER = "delete from CourseRoleMapper where course_id=?";
 		String SQL_DELETE_COURSE = "delete from Courses where course_id=?";

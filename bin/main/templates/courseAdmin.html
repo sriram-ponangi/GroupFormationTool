@@ -6,22 +6,23 @@
      <link rel="stylesheet" href="/css/form.css" type="text/css">
 </head>
 <body>
-<div>
-<!-- 	<h1>Assign TA</h1>
-	<h2>Enter Course id</h2>
 	<div>
-    <form action="#" th:action="@{/harshEndpoint}" th:object="${forgotpassword}" method="post">
-    	<p><input type="text" th:field="*{banner}" />
-        <input type="submit" value="Submit" /></p>
-    </form>
-    </div>
-    </div> -->
-    
-    <div>
 	<h1>Assign Student (Upload CSV)</h1>
 	<h2>Enter Course id</h2>
 	<div>
-    <form action="#" th:action="@{/ta/assignstudent}" th:object="${courseAdmin}" method="post">
+    <form action="#" th:action="@{/ta/courseAdmin/assignstudent}" th:object="${courseAdmin}" method="post">
+    	<p><input type="text" th:field="*{cid}" />
+        <input type="submit" value="Submit" /></p>
+    </form>
+    </div>
+    </div>
+
+    
+    <div>
+	<h1>Assign TA</h1>
+	<h2>Enter Course id</h2>
+	<div>
+    <form action="#" th:action="@{/instructor/courseAdmin/assignta}" th:object="${courseAdmin}" method="post">
     	<p><input type="text" th:field="*{cid}" />
         <input type="submit" value="Submit" /></p>
     </form>
