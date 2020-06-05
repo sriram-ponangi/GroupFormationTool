@@ -28,18 +28,25 @@ public class CourseAdminController {
 	CourseAdminService courseAdminService;
 	
 	
-	@GetMapping("/ta/assignstudent")
+	@GetMapping("/ta/courseAdmin")
 	public String assignStudent(Model model) {
 		model.addAttribute("courseAdmin", new Courses());
 		    return "courseAdmin";
 	}
 
 	
-	@PostMapping("/ta/assignstudent")
+	@PostMapping("/ta/courseAdmin/assignstudent")
 	public String assignStudent(@ModelAttribute Courses courseAdmin) {
 	
 	//validate course id at later stage
 	return "redirect:/ta/upload-csv?courseId="+courseAdmin.getCid();	
+}
+	
+	@PostMapping("/instructor/courseAdmin/assignta")
+	public String assignta(@ModelAttribute Courses courseAdmin) {
+	
+	//validate course id at later stage
+	return "redirect:/instructor/assignta?id="+courseAdmin.getCid();	
 }
 	
 	

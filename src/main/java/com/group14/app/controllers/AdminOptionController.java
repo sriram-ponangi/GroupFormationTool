@@ -128,7 +128,7 @@ public class AdminOptionController {
 			
 		}
 		
-		@PostMapping("/viewI")
+		@PostMapping("viewI")
 		public String viewI(@ModelAttribute CourseRoleMapper viewI) {
 		
 		return "viewI";	

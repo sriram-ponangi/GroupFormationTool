@@ -16,6 +16,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mock.web.MockMultipartFile;
 
 import com.group14.app.models.AppUser;
@@ -28,6 +30,9 @@ public class CourseAdminServiceTest {
 	
 	@Mock
 	AppUserRepository appUserRepositoryMock;	
+	
+	@Mock
+	private JavaMailSender javaMailSender;
 	
 	@BeforeEach
 	public void setup() {
