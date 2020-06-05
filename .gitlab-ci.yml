@@ -17,7 +17,7 @@ test:
     stage: test
     script:
         - echo "Testing"
-        - sh gradlew check test
+        - sh gradlew check test --stacktrace
         
         
         

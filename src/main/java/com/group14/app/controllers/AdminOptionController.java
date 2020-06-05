@@ -46,7 +46,7 @@ public class AdminOptionController {
 		public String createCourses(@ModelAttribute Courses courses) {
 		
 		courseService.addCourse(courses);
-		return "redirect:/allCourse";	
+		return "redirect:/admin/allCourse";	
 	}
 		
 		@GetMapping("/deleteCourse")
@@ -73,7 +73,7 @@ public class AdminOptionController {
 		public String deleteCourses(@ModelAttribute Courses allCourse) {
 		System.out.println(allCourse);
 		courseService.deleteCourse(allCourse);
-		return "redirect:/allCourse";	
+		return "redirect:/admin/allCourse";	
 	}
 
 		@GetMapping("/assignI")
@@ -109,7 +109,7 @@ public class AdminOptionController {
 		public String assignInstructor(@ModelAttribute CourseRoleMapper assignI) {
 		
 		CourseRoleMapperService.addCourseInstructor(assignI.getUser_id(), assignI.getCourse_id());;
-		return "redirect:/viewI";	
+		return "redirect:/admin/viewI";	
 	}
 		
 		@GetMapping("/viewI")
