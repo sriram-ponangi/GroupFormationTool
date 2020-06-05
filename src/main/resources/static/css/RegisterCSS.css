@@ -1,0 +1,57 @@
+h1 {
+    font-family: Times New Roman;
+    font-size: 30px;
+    font-color:#004080;
+}
+
+h2 {
+    font-family: Times New Roman;
+    font-size: 20px;
+    font-color:#004080;
+}
+body{
+	background-color:#97cbff;
+}
+
+form {
+  
+  padding: 40px;
+  max-width:600px;
+  margin:10px auto;
+ 
+  overflow: hidden;
+}
+p{
+	text-align:left;
+}
+fieldset {
+  background:#cce6ff;
+  width: 300px;
+  border: 15px solid #004080;  
+  padding: 30px;
+  margin: 0.01px;
+  color:#004080;
+ 
+}
+[type="text"] {
+  float: right;
+  clear: both;
+}
+input[type="reset"] {
+  width: 140px;
+  height:40px;
+  margin-left: 100px;
+  display: block;
+  background-color:#004080;
+  color:white;
+  
+}
+input[type="submit"] {
+  width: 140px;
+  height:40px;
+  margin-left: 100px;
+  display: block;
+  background-color:#004080;
+  color:white;
+ 
+}
