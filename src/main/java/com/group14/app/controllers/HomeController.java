@@ -29,12 +29,12 @@ public class HomeController {
 		
 	}	
 	
-	@GetMapping("/student/myCourse")
-	public String myCourses() 
-	{ 
-		
-		return "adminDashboard";
-	}
+//	@GetMapping("/student/myCourse")
+//	public String myCourses() 
+//	{ 
+//		
+//		return "adminDashboard";
+//	}
 
 	@GetMapping("/admin/allCourse")
 	public String allCourses(Model model)
