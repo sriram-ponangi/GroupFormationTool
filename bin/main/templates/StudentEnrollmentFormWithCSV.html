@@ -1,0 +1,58 @@
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+	<title>Group 14</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+	
+	<div class="container">
+			<h1><span th:text="${courseId}"></span> Student Enrollment Form:</h1>
+			<br/><br/>
+			<form method="POST" th:action="@{/ta/upload-users(courseId=${courseId})}" enctype="multipart/form-data">
+				<h3>Select a CSV file:<h3/>
+				<div class="form-inline">					
+					<input class="form-control" type="file"  name="file" id="file"/>					
+					<button type="submit" class="btn btn-primary" value="Import"  name="submit" id="submit">SUBMIT</button>
+				</div>			
+			</form>	
+			<br/><br/>
+			
+			<h3>Example format of the CSV to be uploaded:</h3>
+			<div class="table-responsive">
+				<table class="table">
+					<thead>
+						<tr>
+							
+							<th>UserId</th>
+							<th>FirstName</th>
+							<th>LastName</th>
+							<th>Email</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>B00100001</td>					
+							<td>John</td>
+							<td>Doe</td>					
+							<td>john.doe@dal.ca</td>
+						</tr>
+						<tr>
+							<td>B00100002</td>					
+							<td>Jane</td>
+							<td>Doe</td>					
+							<td>jane.doe@dal.ca</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>	
+	</div>
+
+</body>
+</html>

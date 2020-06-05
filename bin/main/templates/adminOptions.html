@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/css/form.css" type="text/css">
+    <script type="text/javascript">
+    document.getElementById("myButton").onclick = function () {
+        location.href = "/login";
+    };
+</script>
+ 
+</head>
+<body>
+<h2>Admin Options</h2>
+<div>
+<br><br><a href="/admin/allCourse" class="button" >All Course</a>
+<a href="/admin/createCourse" class="button" >Create Course</a>
+<a href="/admin/deleteCourse" class="button" >Delete Course</a>
+<a href="/admin/assignI" class="button" >Assign Instructor</a>	
+</div>
+
+</body>
+</html>

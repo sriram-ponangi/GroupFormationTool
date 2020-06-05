@@ -1,0 +1,94 @@
+stages:
+    - test
+    - build    
+    - deploy_staging
+    - deploy_prod_openstack
+    - deploy_prod_heroku
+
+image: openjdk:8-alpine
+
+variables:
+    GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+    GIT_STRATEGY: clone
+    
+test:
+    tags:
+        - DalOpenStackDocker
+    stage: test
+    script:
+        - echo "Testing"
+        - sh gradlew check test --stacktrace
+        
+        
+        
+build:
+    tags:
+        - DalOpenStackDocker
+    stage: build
+    script:
+        - echo "Building"
+        - sh gradlew clean build
+        - ls build/libs
+    artifacts:
+        paths:
+            - build/libs/*.jar
+            
+            
+
+deploy_staging:
+    tags:
+        - DalOpenStackDocker
+    image: ruby:2.6
+    stage: deploy_staging
+    only:
+        - develop
+    script:
+        - apt-get update -qy
+        - apt-get install -y ruby-dev
+        - gem install dpl
+        - dpl --provider=heroku --app=$HEROKU_STAGING_APP_NAME --api-key=$HEROKU_API_KEY
+
+
+deploy_prod_openstack:
+    tags:
+        - DalOpenStack
+    stage: deploy_prod_openstack
+    only:
+        - master
+        - release
+        
+    before_script:
+        - ls build/libs
+        - docker container stop group14_project || exit_code=$?
+        - if [ $exit_code -ne 0 ]; then echo "container does not exist"; fi;
+        - docker container rm group14_project || exit_code=$?
+        - if [ $exit_code -ne 0 ]; then echo "container does not exist"; fi;
+    script:
+        - echo "Deploying"        
+        - docker build -t group14_project .
+        - docker images
+        - docker run -p 8080:8080 -d --name group14_project group14_project
+        
+    after_script:
+        - docker ps
+        - ifconfig
+        - sleep 20
+        - docker logs group14_project
+        
+#    when: manual
+        
+deploy_prod_heroku:
+    tags:
+        - DalOpenStackDocker
+    image: ruby:2.6
+    stage: deploy_staging
+    only:
+        - master
+        - release
+    script:
+        - apt-get update -qy
+        - apt-get install -y ruby-dev
+        - gem install dpl
+        - dpl --provider=heroku --app=$HEROKU_APP_NAME --api-key=$HEROKU_API_KEY
+
+    when: manual
