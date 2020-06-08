@@ -11,25 +11,24 @@ import org.springframework.stereotype.Repository;
 import com.group14.app.models.AppUser;
 import com.group14.app.models.SQLInput;
 import com.group14.app.services.IInstructorActionsService;
+import com.group14.app.utils.CRUDRepository;
 import com.group14.app.utils.MySQLDBOperations;
 
 @Repository
 public class InstructorActions implements IInstructorActionsService {
-	
-	@Autowired
-	private AppUserRepository appUserRepo;
-	
-	@Autowired
-	private MySQLDBOperations db;
-	
+
+	private AppUserRepository appUserRepo = new AppUserRepository();
+
+	private CRUDRepository<SQLInput> db = new MySQLDBOperations();
+
 	private static final Logger LOG = LoggerFactory.getLogger(AppUserRepository.class);
 
 	@Override
-	public AppUser AddStudentToTAList(String courseId, String bannerId) {		
-			AppUser appUser = new AppUser();
-			appUser = appUserRepo.findByUserName(bannerId);
-			LOG.info("AppUser is found");
-			return appUser;
+	public AppUser AddStudentToTAList(String courseId, String bannerId) {
+		AppUser appUser = new AppUser();
+		appUser = appUserRepo.findByUserName(bannerId);
+		LOG.info("AppUser is found");
+		return appUser;
 	}
 
 	@Override
@@ -39,10 +38,10 @@ public class InstructorActions implements IInstructorActionsService {
 		params.add(role);
 		params.add(bannerId);
 		params.add(courseId);
-		
+
 		System.out.println(params);
-		
-		int rowsUpdated = db.save(new SQLInput( query, params));
+
+		int rowsUpdated = db.save(new SQLInput(query, params));
 		LOG.info("Database Updated");
 		return rowsUpdated;
 	}
