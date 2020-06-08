@@ -56,9 +56,7 @@ public class MySQLDBOperationsTest {
 		
 		List<String> parameters = new ArrayList<>();
 		parameters.add("userId");
-		SQLInput sqlInput = new SQLInput("SELECT id FROM sometable where id = ?", parameters);
-		
-		
+		SQLInput sqlInput = new SQLInput("SELECT id FROM sometable where id = ?", parameters);	
 		
 		try {
 			Mockito.doReturn(c).when(mySQLDBOperations).getConnection();

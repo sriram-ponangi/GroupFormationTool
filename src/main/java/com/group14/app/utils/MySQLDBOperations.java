@@ -1,5 +1,6 @@
 package com.group14.app.utils;
 
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -10,16 +11,42 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.group14.app.models.SQLInput;
 
 @Component
 public class MySQLDBOperations implements CRUDRepository<SQLInput>{
-	@Autowired
-    private Environment env;
+	
+	private final static String DB_HOST;
+	private final static String DB_USER;
+	private final static String DB_PASSWORD;
+	
+	private static final Logger LOG = LoggerFactory.getLogger(MySQLDBOperations.class);
+	
+	static {
+		final String ENV = System.getenv("APP_PROFILE");	
+		LOG.info("APP_PROFILE: {}", ENV);
+		if(ENV!=null && ENV.equalsIgnoreCase("test")) {
+			DB_HOST = "jdbc:mysql://db-5308.cs.dal.ca:3306/CSCI5308_14_TEST?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+			DB_USER = "CSCI5308_14_TEST_USER";
+			DB_PASSWORD = "CSCI5308_14_TEST_14577";
+		}
+		else if (ENV!=null && ENV.equalsIgnoreCase("prod")) {
+			DB_HOST = "jdbc:mysql://db-5308.cs.dal.ca:3306/CSCI5308_14_PRODUCTION?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+			DB_USER = "CSCI5308_14_PRODUCTION_USER";
+			DB_PASSWORD = "CSCI5308_14_PRODUCTION_14739";
+		}
+		else {
+			DB_HOST = "jdbc:mysql://db-5308.cs.dal.ca:3306/CSCI5308_14_DEVINT?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+			DB_USER = "CSCI5308_14_DEVINT_USER";
+			DB_PASSWORD = "CSCI5308_14_DEVINT_14103";
+		}
+		LOG.info("Connected Database: {}", DB_HOST);
+		
+	}
 
 	@Override
 	public <S extends SQLInput> boolean existsById(S entity) {	
@@ -67,7 +94,6 @@ public class MySQLDBOperations implements CRUDRepository<SQLInput>{
 	public <S extends SQLInput> int save(S entity) {	
 		try(Connection connection = getConnection();
 				PreparedStatement stmt= connection.prepareStatement(entity.getSql())) {
-				System.out.println(entity);
 				for(int i=0; i< entity.getParameters().size(); i++) 
 					stmt.setString(i+1, entity.getParameters().get(i));
 				
@@ -126,9 +152,7 @@ public class MySQLDBOperations implements CRUDRepository<SQLInput>{
 			e1.printStackTrace();
 		}  
 		try {
-			Connection con = DriverManager.getConnection(env.getProperty("spring.datasource.url"),
-					env.getProperty("spring.datasource.username"),
-					env.getProperty("spring.datasource.password"));
+			Connection con = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
 			return con;
 		} catch (SQLException e) {
 			e.printStackTrace();
