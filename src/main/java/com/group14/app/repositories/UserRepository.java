@@ -17,7 +17,7 @@ public class UserRepository implements IUserRepository {
 	@Override
 	public boolean addUser(String bno, String fname, String lname, String email, String pass) {
 		String SQL_INSERT_USER = "insert into Users ( user_id, password, first_name, last_name, email) values (?,?,?,?,?)";
-		List<String> params1 = new ArrayList<>();
+		List<Object> params1 = new ArrayList<>();
 		params1.add(bno);
 		params1.add(pass);
 		params1.add(fname);
@@ -27,7 +27,7 @@ public class UserRepository implements IUserRepository {
 		SQLInput sql1 = new SQLInput(SQL_INSERT_USER, params1);
 
 		String SQL_INSERT_ROLE = "insert into SystemRoleMapper ( role_id, user_id) values ('GUEST',?)";
-		List<String> params2 = new ArrayList<>();
+		List<Object> params2 = new ArrayList<>();
 		params2.add(bno);
 
 		SQLInput sql2 = new SQLInput(SQL_INSERT_ROLE, params2);

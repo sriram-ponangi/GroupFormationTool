@@ -54,7 +54,7 @@ public class MySQLDBOperationsTest {
 		
 		
 		
-		List<String> parameters = new ArrayList<>();
+		List<Object> parameters = new ArrayList<>();
 		parameters.add("userId");
 		SQLInput sqlInput = new SQLInput("SELECT id FROM sometable where id = ?", parameters);	
 		
@@ -77,7 +77,7 @@ public class MySQLDBOperationsTest {
 	@Test
 	public void readDataTest() {		
 		
-		List<String> parameters = new ArrayList<>();
+		List<Object> parameters = new ArrayList<>();
 		parameters.add("userId");
 		SQLInput sqlInput = new SQLInput("SELECT * FROM sometable where id = ?", parameters);		
 		
@@ -125,7 +125,7 @@ public class MySQLDBOperationsTest {
 	public void saveTest() {
 		int response = 0;		
 		
-		List<String> parameters = new ArrayList<>();
+		List<Object> parameters = new ArrayList<>();
 		parameters.add("param_1");
 		parameters.add("param_2");
 		SQLInput sqlInput = new SQLInput("INSERT INTO SomeTable (  param_1, param_2 ) VALUES (?,?)", parameters);	
@@ -149,7 +149,7 @@ public class MySQLDBOperationsTest {
 	public void saveTransactionTest() {
 		int[] response = new int[3];		
 		
-		List<String> parameters = new ArrayList<>();
+		List<Object> parameters = new ArrayList<>();
 		parameters.add("param_1");
 		parameters.add("param_2");
 		List<SQLInput> sqlInputs = new ArrayList<>();

@@ -23,7 +23,7 @@ public class AppUserRepository {
 
 	public AppUser findByUserName(String id) {
 		final AppUser appUser = new AppUser();
-		List<String> params = new ArrayList<>();
+		List<Object> params = new ArrayList<>();
 		params.add(id);
 		final String SQL_GET_USER = "SELECT * FROM Users WHERE user_id= ?";
 		List<HashMap<String, Object>> usersData = db.readData(new SQLInput(SQL_GET_USER, params));
@@ -73,7 +73,7 @@ public class AppUserRepository {
 		List<SQLInput> transactionsQueries = new ArrayList<>();
 
 		String isExistingUser = "SELECT user_id FROM Users WHERE user_id= ?";
-		List<String> params1 = new ArrayList<>();
+		List<Object> params1 = new ArrayList<>();
 		params1.add(user.getUserId());
 		String sqlCreateOrUpdateUser;
 		if (db.existsById(new SQLInput(isExistingUser, params1)))
@@ -83,7 +83,7 @@ public class AppUserRepository {
 			sqlCreateOrUpdateUser = " INSERT INTO Users " + " ( password, first_name, last_name, email, user_id ) "
 					+ " VALUES (?, ?, ?, ?, ?)";
 
-		List<String> transactionParams1 = new ArrayList<>();
+		List<Object> transactionParams1 = new ArrayList<>();
 		transactionParams1.add(user.getPassword());
 		transactionParams1.add(user.getFirstName());
 		transactionParams1.add(user.getLastName());
@@ -94,7 +94,7 @@ public class AppUserRepository {
 		LOG.info("Completed Framing the Query for Creating new Users ");
 
 		String hasSystemRole = "SELECT * FROM SystemRoleMapper WHERE user_id= ?";
-		List<String> params2 = new ArrayList<>();
+		List<Object> params2 = new ArrayList<>();
 		params2.add(user.getUserId());
 
 		String sqlCreateOrUpdateSystemRole;
@@ -102,7 +102,7 @@ public class AppUserRepository {
 			sqlCreateOrUpdateSystemRole = " UPDATE SystemRoleMapper SET role_id = ? WHERE user_id = ? ";
 		else
 			sqlCreateOrUpdateSystemRole = " INSERT INTO SystemRoleMapper (  role_id, user_id ) VALUES (?,?)";
-		List<String> transactionParams2 = new ArrayList<>();
+		List<Object> transactionParams2 = new ArrayList<>();
 		transactionParams2.add("GUEST");
 		transactionParams2.add(user.getUserId());
 
@@ -110,7 +110,7 @@ public class AppUserRepository {
 		LOG.info("Completed Framing the Query for Creating System role ");
 
 		String hasCourseRole = "SELECT user_id, course_id FROM CourseRoleMapper WHERE user_id= ? AND course_id= ?";
-		List<String> params3 = new ArrayList<>();
+		List<Object> params3 = new ArrayList<>();
 		params3.add(user.getUserId());
 		params3.add(courseId);
 
@@ -119,7 +119,7 @@ public class AppUserRepository {
 			sqlCreateOrUpdateCourseRole = " UPDATE CourseRoleMapper SET role_id = ? WHERE course_id=? and user_id = ? ";
 		else
 			sqlCreateOrUpdateCourseRole = " INSERT INTO CourseRoleMapper ( role_id, course_id, user_id ) VALUES (?, ?, ?) ";
-		List<String> transactionParams3 = new ArrayList<>();
+		List<Object> transactionParams3 = new ArrayList<>();
 		transactionParams3.add("STUDENT");
 		transactionParams3.add(courseId);
 		transactionParams3.add(user.getUserId());

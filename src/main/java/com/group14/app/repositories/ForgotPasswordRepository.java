@@ -16,7 +16,7 @@ public class ForgotPasswordRepository {
 
 	public String readPass(String banner) {
 		String SQL_GET_USER = "SELECT password FROM Users WHERE USER_ID = ?";
-		List<String> params = new ArrayList<>();
+		List<Object> params = new ArrayList<>();
 		params.add(banner);
 		List<HashMap<String, Object>> usersData = db.readData(new SQLInput(SQL_GET_USER, params));
 		final Forgotpassword finalPass = new Forgotpassword();
@@ -36,7 +36,7 @@ public class ForgotPasswordRepository {
 	public String readEmail(String banner) {
 
 		String SQL_GET_USER = "SELECT email FROM Users WHERE USER_ID = ?";
-		List<String> params = new ArrayList<>();
+		List<Object> params = new ArrayList<>();
 		params.add(banner);
 		List<HashMap<String, Object>> usersData = db.readData(new SQLInput(SQL_GET_USER, params));
 		final Forgotpassword finalPass = new Forgotpassword();

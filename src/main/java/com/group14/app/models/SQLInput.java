@@ -4,8 +4,8 @@ import java.util.List;
 
 public class SQLInput {
 	private String sql;
-	private List<String> parameters;	
-	public SQLInput(String sql, List<String> parameters) {
+	private List<Object> parameters;	
+	public SQLInput(String sql, List<Object> parameters) {
 		super();
 		this.sql = sql;
 		this.parameters = parameters;
@@ -16,10 +16,10 @@ public class SQLInput {
 	public void setSql(String sql) {
 		this.sql = sql;
 	}
-	public List<String> getParameters() {
+	public List<Object> getParameters() {
 		return parameters;
 	}
-	public void setParameters(List<String> parameters) {
+	public void setParameters(List<Object> parameters) {
 		this.parameters = parameters;
 	}
 	@Override

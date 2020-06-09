@@ -23,7 +23,7 @@ public class CoursesStudRepository {
 	public ArrayList<Course> getAllCourse(String id) {
 		final ArrayList<Course> courseList = new ArrayList<Course>();
 
-		List<String> params = new ArrayList<>();
+		List<Object> params = new ArrayList<>();
 		params.add(id);
 		final String SQL = "select * from Courses where course_id!=?;";
 		List<HashMap<String, Object>> courseData = db.readData(new SQLInput(SQL, params));
@@ -49,7 +49,7 @@ public class CoursesStudRepository {
 	public ArrayList<Course> getAssignedCourse(String id) {
 		final ArrayList<Course> courseList = new ArrayList<Course>();
 
-		List<String> params = new ArrayList<>();
+		List<Object> params = new ArrayList<>();
 		params.add(id);
 		final String SQL = "select c.course_id,name,year,term,description from Courses as c,CourseRoleMapper as cm where c.course_id=cm.course_id and user_id=?;";
 		List<HashMap<String, Object>> courseData = db.readData(new SQLInput(SQL, params));
