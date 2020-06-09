@@ -18,7 +18,7 @@ public class CourseRepository {
 	public List<Courses> list() throws SQLException {
 
 		String SQL_GET_COURSES = "select * from Courses";
-		List<String> params = new ArrayList<>();
+		List<Object> params = new ArrayList<>();
 
 		final List<Courses> rows = new ArrayList<Courses>();
 
@@ -45,7 +45,7 @@ public class CourseRepository {
 	public void addCourse(Courses courses) throws SQLException {
 
 		String SQL_GET_USER = "insert into Courses(course_id,name,year,term,description) values (?,?,?,?,?)";
-		List<String> params = new ArrayList<>();
+		List<Object> params = new ArrayList<>();
 		params.add(courses.getCid());
 		params.add(courses.getName());
 		params.add(courses.getYear());
@@ -61,7 +61,7 @@ public class CourseRepository {
 		System.out.println(courses);
 		String SQL_DELETE_USER = "delete from CourseRoleMapper where course_id=?";
 		String SQL_DELETE_COURSE = "delete from Courses where course_id=?";
-		List<String> params = new ArrayList<>();
+		List<Object> params = new ArrayList<>();
 		params.add(courses.getCid());
 
 		int deleteData = db.save(new SQLInput(SQL_DELETE_USER, params));

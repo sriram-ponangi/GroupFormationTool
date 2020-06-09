@@ -21,7 +21,7 @@ public class CourseRoleMapperRepository {
 	public List<CourseRoleMapper> list() throws SQLException {
 
 		String SQL_GET_USER = "SELECT * FROM CourseRoleMapper WHERE role_id = ?";
-		List<String> params = new ArrayList<>();
+		List<Object> params = new ArrayList<>();
 		params.add("INSTRUCTOR");
 		final List<CourseRoleMapper> rows = new ArrayList<CourseRoleMapper>();
 
@@ -49,7 +49,7 @@ public class CourseRoleMapperRepository {
 		// check for already existed user id
 
 		String SQL_GET_USER = "insert into CourseRoleMapper(role_id,user_id,course_id) values (?,?,?)";
-		List<String> params = new ArrayList<>();
+		List<Object> params = new ArrayList<>();
 		params.add("INSTRUCTOR");
 		params.add(banner);
 		params.add(cid);

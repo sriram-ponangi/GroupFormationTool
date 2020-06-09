@@ -55,7 +55,7 @@ public class MySQLDBOperations implements CRUDRepository<SQLInput>{
 			PreparedStatement stmt= connection.prepareStatement(entity.getSql())) {
 			
 			for(int i=0; i< entity.getParameters().size(); i++) 
-				stmt.setString(i+1, entity.getParameters().get(i));
+				stmt.setObject(i+1, entity.getParameters().get(i));
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next())
 				return true;				
@@ -71,7 +71,7 @@ public class MySQLDBOperations implements CRUDRepository<SQLInput>{
 				PreparedStatement stmt= connection.prepareStatement(entity.getSql())) {
 				
 				for(int i=0; i< entity.getParameters().size(); i++) 
-					stmt.setString(i+1, entity.getParameters().get(i));
+					stmt.setObject(i+1, entity.getParameters().get(i));
 				ResultSet rs = stmt.executeQuery();
 				ResultSetMetaData rsmd = rs.getMetaData();
 				int columns = rsmd.getColumnCount();
@@ -94,8 +94,10 @@ public class MySQLDBOperations implements CRUDRepository<SQLInput>{
 	public <S extends SQLInput> int save(S entity) {	
 		try(Connection connection = getConnection();
 				PreparedStatement stmt= connection.prepareStatement(entity.getSql())) {
-				for(int i=0; i< entity.getParameters().size(); i++) 
-					stmt.setString(i+1, entity.getParameters().get(i));
+				for(int i=0; i< entity.getParameters().size(); i++) {
+					stmt.setObject(i+1, entity.getParameters().get(i));
+				}
+					
 				
 				int rowsUpdated = stmt.executeUpdate();
 				return rowsUpdated;	
@@ -117,10 +119,10 @@ public class MySQLDBOperations implements CRUDRepository<SQLInput>{
 			
 			for (int i=0; i<entities.size();i++) {
 				S entity = entities.get(i);
+				
 				try(PreparedStatement stmt= connection.prepareStatement(entity.getSql())){
 					for(int j=0; j< entity.getParameters().size(); j++) 						
-						stmt.setString(j+1, entity.getParameters().get(j));
-					
+						stmt.setObject(j+1, entity.getParameters().get(j));
 					rowsUptadedForEachTransaction[i] = stmt.executeUpdate();
 				}				
 			}			

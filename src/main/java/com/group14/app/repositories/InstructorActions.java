@@ -34,7 +34,7 @@ public class InstructorActions implements IInstructorActionsService {
 	@Override
 	public int GiveTaPermission(String bannerId, String role, String courseId) {
 		String query = "Update CourseRoleMapper set role_id= ? WHERE user_id= ? AND course_id=?";
-		List<String> params = new ArrayList<>();
+		List<Object> params = new ArrayList<>();
 		params.add(role);
 		params.add(bannerId);
 		params.add(courseId);
