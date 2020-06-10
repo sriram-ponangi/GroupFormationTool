@@ -22,7 +22,15 @@ public class PasswordValidatorService implements IPasswordValidatorService{
 		for(PasswordValidatorRules rule: activeRules) {
 			boolean ruleFailed = true;
 			if(rule.getRuleId().equalsIgnoreCase("PASSWORD_HISTORY")) {
-				
+				List<String> previousPasswords = pvr.getPreviousPasswords(user.getUserId(), rule.getMinMatchCount());
+				for(String p : previousPasswords) {
+					if(p.equals(newPassword)) {
+						ruleFailed = true;
+						break;
+					}
+					else
+						ruleFailed = false;
+				}					
 			}
 			else {
 				int count=0;
@@ -44,6 +52,16 @@ public class PasswordValidatorService implements IPasswordValidatorService{
 			}
 		}
 		return failedRules;
+	}
+
+	@Override
+	public boolean updatePassword(String userId, String newPassword) {
+		int[] rowsUpdated = pvr.updatePassword(userId, newPassword);
+		for(int count : rowsUpdated) {
+			if( count <= 0)
+				return false;
+		}
+		return true;
 	}	
 
 }

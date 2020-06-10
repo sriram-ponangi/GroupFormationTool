@@ -44,4 +44,43 @@ public class PasswordValidatorReposiotry implements IPasswordValidatorReposiotry
 		}
 		return activeRules;
 	}
+
+	@Override
+	public List<String> getPreviousPasswords(String userId, int limit) {
+		final String SQL = " SELECT password FROM PasswordHistory ORDER BY created_date DESC LIMIT ?";
+		final List<Object> params = new ArrayList<>();
+		params.add(limit);
+		final SQLInput sqlInput = new SQLInput(SQL, params);
+		
+		final List<HashMap<String, Object>> passwords = db.readData(sqlInput);
+		final List<String> previousPasswords = new ArrayList<>();
+		
+		if (passwords != null)
+			passwords.stream().forEach(row -> {
+				previousPasswords.add((String) row.get("password"));
+			});
+		else {
+			LOG.error("Could not Execute: " + SQL);
+			return null;
+		}
+		return previousPasswords;
+	}
+
+	@Override
+	public int[] updatePassword(String userId, String newPassword) {
+		final List<SQLInput> transactionsQueries = new ArrayList<>();
+		final List<Object> params = new ArrayList<>();
+		params.add(newPassword);
+		params.add(userId);
+		
+		final String SQL_UPDATE_USERS_TABLE = " UPDATE Users SET password = ? WHERE user_id = ?";		
+		transactionsQueries.add(new SQLInput(SQL_UPDATE_USERS_TABLE, params));
+		
+		final String SQL_UPDATE_PASSWORD_HISTORY_TABLE = " INSERT INTO PasswordHistory ( password, user_id) VALUES (?, ?)";		
+		transactionsQueries.add(new SQLInput(SQL_UPDATE_PASSWORD_HISTORY_TABLE, params));
+		
+		int[] rowsUpdated = db.saveTransaction(transactionsQueries);
+		
+		return rowsUpdated;
+	}
 }

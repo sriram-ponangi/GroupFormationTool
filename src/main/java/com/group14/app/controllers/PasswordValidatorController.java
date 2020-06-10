@@ -35,8 +35,12 @@ public class PasswordValidatorController {
 		 AppUser user = getCurrentUser();		 
 		 List<PasswordValidatorRules> failedRulesList = pvs.validatePassword(user, newPassword);
 		 
-		 if(failedRulesList!=null && failedRulesList.size() == 0)
-			 return "UpdatePasswordSuccess";		
+		 if(failedRulesList!=null && failedRulesList.size() == 0) {
+			 // Update Password in userser table and password history table
+			 boolean updateSuccessful = pvs.updatePassword(user.getUserId(), newPassword);
+			 if(updateSuccessful)
+				 return "UpdatePasswordSuccess";
+		 }
 		 
 		 model.addAttribute("failedRulesList", failedRulesList);
 		 return "UpdatePasswordError";		 
