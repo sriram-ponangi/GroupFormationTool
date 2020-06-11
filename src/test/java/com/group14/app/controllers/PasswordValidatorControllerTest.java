@@ -38,7 +38,7 @@ public class PasswordValidatorControllerTest {
 	@Test
 	public void updatePasswordPageTest() {
 		when(model.addAttribute(Mockito.anyString(), Mockito.anyString())).thenReturn(model);
-		assertEquals("updatePassword", passwordValidatorController.updatePasswordPage(model));
+		assertEquals("UpdateUserPassword", passwordValidatorController.updatePasswordPage(model));
 	}
 	
 	@Test

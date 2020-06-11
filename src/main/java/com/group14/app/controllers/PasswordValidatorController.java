@@ -23,7 +23,7 @@ public class PasswordValidatorController {
 	@GetMapping("/guest/updatePassword")
 	public String updatePasswordPage(Model model) {
 		 model.addAttribute("user", new AppUser());
-		 return "updatePassword";		 
+		 return "UpdateUserPassword";		 
 	}
 	
 	@PostMapping("/guest/updatePassword")
