@@ -36,7 +36,7 @@ public class PasswordValidatorController {
 		 List<PasswordValidatorRules> failedRulesList = pvs.validatePassword(user, newPassword);
 		 
 		 if(failedRulesList!=null && failedRulesList.size() == 0) {
-			 // Update Password in userser table and password history table
+			 // Updating Password in users table and passwordHistory table
 			 boolean updateSuccessful = pvs.updatePassword(user.getUserId(), newPassword);
 			 if(updateSuccessful)
 				 return "UpdatePasswordSuccess";
