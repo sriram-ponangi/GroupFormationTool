@@ -12,14 +12,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.group14.app.models.AppUser;
 import com.group14.app.models.PasswordValidatorRules;
 import com.group14.app.models.UserPrincipal;
-import com.group14.app.services.IPasswordValidatorService;
-import com.group14.app.services.PasswordValidatorService;
+import com.group14.app.services.IPasswordService;
 
 @Controller
-public class PasswordValidatorController {
+public class PasswordController {
 	
-	private IPasswordValidatorService pvs = new PasswordValidatorService();
+	private IPasswordService pvs;
 	
+	public PasswordController(IPasswordService pvs) {
+		this.pvs = pvs;
+	}
+
 	@GetMapping("/guest/updatePassword")
 	public String updatePasswordPage(Model model) {
 		 model.addAttribute("user", new AppUser());

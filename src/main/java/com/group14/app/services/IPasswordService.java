@@ -5,7 +5,7 @@ import java.util.List;
 import com.group14.app.models.AppUser;
 import com.group14.app.models.PasswordValidatorRules;
 
-public interface IPasswordValidatorService {
+public interface IPasswordService {
 	/*
 	 * Return all the failed rule description. If all rules are satisfied return
 	 * empty list.

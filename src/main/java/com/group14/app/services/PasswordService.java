@@ -5,15 +5,21 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.springframework.stereotype.Service;
+
 import com.group14.app.models.AppUser;
 import com.group14.app.models.PasswordValidatorRules;
-import com.group14.app.repositories.IPasswordValidatorReposiotry;
-import com.group14.app.repositories.PasswordValidatorReposiotry;
+import com.group14.app.repositories.IPasswordReposiotry;
 
-public class PasswordValidatorService implements IPasswordValidatorService{
+@Service
+public class PasswordService implements IPasswordService {
 	
-	private IPasswordValidatorReposiotry pvr = new PasswordValidatorReposiotry();
+	private IPasswordReposiotry pvr;
 		
+	public PasswordService(IPasswordReposiotry pvr) {
+		this.pvr = pvr;
+	}
+
 	@Override
 	public List<PasswordValidatorRules> validatePassword(AppUser user, String newPassword) {
 		List<PasswordValidatorRules> activeRules = pvr.getActiveRules();

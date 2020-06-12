@@ -17,18 +17,18 @@ import org.springframework.ui.Model;
 
 import com.group14.app.models.AppUser;
 import com.group14.app.models.PasswordValidatorRules;
-import com.group14.app.services.IPasswordValidatorService;
+import com.group14.app.services.IPasswordService;
 
-public class PasswordValidatorControllerTest {
+public class PasswordControllerTest {
 	@Spy
 	@InjectMocks  	
-	PasswordValidatorController passwordValidatorController;
+	PasswordController passwordValidatorController;
 		
 	@Mock
 	Model model;
 	
 	@Mock
-	IPasswordValidatorService pvs;
+	IPasswordService pvs;
 	
 	@BeforeEach
 	public void setup() {
