@@ -6,17 +6,22 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
 import com.group14.app.models.PasswordValidatorRules;
 import com.group14.app.models.SQLInput;
 import com.group14.app.utils.CRUDRepository;
-import com.group14.app.utils.MySQLDBOperations;
 
-public class PasswordValidatorReposiotry implements IPasswordValidatorReposiotry{
+@Repository
+public class PasswordReposiotry implements IPasswordReposiotry{
 	
-	private CRUDRepository<SQLInput> db = new MySQLDBOperations();
+	private CRUDRepository<SQLInput> db;
 	
-	private static final Logger LOG = LoggerFactory.getLogger(PasswordValidatorReposiotry.class);
+	private static final Logger LOG = LoggerFactory.getLogger(PasswordReposiotry.class);
+
+	public PasswordReposiotry(CRUDRepository<SQLInput> db) {
+		this.db = db;
+	}
 
 	@Override
 	public List<PasswordValidatorRules> getActiveRules() {

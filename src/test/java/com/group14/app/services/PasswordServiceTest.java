@@ -15,15 +15,15 @@ import org.mockito.MockitoAnnotations;
 
 import com.group14.app.models.AppUser;
 import com.group14.app.models.PasswordValidatorRules;
-import com.group14.app.repositories.IPasswordValidatorReposiotry;
+import com.group14.app.repositories.IPasswordReposiotry;
 
-public class PasswordValidatorServiceTest {
+public class PasswordServiceTest {
 	
 	@InjectMocks
-	private PasswordValidatorService pvs;
+	private PasswordService pvs;
 	
 	@Mock
-	private IPasswordValidatorReposiotry pvr;
+	private IPasswordReposiotry pvr;
 	
 	@BeforeEach
 	public void setup() {

@@ -18,10 +18,10 @@ import com.group14.app.models.PasswordValidatorRules;
 import com.group14.app.models.SQLInput;
 import com.group14.app.utils.CRUDRepository;
 
-public class PasswordValidatorReposiotryTest {
+public class PasswordReposiotryTest {
 
 	@InjectMocks
-	private PasswordValidatorReposiotry pvr;
+	private PasswordReposiotry pvr;
 	
 	@Mock
 	private CRUDRepository<SQLInput> mockDB;
