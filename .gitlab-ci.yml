@@ -38,6 +38,7 @@ build:
 deploy_staging:
     tags:
         - dalfcs_gitlab_docker_ci
+        - dalfcs_docker_autoscale
     image: ruby:2.6
     stage: deploy_staging
     only:
@@ -75,11 +76,12 @@ deploy_prod_openstack:
         - sleep 20
         - docker logs group14_project
         
-#    when: manual
+    when: manual
         
 deploy_prod_heroku:
     tags:
         - dalfcs_gitlab_docker_ci
+        - dalfcs_docker_autoscale
     image: ruby:2.6
     stage: deploy_staging
     only:
