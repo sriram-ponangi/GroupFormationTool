@@ -35,7 +35,8 @@ public class PasswordController {
 		 if(newPassword == null) 
 			 return "UpdatePasswordError";		
 		 
-		 AppUser user = getCurrentUser();		 
+//		 AppUser user = getCurrentUser();
+		 AppUser user = AppUser.getCurrentUser();System.out.println(user);		 
 		 List<PasswordValidatorRules> failedRulesList = pvs.validatePassword(user, newPassword);
 		 
 		 if(failedRulesList!=null && failedRulesList.size() == 0) {
@@ -49,10 +50,10 @@ public class PasswordController {
 		 return "UpdatePasswordError";		 
 	}
 	
-	public AppUser getCurrentUser() {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		UserPrincipal userPrincipal = (UserPrincipal) principal;
-		return userPrincipal.getUser();
-	}
+//	public AppUser getCurrentUser() {
+//		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//		UserPrincipal userPrincipal = (UserPrincipal) principal;
+//		return userPrincipal.getUser();
+//	}
 
 }

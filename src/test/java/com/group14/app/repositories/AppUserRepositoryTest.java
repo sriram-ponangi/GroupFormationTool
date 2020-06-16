@@ -80,32 +80,4 @@ public class AppUserRepositoryTest {
 		assertEquals(true,appUser.getCourseRoles().containsKey("CSCI1001"));
 		assertEquals("TA",appUser.getCourseRoles().get("CSCI1002"));
 	}
-
-	@Test
-	public void enrollStudentToCourseTest() {
-		AppUser appUser = new AppUser("userId", "password", "email", "firstName", "lastName", 1);
-
-		when(mockDB.existsById(any(SQLInput.class)))
-		.thenReturn(false)
-		.thenReturn(false)
-		.thenReturn(false);
-		int[] expectedResponse = new int[] {1,1,1};
-		when(mockDB.saveTransaction(any()))
-		.thenReturn(expectedResponse);
-		
-		 int[] response = this.appUserRepository.enrollStudentToCourse(appUser, any(String.class));
-		 assertEquals(expectedResponse.length, response.length);
-		 
-		 when(mockDB.existsById(any(SQLInput.class)))
-			.thenReturn(true)
-			.thenReturn(true)
-			.thenReturn(true);
-		 expectedResponse = new int[] {1,1,1};
-			when(mockDB.saveTransaction(any()))
-			.thenReturn(expectedResponse);
-		response = this.appUserRepository.enrollStudentToCourse(appUser, any(String.class));
-		 assertEquals(expectedResponse.length, response.length);
-	}
-	
-
 }
