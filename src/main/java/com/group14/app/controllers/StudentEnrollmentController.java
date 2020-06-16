@@ -66,24 +66,4 @@ public class StudentEnrollmentController {
 		model.addAttribute("errorMessage", "Empty File. Please Upload the correct file");
 		return "StudentEnrollmentFormError";
 	}
-
-	// Proceed only if Principal/logged-in user has TA or INSTRUCTOR ROLE for the
-	// given courseId
-//	public boolean hasInstructorOrTARoleForCourse(String courseId) {
-//		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//		UserPrincipal userPrincipal = (UserPrincipal) principal;
-//		String courseRole = userPrincipal.getUser().getCourseRoles().get(courseId);
-//		if (userPrincipal.getUser().getSystemRole().equalsIgnoreCase("ADMIN")) {
-//			return true;
-//		} else if (courseRole != null
-//				&& (courseRole.equalsIgnoreCase("TA") || courseRole.equalsIgnoreCase("INSTRUCTOR"))) {
-//			LOG.info(userPrincipal.getUser().getUserId() + " is accessing course admin feature with " + courseRole
-//					+ " ROLE for the course " + courseId);
-//			return true;
-//		} else {
-//			LOG.info(userPrincipal.getUser().getUserId()
-//					+ " is accessing course admin feature with no ROLE for the course " + courseId);
-//			return false;
-//		}
-//	}
 }
