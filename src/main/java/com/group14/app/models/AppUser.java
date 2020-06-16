@@ -4,7 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 public class AppUser {
+	
+	private static final Logger LOG = LoggerFactory.getLogger(AppUser.class);
 	
 	private String userId;
 	private String password;
@@ -17,28 +23,25 @@ public class AppUser {
 	
 	public AppUser() {}
 	
-	public AppUser(String userId, String firstName, String lastName, String email, String courseId) {
+	public AppUser(String userId, String firstName, String lastName, String email) {
 		this.userId = userId;
 		this.password = getRandomPassword();
 		this.email = email;
 		this.firstName = firstName;
 		this.lastName = lastName;		
-		this.systemRole = "GUEST";
-		
+		this.systemRole = "GUEST";		
+		this.enabled = 1;		
+	}
+	public AppUser(String userId, String firstName, String lastName, String email, String courseId) {
+		this(userId, firstName, lastName, email);		
 		Map<String, String> courseRoles = new HashMap<>();
 		courseRoles.put(courseId, "STUDENT");
-		this.courseRoles = courseRoles;
-		
-		this.enabled = 1;		
+		this.courseRoles = courseRoles;		
 	}	
 
 	public AppUser(String userId, String password, String email, String firstName, String lastName, Integer enabled) {		
-		this.userId = userId;
-		this.password = password;
-		this.email = email;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.systemRole = "GUEST";
+		this(userId, firstName, lastName, email);		
+		this.password = password;	
 		this.courseRoles = null;
 		this.enabled = enabled;
 	}	
@@ -115,26 +118,55 @@ public class AppUser {
 	}
 	
 	public Boolean isValidUser() {
-		return isValidUserId() &&
+		boolean ans =  isValidUserId() &&
 			   isValidName() &&   
 			   isValidEmail() 
 			   ? true : false;
+		return ans;
 		
 	}
 	private Boolean isValidUserId() {
-		if (this.getUserId()!=null && this.getUserId().length() > 0) 
-			return this.getUserId().matches("B00\\d{6}");
+		if (this.getUserId()!=null && this.getUserId().length() > 0) {
+			return this.getUserId().matches("B00\\d{6}");			 
+		}
 		return false;
 	}
 	private Boolean isValidName() {
 		if (this.getFirstName() !=null && this.getFirstName().length() > 0 && this.getFirstName().length() < 50 &&
-				this.getLastName() !=null && this.getLastName().length() > 0 && this.getLastName().length() < 50) 			
-			return this.getFirstName().matches("[a-zA-Z ]+") && this.getLastName().matches("[a-zA-Z ]+");
+				this.getLastName() !=null && this.getLastName().length() > 0 && this.getLastName().length() < 50) {			
+			return this.getFirstName().matches("[a-zA-Z ]+") && this.getLastName().matches("[a-zA-Z ]+");			
+		}
 		return false;
 	}
 	private Boolean isValidEmail() {
-		if (this.getEmail()!=null && this.getEmail().length() > 0 && this.getEmail().length() < 50)
+		if (this.getEmail()!=null && this.getEmail().length() > 0 && this.getEmail().length() < 50) {			
 			return this.getEmail().matches("[\\w\\.]+@dal.ca");			
+		}
 		return false;
+	}
+	
+	public static AppUser getCurrentUser() {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserPrincipal userPrincipal = (UserPrincipal) principal;
+		return userPrincipal.getUser();
+	}
+	
+	// Check if Principal/logged-in user has TA or INSTRUCTOR ROLE for the given courseId
+	public static boolean hasInstructorOrTARoleForCourse(String courseId) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserPrincipal userPrincipal = (UserPrincipal) principal;
+		String courseRole = userPrincipal.getUser().getCourseRoles().get(courseId);
+		if (userPrincipal.getUser().getSystemRole().equalsIgnoreCase("ADMIN")) {
+			return true;
+		} else if (courseRole != null
+				&& (courseRole.equalsIgnoreCase("TA") || courseRole.equalsIgnoreCase("INSTRUCTOR"))) {
+			LOG.info(userPrincipal.getUser().getUserId() + " is accessing course admin feature with " + courseRole
+					+ " ROLE for the course " + courseId);
+			return true;
+		} else {
+			LOG.info(userPrincipal.getUser().getUserId()
+					+ " is accessing course admin feature with no ROLE for the course " + courseId);
+			return false;
+		}
 	}
 }

@@ -32,27 +32,22 @@ public class PasswordController {
 	@PostMapping("/guest/updatePassword")
 	public String updatePassword(@ModelAttribute AppUser userPassword, Model model) {
 		 String newPassword = userPassword.getPassword();
-		 if(newPassword == null) 
+		 if(newPassword == null) {
 			 return "UpdatePasswordError";		
-		 
-		 AppUser user = getCurrentUser();		 
+		 }
+		 AppUser user = AppUser.getCurrentUser();System.out.println(user);		 
 		 List<PasswordValidatorRules> failedRulesList = pvs.validatePassword(user, newPassword);
 		 
 		 if(failedRulesList!=null && failedRulesList.size() == 0) {
 			 // Updating Password in users table and passwordHistory table
 			 boolean updateSuccessful = pvs.updatePassword(user.getUserId(), newPassword);
-			 if(updateSuccessful)
+			 if(updateSuccessful) {
 				 return "UpdatePasswordSuccess";
+			 }
 		 }
 		 
 		 model.addAttribute("failedRulesList", failedRulesList);
 		 return "UpdatePasswordError";		 
-	}
-	
-	public AppUser getCurrentUser() {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		UserPrincipal userPrincipal = (UserPrincipal) principal;
-		return userPrincipal.getUser();
 	}
 
 }

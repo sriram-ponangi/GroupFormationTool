@@ -37,7 +37,7 @@ public class PasswordServiceTest {
 		List<String> previousPasswords = new ArrayList<>();
 		previousPasswords.add("Test@111");previousPasswords.add("Test@222");previousPasswords.add("Test@333");
 		
-		when(pvr.getActiveRules()).thenReturn(mockActiveRules());		
+		when(pvr.getActiveRules()).thenReturn(mockActiveRulesData());		
 		when(pvr.getPreviousPasswords(Mockito.anyString(), Mockito.anyInt())).thenReturn(previousPasswords);
 		
 		List<PasswordValidatorRules> result = this.pvs.validatePassword(user, "Test@111");
@@ -52,7 +52,7 @@ public class PasswordServiceTest {
 		List<String> previousPasswords = new ArrayList<>();
 		previousPasswords.add("Test@111");previousPasswords.add("Test@222");previousPasswords.add("Test@333");
 		
-		when(pvr.getActiveRules()).thenReturn(mockActiveRules());		
+		when(pvr.getActiveRules()).thenReturn(mockActiveRulesData());		
 		when(pvr.getPreviousPasswords(Mockito.anyString(), Mockito.anyInt())).thenReturn(previousPasswords);
 		
 		List<PasswordValidatorRules> result = this.pvs.validatePassword(user, "Tt@1");
@@ -67,7 +67,7 @@ public class PasswordServiceTest {
 		List<String> previousPasswords = new ArrayList<>();
 		previousPasswords.add("Test@111");previousPasswords.add("Test@222");previousPasswords.add("Test@333");
 		
-		when(pvr.getActiveRules()).thenReturn(mockActiveRules());		
+		when(pvr.getActiveRules()).thenReturn(mockActiveRulesData());		
 		when(pvr.getPreviousPasswords(Mockito.anyString(), Mockito.anyInt())).thenReturn(previousPasswords);
 		
 		List<PasswordValidatorRules> result = this.pvs.validatePassword(user, "test@11");		
@@ -84,7 +84,7 @@ public class PasswordServiceTest {
 		List<String> previousPasswords = new ArrayList<>();
 		previousPasswords.add("Test@111");previousPasswords.add("Test@222");previousPasswords.add("Test@333");
 		
-		when(pvr.getActiveRules()).thenReturn(mockActiveRules());		
+		when(pvr.getActiveRules()).thenReturn(mockActiveRulesData());		
 		when(pvr.getPreviousPasswords(Mockito.anyString(), Mockito.anyInt())).thenReturn(previousPasswords);
 		
 		List<PasswordValidatorRules> result = this.pvs.validatePassword(user, "test11");		
@@ -93,7 +93,7 @@ public class PasswordServiceTest {
 	}
 	
 	
-	private List<PasswordValidatorRules> mockActiveRules(){
+	private List<PasswordValidatorRules> mockActiveRulesData(){
 		List<PasswordValidatorRules> mockRules = new ArrayList<>();
 		PasswordValidatorRules rule = new PasswordValidatorRules();
 		rule.setRuleId("LowerCaseCharactersLength");
