@@ -14,10 +14,16 @@ import com.group14.app.utils.CRUDRepository;
 import com.group14.app.utils.MySQLDBOperations;
 
 @Repository
-public class CourseRoleMapperRepository {
+public class CourseRoleMapperRepository implements ICourseRoleMapperRepository{
 
-	private CRUDRepository<SQLInput> db = new MySQLDBOperations();
+	private CRUDRepository<SQLInput> db;
 
+	public CourseRoleMapperRepository(CRUDRepository<SQLInput> db) {
+		this.db = db;
+	}
+
+
+	@Override
 	public List<CourseRoleMapper> list() throws SQLException {
 
 		String SQL_GET_USER = "SELECT * FROM CourseRoleMapper WHERE role_id = ?";
@@ -36,7 +42,6 @@ public class CourseRoleMapperRepository {
 				rows.add(cRM);
 			});
 		else {
-//			LOG.error("Could not Execute: "+ SQL_GET_USER);
 			return null;
 		}
 
@@ -44,9 +49,8 @@ public class CourseRoleMapperRepository {
 
 	}
 
+	@Override
 	public void addCourseI(String banner, String cid) throws SQLException {
-
-		// check for already existed user id
 
 		String SQL_GET_USER = "insert into CourseRoleMapper(role_id,user_id,course_id) values (?,?,?)";
 		List<Object> params = new ArrayList<>();
