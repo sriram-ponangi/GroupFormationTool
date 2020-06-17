@@ -35,6 +35,7 @@ public class InstructorActionsTest {
 		HashMap<String, String> courseRoles = new HashMap<String, String>();
 		courseRoles.put("course_id", "CSCI1001");
 		courseRoles.put("role_id", "STUDENT");
+		
 		AppUser appUser = new AppUser();
 		appUser.setUserId("userid");
 		appUser.setFirstName("firstName");
