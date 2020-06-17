@@ -43,12 +43,10 @@ public class InstructorController {
 		{	
 			bannerId = principal.toString();
 		}
-		System.out.println("Current instructor's bannerId found" + bannerId);
 		appUser = appUserRepo.findByUserName(bannerId);
 		role = appUser.getCourseRoles().get(courseId);
 		model.addAttribute("studentUser", new Student());
 		this.courseID = courseId;
-		System.out.println(role);
 		if(role != null && role.equalsIgnoreCase("Instructor")) 
 		{
 			model.addAttribute("student", student);
@@ -64,7 +62,6 @@ public class InstructorController {
 	@PostMapping("instructor/assignta")
 	public String AssignTaPost(@ModelAttribute("studentUser") Student studentUser, Model model) {
 		
-		System.out.println("Student's bannerId : " + studentUser.getBannerId());
 		AppUser user;
 		
 		user = instructorActions.AddStudentToTAList(courseID, studentUser.getBannerId());
@@ -88,7 +85,6 @@ public class InstructorController {
 		int res = instructorActions.GiveTaPermission(bannerIdStudent, roleTA, courseID);
 		if(res > 1)
 		{
-			System.out.println("result" + res);
 			model.addAttribute("success", "TA is assigned");
 			return "assignta";
 		}
