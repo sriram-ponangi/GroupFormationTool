@@ -25,10 +25,9 @@ public class CourseRoleMapperServiceTest {
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
 	}
-	
+
 	@Test
-	void addInstructor() throws SQLException
-	{
+	void addInstructor() throws SQLException {
 		doNothing().when(this.cRMR).addCourseI("B00100001", "CSCI1001");
 		cRMS.addCourseInstructor("B00100001", "CSCI1001");
 

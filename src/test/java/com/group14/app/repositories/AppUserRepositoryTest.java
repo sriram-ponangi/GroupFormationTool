@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,41 +32,38 @@ public class AppUserRepositoryTest {
 	}
 
 	@Test
-	public void findByUserNameTest_basic() {		
-		
-		List<HashMap<String,Object>> usersData = new ArrayList<HashMap<String,Object>>();
-		HashMap<String,Object> row = new HashMap<String,Object>();
-		row.put("user_id","userid");
-		row.put("password","password");
-		row.put("email","email");
-		row.put("first_name","firstName");
-		row.put("last_name","lastName");
-		row.put("enabled",1);		
+	public void findByUserNameTest_basic() {
+
+		List<HashMap<String, Object>> usersData = new ArrayList<HashMap<String, Object>>();
+		HashMap<String, Object> row = new HashMap<String, Object>();
+		row.put("user_id", "userid");
+		row.put("password", "password");
+		row.put("email", "email");
+		row.put("first_name", "firstName");
+		row.put("last_name", "lastName");
+		row.put("enabled", 1);
 		usersData.add(row);
-		
-		
-		List<HashMap<String,Object>> systemRolesData = new ArrayList<HashMap<String,Object>>();
-		row = new HashMap<String,Object>();
-		row.put("role_id","GUEST");
+
+		List<HashMap<String, Object>> systemRolesData = new ArrayList<HashMap<String, Object>>();
+		row = new HashMap<String, Object>();
+		row.put("role_id", "GUEST");
 		systemRolesData.add(row);
-		
-		List<HashMap<String,Object>> courseRolesData = new ArrayList<HashMap<String,Object>>();
-		row = new HashMap<String,Object>();
-		row.put("course_id","CSCI1001");
-		row.put("role_id","STUDENT");
+
+		List<HashMap<String, Object>> courseRolesData = new ArrayList<HashMap<String, Object>>();
+		row = new HashMap<String, Object>();
+		row.put("course_id", "CSCI1001");
+		row.put("role_id", "STUDENT");
 		courseRolesData.add(row);
-		row = new HashMap<String,Object>();
-		row.put("course_id","CSCI1002");
-		row.put("role_id","TA");
+		row = new HashMap<String, Object>();
+		row.put("course_id", "CSCI1002");
+		row.put("role_id", "TA");
 		courseRolesData.add(row);
 		System.out.println(usersData);
-		when(mockDB.readData(any(SQLInput.class)))
-		.thenReturn(usersData)
-		.thenReturn(systemRolesData)
-		.thenReturn(courseRolesData);	
-		
+		when(mockDB.readData(any(SQLInput.class))).thenReturn(usersData).thenReturn(systemRolesData)
+				.thenReturn(courseRolesData);
+
 		final AppUser appUser = this.appUserRepository.findByUserName("userid");
-		
+
 		assertEquals("userid", appUser.getUserId());
 		assertEquals("password", appUser.getPassword());
 		assertEquals("email", appUser.getEmail());
@@ -75,9 +71,9 @@ public class AppUserRepositoryTest {
 		assertEquals("lastName", appUser.getLastName());
 		assertEquals(1, appUser.getEnabled());
 		assertEquals("GUEST", appUser.getSystemRole());
-		assertEquals(true,appUser.getCourseRoles().containsKey("CSCI1001"));
-		assertEquals("STUDENT",appUser.getCourseRoles().get("CSCI1001"));
-		assertEquals(true,appUser.getCourseRoles().containsKey("CSCI1001"));
-		assertEquals("TA",appUser.getCourseRoles().get("CSCI1002"));
+		assertEquals(true, appUser.getCourseRoles().containsKey("CSCI1001"));
+		assertEquals("STUDENT", appUser.getCourseRoles().get("CSCI1001"));
+		assertEquals(true, appUser.getCourseRoles().containsKey("CSCI1001"));
+		assertEquals("TA", appUser.getCourseRoles().get("CSCI1002"));
 	}
 }

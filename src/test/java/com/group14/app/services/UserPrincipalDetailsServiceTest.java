@@ -21,33 +21,31 @@ import com.group14.app.models.UserPrincipal;
 import com.group14.app.repositories.AppUserRepository;
 
 public class UserPrincipalDetailsServiceTest {
-	
+
 	@InjectMocks
 	private UserPrincipalDetailsService userPrincipalDetailsService;
-	
+
 	@Mock
 	private AppUserRepository appUserRepositoryMock;
-	
-	
+
 	@BeforeEach
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
 	}
-	
+
 	@Test
 	public void loadUserByUsernameTest_basic() {
 		AppUser appUser = new AppUser("userId", "password", "email", "firstName", "lastName", 1);
 		appUser.setSystemRole("GUEST");
-		Map<String,String> courseRoles = new HashMap<>();
+		Map<String, String> courseRoles = new HashMap<>();
 		courseRoles.put("CSCI1001", "STUDENT");
 		courseRoles.put("CSCI1002", "TA");
 		appUser.setCourseRoles(courseRoles);
-				
-		when(appUserRepositoryMock.findByUserName(Mockito.anyString()))
-		.thenReturn(appUser);
-		
-		UserPrincipal userDetails = (UserPrincipal) userPrincipalDetailsService.loadUserByUsername("B00100001");	
-		
+
+		when(appUserRepositoryMock.findByUserName(Mockito.anyString())).thenReturn(appUser);
+
+		UserPrincipal userDetails = (UserPrincipal) userPrincipalDetailsService.loadUserByUsername("B00100001");
+
 		assertEquals("userId", userDetails.getUsername());
 		assertEquals("password", userDetails.getPassword());
 		assertEquals("email", userDetails.getUser().getEmail());
@@ -58,19 +56,17 @@ public class UserPrincipalDetailsServiceTest {
 		assertEquals(true, userDetails.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_STUDENT")));
 		assertEquals(true, userDetails.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_TA")));
 	}
-	
+
 	@Test
 	public void loadUserByUsernameTest_testUsernameNotFoundException() {
-		AppUser appUser = null;		
-		
-		when(appUserRepositoryMock.findByUserName(Mockito.anyString()))
-		.thenReturn(appUser);
-			
-		Throwable exception = assertThrows(UsernameNotFoundException.class, () -> userPrincipalDetailsService.loadUserByUsername("B00100001"));
-	    assertEquals("Invalid Credentials", exception.getMessage());
+		AppUser appUser = null;
+
+		when(appUserRepositoryMock.findByUserName(Mockito.anyString())).thenReturn(appUser);
+
+		Throwable exception = assertThrows(UsernameNotFoundException.class,
+				() -> userPrincipalDetailsService.loadUserByUsername("B00100001"));
+		assertEquals("Invalid Credentials", exception.getMessage());
 
 	}
-	
-	
 
 }

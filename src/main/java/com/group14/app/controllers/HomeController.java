@@ -14,35 +14,29 @@ import com.group14.app.services.ICourseService;
 public class HomeController {
 
 	ICourseService course;
-	
+
 	public HomeController(ICourseService course) {
 		this.course = course;
 	}
-	
+
 	@GetMapping("/guest/dashboard")
 	public String landingPage() {
 		return "admin";
-
 	}
 
 	@GetMapping("/admin/allCourse")
 	public String allCourses(Model model) {
 		try {
 			List<Courses> courseL = course.list();
-
 			model.addAttribute("allCourse", courseL);
-
 		} catch (SQLException e) {
-
 			e.printStackTrace();
 		}
 		return "allCourse";
-
 	}
 
 	@PostMapping("/admin/allCourse")
 	public String allCoursesSubmit(@ModelAttribute Courses allCourse) {
-
 		return "courses";
 	}
 

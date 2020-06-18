@@ -1,4 +1,5 @@
 package com.group14.app.repositories;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
@@ -15,7 +16,6 @@ import org.mockito.MockitoAnnotations;
 import com.group14.app.models.AllQuestions;
 import com.group14.app.models.SQLInput;
 import com.group14.app.utils.CRUDRepository;
-
 
 public class QuestionManagerRepositoryTest {
 
@@ -44,11 +44,10 @@ public class QuestionManagerRepositoryTest {
 		assertEquals("B00100001", id);
 	}
 
-	
 	@Test
 	void showCourseTest() {
-		ArrayList<AllQuestions> list=new ArrayList<>();
+		ArrayList<AllQuestions> list = new ArrayList<>();
 		when(this.qMR.getAllQuestions("B00100001")).thenReturn(list);
-	}	
+	}
 
 }

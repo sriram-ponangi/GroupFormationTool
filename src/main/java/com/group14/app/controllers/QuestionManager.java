@@ -24,19 +24,13 @@ public class QuestionManager {
 		this.iAMS = iAMS;
 	}
 
-
-
 	@GetMapping("/instructor/deletequestion")
 	public String deleteQuestion(Model model, @RequestParam(name = "qid") String qid) {
-
 		String currentUserRole;
 		int id = Integer.parseInt(qid);
-
 		currentUserRole = AppUser.getCurrentUser().getUserId().toString();
-
 		if (iQMS.getRoleFromID(id, currentUserRole) == true) {
 			iAMS.deleteData(id);
-			//return "allQuestions";
 			return "redirect:/instructor/allquestions";
 		} else {
 			return "allQuestionError";

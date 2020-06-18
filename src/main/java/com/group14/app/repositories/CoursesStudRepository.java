@@ -16,12 +16,10 @@ import com.group14.app.utils.MySQLDBOperations;
 @Repository
 public class CoursesStudRepository implements ICourseStudRepository {
 
-	private CRUDRepository<SQLInput> db = new MySQLDBOperations();
+	private CRUDRepository<SQLInput> db;
 
-	//private static final Logger LOG = LoggerFactory.getLogger(CourseRepository.class);
-	
 	public CoursesStudRepository(CRUDRepository<SQLInput> db) {
-		this.db=db;
+		this.db = db;
 	}
 
 	public ArrayList<Course> getAllCourse(String id) {

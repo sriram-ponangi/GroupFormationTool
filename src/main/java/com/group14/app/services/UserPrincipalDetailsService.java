@@ -11,19 +11,19 @@ import com.group14.app.models.UserPrincipal;
 import com.group14.app.repositories.AppUserRepository;
 
 @Service
-public class UserPrincipalDetailsService implements UserDetailsService{
-	
+public class UserPrincipalDetailsService implements UserDetailsService {
+
 	@Autowired
 	private AppUserRepository userRepository;
-	
+
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		// TODO Auto-generated method stub
+
 		AppUser user = this.userRepository.findByUserName(username);
-		if(user == null) {
+		if (user == null) {
 			throw new UsernameNotFoundException("Invalid Credentials");
 		}
-		UserPrincipal userPrincipal = new UserPrincipal(user);		
+		UserPrincipal userPrincipal = new UserPrincipal(user);
 		return userPrincipal;
 	}
 

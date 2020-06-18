@@ -14,9 +14,8 @@ public class UserRepository implements IUserRepository {
 
 	private CRUDRepository<SQLInput> db = new MySQLDBOperations();
 
-	
 	public UserRepository(CRUDRepository<SQLInput> db) {
-		this.db=db;
+		this.db = db;
 	}
 
 	@Override

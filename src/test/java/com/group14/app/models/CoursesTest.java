@@ -26,7 +26,6 @@ public class CoursesTest {
 		course = new Courses("CSCI1001", "SDC", "2020", "Spring Boot", "Summer$", 1);
 		assertEquals(false, course.isValidCourse()); // Checking for incorrect course term
 
-
 	}
 
 }

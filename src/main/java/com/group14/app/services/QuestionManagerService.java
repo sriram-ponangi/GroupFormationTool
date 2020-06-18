@@ -34,13 +34,13 @@ public class QuestionManagerService implements IQuestionManagerService {
 		}
 
 	}
-	
+
 	@Override
 	public ArrayList<AllQuestions> getAllQuestions(String instructorId) {
 		ArrayList<AllQuestions> questions = new ArrayList<AllQuestions>();
-		
+
 		questions = iQMR.getAllQuestions(instructorId);
-	
+
 		return questions;
 	}
 }

@@ -1,5 +1,5 @@
 package com.group14.app.repositories;
-   
+
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,16 +19,16 @@ public class QuestionManagerRepository implements IQuestionManagerRepository {
 	public QuestionManagerRepository(CRUDRepository<SQLInput> db) {
 		this.db = db;
 	}
-	
+
 	@Override
 	public ArrayList<AllQuestions> getAllQuestions(String instructorId) {
-		
+
 		String sqlQuery = "SELECT * FROM AllQuestions WHERE instructor_id = ?";
 		List<Object> params = new ArrayList<>();
 		params.add(instructorId);
-		
+
 		final ArrayList<AllQuestions> rows = new ArrayList<AllQuestions>();
-		
+
 		List<HashMap<String, Object>> questionsData = db.readData(new SQLInput(sqlQuery, params));
 
 		if (questionsData != null)
@@ -42,12 +42,11 @@ public class QuestionManagerRepository implements IQuestionManagerRepository {
 				rows.add(question);
 			});
 		else {
-			System.out.println("Could not Execute: "+ sqlQuery);
+			System.out.println("Could not Execute: " + sqlQuery);
 			return null;
 		}
 		return rows;
 	}
-	
 
 	@Override
 	public String FindRoleForID(int id) {

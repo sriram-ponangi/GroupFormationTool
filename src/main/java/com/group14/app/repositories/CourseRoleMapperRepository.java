@@ -14,14 +14,13 @@ import com.group14.app.utils.CRUDRepository;
 import com.group14.app.utils.MySQLDBOperations;
 
 @Repository
-public class CourseRoleMapperRepository implements ICourseRoleMapperRepository{
+public class CourseRoleMapperRepository implements ICourseRoleMapperRepository {
 
 	private CRUDRepository<SQLInput> db;
 
 	public CourseRoleMapperRepository(CRUDRepository<SQLInput> db) {
 		this.db = db;
 	}
-
 
 	@Override
 	public List<CourseRoleMapper> list() throws SQLException {

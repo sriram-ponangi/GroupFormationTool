@@ -6,19 +6,20 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.group14.app.models.Email;
+
 @Service
-public class EmailSenderService implements IEmailSenderService{
+public class EmailSenderService implements IEmailSenderService {
 	@Autowired
-	private JavaMailSender javaMailSender;	
+	private JavaMailSender javaMailSender;
 
 	@Override
 	public boolean sendEmail(Email info) {
 		SimpleMailMessage mail = new SimpleMailMessage();
 		mail.setTo(info.getToEmailAddress());
 		mail.setFrom(IEmailSenderService.FROM);
-		mail.setSubject(info.getSubject());		
+		mail.setSubject(info.getSubject());
 		mail.setText(info.getMessage());
-    	javaMailSender.send(mail);
+		javaMailSender.send(mail);
 		return false;
 	}
 

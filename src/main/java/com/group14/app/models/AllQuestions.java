@@ -12,7 +12,7 @@ public class AllQuestions {
 	private Timestamp createdDate;
 	private String storedAs;
 	private String displayText;
-	
+
 	public int getQid() {
 		return qid;
 	}
@@ -56,6 +56,7 @@ public class AllQuestions {
 	public Timestamp getCreatedDate() {
 		return createdDate;
 	}
+
 	public void setCreatedDate(Timestamp timestamp) {
 		this.createdDate = timestamp;
 	}
@@ -83,7 +84,4 @@ public class AllQuestions {
 				+ displayText + "]";
 	}
 
-	
-
-	
 }

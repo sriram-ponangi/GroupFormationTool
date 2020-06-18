@@ -22,11 +22,11 @@ public class InstructorActions implements IInstructorActionsRepository {
 	private CRUDRepository<SQLInput> db;
 
 	private static final Logger LOG = LoggerFactory.getLogger(AppUserRepository.class);
-	
+
 	public InstructorActions(CRUDRepository<SQLInput> db) {
 		this.db = db;
 	}
-	
+
 	@Override
 	public AppUser AddStudentToTAList(String courseId, String bannerId) {
 		AppUser appUser = new AppUser();
