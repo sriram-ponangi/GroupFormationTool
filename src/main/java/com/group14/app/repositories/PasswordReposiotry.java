@@ -52,8 +52,9 @@ public class PasswordReposiotry implements IPasswordReposiotry {
 
 	@Override
 	public List<String> getPreviousPasswords(String userId, int limit) {
-		final String SQL = " SELECT password FROM PasswordHistory ORDER BY created_date DESC LIMIT ?";
+		final String SQL = " SELECT password FROM PasswordHistory where user_id = ? ORDER BY created_date DESC LIMIT ?";
 		final List<Object> params = new ArrayList<>();
+		params.add(userId);
 		params.add(limit);
 		final SQLInput sqlInput = new SQLInput(SQL, params);
 
