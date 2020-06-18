@@ -1,11 +1,11 @@
 package com.group14.app.models;
 
 public class Course {
-	private String courseId;
-	private String courseName;
-	private String year;
-	private String term;
-	private String description;
+	public String courseId;
+	public String courseName;
+	public String year;
+	public String term;
+	public String description;
 
 	public String getcourseId() {
 		return courseId;
