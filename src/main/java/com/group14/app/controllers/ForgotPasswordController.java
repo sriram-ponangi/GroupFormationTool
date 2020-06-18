@@ -17,27 +17,20 @@ public class ForgotPasswordController {
 
 	@Autowired
 	private EmailService emailService;
-	
-	@GetMapping("/forgotpassword")
-		public String forgotForm(Model model) {
-			model.addAttribute("forgotpassword", new Forgotpassword());
-			    return "forgotpassword";
-		}
-	
-	@PostMapping("/forgotpassword")
-		public String forgotSubmit(@ModelAttribute Forgotpassword forgotpassword) {
-		
-		try
-		{
-			emailService.sendMail(forgotpassword);
-		}
-		catch (Exception e) {
-			// TODO: handle exception
-		}
-		
-		return "RecoverPass";	
-	}
-	
-	
-}
 
+	@GetMapping("/forgotpassword")
+	public String forgotForm(Model model) {
+		model.addAttribute("forgotpassword", new Forgotpassword());
+		return "forgotpassword";
+	}
+
+	@PostMapping("/forgotpassword")
+	public String forgotSubmit(@ModelAttribute Forgotpassword forgotpassword) {
+		try {
+			emailService.sendMail(forgotpassword);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "RecoverPass";
+	}
+}

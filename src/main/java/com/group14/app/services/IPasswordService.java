@@ -11,6 +11,6 @@ public interface IPasswordService {
 	 * empty list.
 	 */
 	List<PasswordValidatorRules> validatePassword(AppUser user, String newPassword);
-	
+
 	boolean updatePassword(String userId, String newPassword);
 }

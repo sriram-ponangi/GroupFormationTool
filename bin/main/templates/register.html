@@ -1,43 +1,59 @@
-<!-- <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Getting Started: Serving Web Content</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
-<body>
-<h1><center>Welcome to CSCI 5308</center></h1>
-    <p th:text="'Hello, ' + ${name} + '! Nice To meet you '+ ${name} " />
-</body>
-</html> -->
-
 <!DOCTYPE HTML>
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
-    <title>CSCI 5308: Register</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link th:href="@{/CSS/RegisterCSS.css}" rel="stylesheet" />
+<title>CSCI 5308: Register</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link th:href="@{/CSS/RegisterCSS.css}" rel="stylesheet" />
 </head>
 <body>
-	<h1><center><b><i>Welcome to CSCI-5308</i></b></center></h1>
-	
-	<h2><center><b><i>Register Page</i></b></center></h2>
-    <form action="#" th:action="@{/confirm}" th:object="${greeting}" method="post">
-    <center>
-    <fieldset>
-    	<legend><center><b><h2>Sign-up with us</h2></b></center></legend>
-    	<p>Banner Number: <input type="text" th:field="*{bannerNo}" /></p>
-        <p>First Name: <input type="text" th:field="*{firstName}" /></p>
-        <p>Last Name: <input type="text" th:field="*{lastName}" /></p>
-        <p>E-Mail: <input type="text" th:field="*{email}" /></p>
-        <p>Password: <input type="text" th:field="*{password}" /></p>
-		 <br/>
-        <p><input type="submit" value="Submit" /> <br/><input type="reset" value="Reset" /></p>
- 
-    </fieldset>
-    </center>
-       
-    </form>
-  
-     <center><a href="/login">Already a user? Click here to Login</a></center>
+	<h1>
+		<center>
+			<b><i>Welcome to CSCI-5308</i></b>
+		</center>
+	</h1>
+
+	<h2>
+		<center>
+			<b><i>Register Page</i></b>
+		</center>
+	</h2>
+	<form action="#" th:action="@{/confirm}" th:object="${greeting}"
+		method="post">
+		<center>
+			<fieldset>
+				<legend>
+					<center>
+						<b><h2>Sign-up with us</h2></b>
+					</center>
+				</legend>
+				<p>
+					Banner Number: <input type="text" th:field="*{bannerNo}" />
+				</p>
+				<p>
+					First Name: <input type="text" th:field="*{firstName}" />
+				</p>
+				<p>
+					Last Name: <input type="text" th:field="*{lastName}" />
+				</p>
+				<p>
+					E-Mail: <input type="text" th:field="*{email}" />
+				</p>
+				<p>
+					Password: <input type="text" th:field="*{password}" />
+				</p>
+				<br />
+				<p>
+					<input type="submit" value="Submit" /> <br />
+					<input type="reset" value="Reset" />
+				</p>
+
+			</fieldset>
+		</center>
+
+	</form>
+
+	<center>
+		<a href="/login">Already a user? Click here to Login</a>
+	</center>
 </body>
 </html>

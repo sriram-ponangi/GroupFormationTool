@@ -2,57 +2,56 @@
 <html xmlns:th="https://www.thymeleaf.org">
 
 <head>
-    <title>Getting Started: Handling Form Submission</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-     <link rel="stylesheet" href="/css/course.css" type="text/css">
- 
-	 
+<title>Getting Started: Handling Form Submission</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="/css/course.css" type="text/css">
+
+
 </head>
 <body>
-<center><div>
-<div th:replace="header :: header"></div>
+	<center>
+		<div>
+			<div th:replace="header :: header"></div>
 
-<h2>Create Course</h2>
+			<h2>Create Course</h2>
 
-<div>
-    <form action="#" th:action="@{/admin/createCourse}" th:object="${createCourse}" method="post">
-    <table border="2">
-    	<tr>
-    	<td>Course Id (CSCI XXXX)</td>
-    	<td><input type="text" th:field="*{cid}" /></td>
-    	</tr>
- 		
- 		<tr>
-    	<td>Course Name</td>
-    	<td><input type="text" th:field="*{name}" /></td>
-    	</tr>
-    	
-    	<tr>
-    	<td>Course Year</td>
-    	<td><input type="text" th:field="*{year}" /></td>
-    	</tr>
-    	
-    	<tr>
-    	<td>Course Term</td>
-    	<td><input type="text" th:field="*{term}" /></td>
-    	</tr>
-    	
-    	<tr>
-    	<td>Course Description</td>
-    	<td><input type="text" th:field="*{description}" /></td>
-    	</tr>
-    	
-    	<tr>
-    	<td></td>
-    	<td>
-    	<input type="submit" value="Submit" />
-    	</td>
-    	</tr>
-    	
-        
-    </table>
-    </form>
-    </div>
+			<div>
+				<form action="#" th:action="@{/admin/createCourse}"
+					th:object="${createCourse}" method="post">
+					<table border="2">
+						<tr>
+							<td>Course Id (CSCI XXXX)</td>
+							<td><input type="text" th:field="*{cid}" /></td>
+						</tr>
 
+						<tr>
+							<td>Course Name</td>
+							<td><input type="text" th:field="*{name}" /></td>
+						</tr>
+
+						<tr>
+							<td>Course Year</td>
+							<td><input type="text" th:field="*{year}" /></td>
+						</tr>
+
+						<tr>
+							<td>Course Term</td>
+							<td><input type="text" th:field="*{term}" /></td>
+						</tr>
+
+						<tr>
+							<td>Course Description</td>
+							<td><input type="text" th:field="*{description}" /></td>
+						</tr>
+
+						<tr>
+							<td></td>
+							<td><input type="submit" value="Submit" /></td>
+						</tr>
+
+
+					</table>
+				</form>
+			</div>
 </body>
 </html>

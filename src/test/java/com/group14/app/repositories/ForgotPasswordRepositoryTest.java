@@ -46,7 +46,7 @@ public class ForgotPasswordRepositoryTest {
 		final String pass = this.fPR.readPass("B00100002");
 		assertEquals("password", pass);
 	}
-	
+
 	@Test
 	void readEmail() throws SQLException {
 

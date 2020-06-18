@@ -43,12 +43,9 @@ public class CourseService implements ICourseService {
 
 	@Override
 	public List<Courses> list() throws SQLException {
-		try
-		{
+		try {
 			return courseRepository.list();
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;

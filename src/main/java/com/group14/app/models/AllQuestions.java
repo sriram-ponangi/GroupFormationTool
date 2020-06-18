@@ -9,7 +9,9 @@ public class AllQuestions {
 	private String title;
 	private String text;
 	private String type;
-	public Timestamp createdDate;
+	private Timestamp createdDate;
+	private String storedAs;
+	private String displayText;
 
 	public int getQid() {
 		return qid;
@@ -54,8 +56,32 @@ public class AllQuestions {
 	public Timestamp getCreatedDate() {
 		return createdDate;
 	}
+
 	public void setCreatedDate(Timestamp timestamp) {
 		this.createdDate = timestamp;
+	}
+
+	public String getStoredAs() {
+		return storedAs;
+	}
+
+	public void setStoredAs(String storedAs) {
+		this.storedAs = storedAs;
+	}
+
+	public String getDisplayText() {
+		return displayText;
+	}
+
+	public void setDisplayText(String displayText) {
+		this.displayText = displayText;
+	}
+
+	@Override
+	public String toString() {
+		return "AllQuestions [qid=" + qid + ", instructor_id=" + instructor_id + ", title=" + title + ", text=" + text
+				+ ", type=" + type + ", createdDate=" + createdDate + ", storedAs=" + storedAs + ", displayText="
+				+ displayText + "]";
 	}
 
 }

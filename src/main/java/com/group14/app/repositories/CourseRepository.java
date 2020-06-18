@@ -11,7 +11,7 @@ import com.group14.app.utils.CRUDRepository;
 import com.group14.app.utils.MySQLDBOperations;
 
 @Repository
-public class CourseRepository implements ICourseRepository{
+public class CourseRepository implements ICourseRepository {
 
 	private CRUDRepository<SQLInput> db;
 

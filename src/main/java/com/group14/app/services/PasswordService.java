@@ -13,9 +13,9 @@ import com.group14.app.repositories.IPasswordReposiotry;
 
 @Service
 public class PasswordService implements IPasswordService {
-	
+
 	private IPasswordReposiotry pvr;
-		
+
 	public PasswordService(IPasswordReposiotry pvr) {
 		this.pvr = pvr;
 	}
@@ -24,36 +24,35 @@ public class PasswordService implements IPasswordService {
 	public List<PasswordValidatorRules> validatePassword(AppUser user, String newPassword) {
 		List<PasswordValidatorRules> activeRules = pvr.getActiveRules();
 		List<PasswordValidatorRules> failedRules = new ArrayList<>();
-		
-		for(PasswordValidatorRules rule: activeRules) {
+
+		for (PasswordValidatorRules rule : activeRules) {
 			boolean ruleFailed = true;
-			if(rule.getRuleId().equalsIgnoreCase("PASSWORD_HISTORY")) {
+			if (rule.getRuleId().equalsIgnoreCase("PASSWORD_HISTORY")) {
 				List<String> previousPasswords = pvr.getPreviousPasswords(user.getUserId(), rule.getMinMatchCount());
-				for(String p : previousPasswords) {
-					if(p.equals(newPassword)) {
+				for (String p : previousPasswords) {
+					if (p.equals(newPassword)) {
 						ruleFailed = true;
 						break;
-					}
-					else
+					} else
 						ruleFailed = false;
-				}					
-			}
-			else {
-				int count=0;
+				}
+			} else {
+				int count = 0;
 				Pattern p = Pattern.compile(rule.getRegEx());
 				Matcher m = p.matcher(newPassword);
-				while(m.find())
+				while (m.find())
 					count++;
-				if(
-				(rule.getMinMatchCount() == -1 && count <= rule.getMaxMatchCount()) || // Checking only Min Count
-				(count >= rule.getMinMatchCount() && rule.getMaxMatchCount() == -1) || // Checking only Max Count
-				(count >= rule.getMinMatchCount() && count <= rule.getMaxMatchCount()) // Checking both Min and Max Counts
-				){
+				if ((rule.getMinMatchCount() == -1 && count <= rule.getMaxMatchCount()) || // Checking only Min Count
+						(count >= rule.getMinMatchCount() && rule.getMaxMatchCount() == -1) || // Checking only Max
+																								// Count
+						(count >= rule.getMinMatchCount() && count <= rule.getMaxMatchCount()) // Checking both Min and
+																								// Max Counts
+				) {
 					ruleFailed = false;
-				}				
+				}
 			}
-			
-			if(ruleFailed) {
+
+			if (ruleFailed) {
 				failedRules.add(rule);
 			}
 		}
@@ -63,11 +62,11 @@ public class PasswordService implements IPasswordService {
 	@Override
 	public boolean updatePassword(String userId, String newPassword) {
 		int[] rowsUpdated = pvr.updatePassword(userId, newPassword);
-		for(int count : rowsUpdated) {
-			if( count <= 0)
+		for (int count : rowsUpdated) {
+			if (count <= 0)
 				return false;
 		}
 		return true;
-	}	
+	}
 
 }

@@ -26,16 +26,16 @@ public class QuestionManagerServiceTest {
 	@Test
 	public void getRole() {
 		AppUser user = new AppUser();
-		
+
 		user.setUserId("B00100001");
-		when(this.qMR.FindRoleForID("1")).thenReturn(user.getUserId());
-		boolean result = this.qMS.getRoleFromID("1","B00100001");
-		assertEquals(true, result);//check for matched instructor with question id
-		
+		when(this.qMR.FindRoleForID(1)).thenReturn(user.getUserId());
+		boolean result = this.qMS.getRoleFromID(1, "B00100001");
+		assertEquals(true, result);// check for matched instructor with question id
+
 		user.setUserId("B00100001");
-		when(this.qMR.FindRoleForID("2")).thenReturn(user.getUserId());
-		boolean result1 = this.qMS.getRoleFromID("2","B00100002");
-		assertEquals(false, result1);//checks for unmatched instructor with question id
+		when(this.qMR.FindRoleForID(2)).thenReturn(user.getUserId());
+		boolean result1 = this.qMS.getRoleFromID(2, "B00100002");
+		assertEquals(false, result1);// checks for unmatched instructor with question id
 	}
 
 }
