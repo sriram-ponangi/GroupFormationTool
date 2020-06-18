@@ -10,8 +10,7 @@ import com.group14.app.repositories.ICourseRepository;
 import com.group14.app.repositories.ICourseRoleMapperRepository;
 
 @Service
-public class CourseRoleMapperService implements ICourseRoleMapperService{
-	
+public class CourseRoleMapperService implements ICourseRoleMapperService {
 
 	ICourseRoleMapperRepository cRMP;
 
@@ -19,16 +18,13 @@ public class CourseRoleMapperService implements ICourseRoleMapperService{
 		this.cRMP = cRMP;
 
 	}
-	
-	public void addCourseInstructor(String banner, String cid)
-	{
-		try 
-		{
-			cRMP.addCourseI(banner, cid);;
-			
-		}
-		catch (SQLException e) {
-		
+
+	public void addCourseInstructor(String banner, String cid) {
+		try {
+			cRMP.addCourseI(banner, cid);
+
+		} catch (SQLException e) {
+
 			e.printStackTrace();
 		}
 	}
