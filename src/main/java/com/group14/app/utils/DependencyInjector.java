@@ -20,6 +20,19 @@ public class DependencyInjector {
 	private IEmailSenderService IEmailSenderService;
 	private IStudentEnrollmentService IStudentEnrollmentService;
 
+	private ICourseRepository ICourseRepository;
+	private ICourseService ICourseService;
+	
+	private IQuestionManagerRepository IQuestionManagerRepository;
+	private IQuestionManagerService IQuestionManagerService;
+	
+	private IAnswerManagerRepository IAnswerManagerRepository;
+	private IAnswerManagerService IAnswerManagerService;
+	
+	private ICourseRoleMapperRepository ICourseRoleMapperRepository;
+	private ICourseRoleMapperService ICourseRoleMapperService;
+
+
 	private DependencyInjector() {
 		this.CRUDRepository = new MySQLDBOperations();
 
@@ -31,6 +44,14 @@ public class DependencyInjector {
 		this.IEmailSenderService = new EmailSenderService();
 		this.IStudentEnrollmentService = new StudentEnrollmentService(this.IStudentEnrollmentRepository,
 				this.IParseUploadedFile, this.IEmailSenderService);
+		this.ICourseRepository = new CourseRepository(this.CRUDRepository);
+		this.ICourseService = new CourseService(this.ICourseRepository);
+		this.IQuestionManagerService = new QuestionManagerService(this.IQuestionManagerRepository);
+		this.IQuestionManagerRepository = new QuestionManagerRepository(this.CRUDRepository);
+		this.IAnswerManagerRepository = new AnswerManagerRepository(this.CRUDRepository);
+		this.IAnswerManagerService = new AnswerManagerService(this.IAnswerManagerRepository);
+		this.ICourseRoleMapperRepository = new CourseRoleMapperRepository(this.CRUDRepository);
+		this.ICourseRoleMapperService = new CourseRoleMapperService(this.ICourseRoleMapperRepository);
 
 	}
 
@@ -49,6 +70,39 @@ public class DependencyInjector {
 		CRUDRepository = cRUDRepository;
 	}
 
+	public ICourseRepository getICourseRepository() {
+		return ICourseRepository;
+	}
+
+	public void setICourseRepository(ICourseRepository iCourseRepository) {
+		ICourseRepository = iCourseRepository;
+	}
+
+	public ICourseService getICourseService() {
+		return ICourseService;
+	}
+
+	public void setICourseService(ICourseService iCourseService) {
+		ICourseService = iCourseService;
+	}
+
+	public IQuestionManagerRepository getIQuestionManagerRepository() {
+		return IQuestionManagerRepository;
+	}
+
+	public void setIQuestionManagerRepository(IQuestionManagerRepository iQuestionManagerRepository) {
+		IQuestionManagerRepository = iQuestionManagerRepository;
+	}
+
+	public IQuestionManagerService getIQuestionManagerService() {
+		return IQuestionManagerService;
+	}
+
+	public void setIQuestionManagerService(IQuestionManagerService iQuestionManagerService) {
+		IQuestionManagerService = iQuestionManagerService;
+	}
+	
+	
 	public IPasswordService getIPasswordService() {
 		return IPasswordService;
 	}
@@ -87,6 +141,23 @@ public class DependencyInjector {
 
 	public void setIParseUploadedFile(IParseUploadedFile<AppUser> iParseUploadedFile) {
 		IParseUploadedFile = iParseUploadedFile;
+	}
+
+	public IAnswerManagerRepository getIAnswerManagerRepository() {
+		return IAnswerManagerRepository;
+	}
+
+	public void setIAnswerManagerRepository(IAnswerManagerRepository iAnswerManagerRepository) {
+		IAnswerManagerRepository = iAnswerManagerRepository;
+	}
+	
+	
+	public IAnswerManagerService getIAnswerManagerService() {
+		return IAnswerManagerService;
+	}
+
+	public void setIAnswerManagerService(IAnswerManagerService iAnswerManagerService) {
+		IAnswerManagerService = iAnswerManagerService;
 	}
 
 }

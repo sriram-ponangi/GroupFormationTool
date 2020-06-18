@@ -11,25 +11,21 @@ import com.group14.app.models.Course;
 
 class CourseRepositoryTest {
 
-	private CoursesStudRepository cr=mock(CoursesStudRepository.class);
+	private CoursesStudRepository cr = mock(CoursesStudRepository.class);
 
-	ArrayList<Course> list=new ArrayList<>();
-	Course c=new Course();
-	
-	
+	ArrayList<Course> list = new ArrayList<>();
+	Course c = new Course();
+
 	@Test
-	
 	void showCourseTest() {
-		
+
 		when(this.cr.getAllCourse("B00100001")).thenReturn(list);
 	}
-	
 
 	@Test
-	
 	void showSpecificCourseTest() {
-		
+
 		when(this.cr.getAssignedCourse("B00100001")).thenReturn(list);
 	}
-	
+
 }

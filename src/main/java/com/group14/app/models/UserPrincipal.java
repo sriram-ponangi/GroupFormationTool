@@ -8,27 +8,26 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-
 public class UserPrincipal implements UserDetails {
 
 	private static final long serialVersionUID = 1L;
 	private AppUser user;
-	
+
 	public UserPrincipal(AppUser user) {
 		this.user = user;
 	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
+
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-		
-		authorities.add(new SimpleGrantedAuthority("ROLE_"+this.user.getSystemRole()));
-		
-		if(!this.user.getCourseRoles().isEmpty()) {
-			List<String> courseRoles = new ArrayList<String>(this.user.getCourseRoles().values());		
-			courseRoles.stream().forEach(role -> authorities.add(new SimpleGrantedAuthority("ROLE_"+role)));
-		}		
+
+		authorities.add(new SimpleGrantedAuthority("ROLE_" + this.user.getSystemRole()));
+
+		if (!this.user.getCourseRoles().isEmpty()) {
+			List<String> courseRoles = new ArrayList<String>(this.user.getCourseRoles().values());
+			courseRoles.stream().forEach(role -> authorities.add(new SimpleGrantedAuthority("ROLE_" + role)));
+		}
 		return authorities;
 	}
 
@@ -65,7 +64,7 @@ public class UserPrincipal implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
-		return user.getEnabled() == 1 ;
+		return user.getEnabled() == 1;
 	}
 
 	@Override
@@ -80,9 +79,5 @@ public class UserPrincipal implements UserDetails {
 	public void setUser(AppUser user) {
 		this.user = user;
 	}
-	
-	
-	
-	
 
 }

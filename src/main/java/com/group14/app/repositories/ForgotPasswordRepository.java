@@ -26,7 +26,6 @@ public class ForgotPasswordRepository {
 
 			});
 		else {
-//			LOG.error("Could not Execute: "+ SQL_GET_USER);
 			return null;
 		}
 
@@ -46,7 +45,6 @@ public class ForgotPasswordRepository {
 
 			});
 		else {
-//			LOG.error("Could not Execute: "+ SQL_GET_USER);
 			return null;
 		}
 
