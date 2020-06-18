@@ -15,12 +15,17 @@ import com.group14.app.utils.MySQLDBOperations;
 import com.group14.app.utils.CRUDRepository;
 
 @Repository
-public class AppUserRepository {
-
-	private CRUDRepository<SQLInput> db = new MySQLDBOperations();
+public class AppUserRepository implements IAppUserRepository{	
 
 	private static final Logger LOG = LoggerFactory.getLogger(AppUserRepository.class);
+	
+	private CRUDRepository<SQLInput> db;
+	
+	public AppUserRepository(CRUDRepository<SQLInput> db) {
+		this.db = db;
+	}
 
+	@Override
 	public AppUser findByUserName(String id) {
 		final AppUser appUser = new AppUser();
 		List<Object> params = new ArrayList<>();

@@ -19,7 +19,7 @@ public class ChoicesRepository implements IChoicesRepository {
 
 	public int qid;
 
-	private CRUDRepository<SQLInput> db = new MySQLDBOperations();
+	private CRUDRepository<SQLInput> db;
 
 	private static final Logger LOG = LoggerFactory.getLogger(ChoicesRepository.class);
 

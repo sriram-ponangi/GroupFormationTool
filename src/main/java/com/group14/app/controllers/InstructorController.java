@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.group14.app.models.AppUser;
 import com.group14.app.models.Course;
 import com.group14.app.models.Student;
-import com.group14.app.repositories.AppUserRepository;
+import com.group14.app.repositories.IAppUserRepository;
 import com.group14.app.services.IInstructorActionsService;
 
 @Controller
 public class InstructorController {
 
-	private AppUserRepository appUserRepo = new AppUserRepository();
+	private IAppUserRepository appUserRepo;
 
 	private Course course = new Course();
 	private AppUser mAppUser = new AppUser();
@@ -26,8 +26,9 @@ public class InstructorController {
 
 	private IInstructorActionsService instructorActionsService;
 
-	public InstructorController(IInstructorActionsService instructorActionsService) {
+	public InstructorController(IInstructorActionsService instructorActionsService, IAppUserRepository appUserRepo) {
 		this.instructorActionsService = instructorActionsService;
+		this.appUserRepo = appUserRepo;
 	}
 
 	@GetMapping("/instructor/assignta")

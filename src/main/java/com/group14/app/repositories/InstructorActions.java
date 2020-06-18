@@ -17,13 +17,14 @@ import com.group14.app.utils.MySQLDBOperations;
 @Repository
 public class InstructorActions implements IInstructorActionsRepository {
 
-	private AppUserRepository appUserRepo = new AppUserRepository();
+	private IAppUserRepository appUserRepo;
 
 	private CRUDRepository<SQLInput> db;
 
-	private static final Logger LOG = LoggerFactory.getLogger(AppUserRepository.class);
+	private static final Logger LOG = LoggerFactory.getLogger(AppUserRepository.class);	
 
-	public InstructorActions(CRUDRepository<SQLInput> db) {
+	public InstructorActions(IAppUserRepository appUserRepo, CRUDRepository<SQLInput> db) {
+		this.appUserRepo = appUserRepo;
 		this.db = db;
 	}
 

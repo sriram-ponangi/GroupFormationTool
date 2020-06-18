@@ -12,7 +12,11 @@ import com.group14.app.utils.MySQLDBOperations;
 @Repository
 public class ForgotPasswordRepository {
 
-	private CRUDRepository<SQLInput> db = new MySQLDBOperations();
+	private CRUDRepository<SQLInput> db;	
+
+	public ForgotPasswordRepository(CRUDRepository<SQLInput> db) {
+		this.db = db;
+	}
 
 	public String readPass(String banner) {
 		String SQL_GET_USER = "SELECT password FROM Users WHERE USER_ID = ?";
