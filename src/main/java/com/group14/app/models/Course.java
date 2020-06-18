@@ -1,15 +1,13 @@
 package com.group14.app.models;
 
-import java.util.ArrayList;
-
 public class Course {
-	  public String courseId;
-	  public String courseName;
-	  public String year;
-	  public String term;
-	  public String description;
+	public String courseId;
+	public String courseName;
+	public String year;
+	public String term;
+	public String description;
 
-	  	public String getcourseId() {
+	public String getcourseId() {
 		return courseId;
 	}
 

@@ -1,32 +1,46 @@
 <!DOCTYPE HTML>
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
-    <title>Getting Started: Handling Form Submission</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-     <link rel="stylesheet" href="/css/form.css" type="text/css">
+<title>Getting Started: Handling Form Submission</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="/css/form.css" type="text/css">
 </head>
 <body>
-	<div>
-	<h1>Assign Student (Upload CSV)</h1>
-	<h2>Enter Course id</h2>
-	<div>
-    <form action="#" th:action="@{/ta/courseAdmin/assignstudent}" th:object="${courseAdmin}" method="post">
-    	<p><input type="text" th:field="*{cid}" />
-        <input type="submit" value="Submit" /></p>
-    </form>
-    </div>
-    </div>
 
-    
-    <div>
-	<h1>Assign TA</h1>
-	<h2>Enter Course id</h2>
 	<div>
-    <form action="#" th:action="@{/instructor/courseAdmin/assignta}" th:object="${courseAdmin}" method="post">
-    	<p><input type="text" th:field="*{cid}" />
-        <input type="submit" value="Submit" /></p>
-    </form>
-    </div>
-    </div>
+		<h1>Navigate to Question Manager Page</h1>
+		<br>
+		<a href="/instructor/deleteQuestion" class="button">Question
+			Manager</a>
+	</div>
+
+	<div>
+		<h1>Assign Student (Upload CSV)</h1>
+		<h2>Enter Course id</h2>
+		<div>
+			<form action="#" th:action="@{/ta/courseAdmin/assignstudent}"
+				th:object="${courseAdmin}" method="post">
+				<p>
+					<input type="text" th:field="*{cid}" /> <input type="submit"
+						value="Submit" />
+				</p>
+			</form>
+		</div>
+	</div>
+
+
+	<div>
+		<h1>Assign TA</h1>
+		<h2>Enter Course id</h2>
+		<div>
+			<form action="#" th:action="@{/instructor/courseAdmin/assignta}"
+				th:object="${courseAdmin}" method="post">
+				<p>
+					<input type="text" th:field="*{cid}" /> <input type="submit"
+						value="Submit" />
+				</p>
+			</form>
+		</div>
+	</div>
 </body>
 </html>

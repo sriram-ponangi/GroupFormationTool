@@ -4,35 +4,37 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import org.springframework.stereotype.Repository;
-
 import com.group14.app.models.Questions;
 import com.group14.app.models.SQLInput;
 import com.group14.app.utils.CRUDRepository;
 import com.group14.app.utils.MySQLDBOperations;
+import com.group14.app.models.AllQuestions;
 
 @Repository
 public class QuestionManagerRepository implements IQuestionManagerRepository {
 
-	private CRUDRepository<SQLInput> db = new MySQLDBOperations();
+	private CRUDRepository<SQLInput> db;
 
+	public QuestionManagerRepository(CRUDRepository<SQLInput> db) {
+		this.db = db;
+	}
 	
 	@Override
-	public ArrayList<Questions> getAllQuestions(String instructorId) {
+	public ArrayList<AllQuestions> getAllQuestions(String instructorId) {
 		
 		String sqlQuery = "SELECT * FROM AllQuestions WHERE instructor_id = ?";
 		List<Object> params = new ArrayList<>();
 		params.add(instructorId);
 		
-		final ArrayList<Questions> rows = new ArrayList<Questions>();
+		final ArrayList<AllQuestions> rows = new ArrayList<AllQuestions>();
 		
 		List<HashMap<String, Object>> questionsData = db.readData(new SQLInput(sqlQuery, params));
 
 		if (questionsData != null)
 			questionsData.stream().forEach(row -> {
-				Questions question = new Questions();
-				question.setQuestionId((int) row.get("question_id"));
+				AllQuestions question = new AllQuestions();
+				question.setQid((int) row.get("question_id"));
 				question.setTitle((String) row.get("title"));
 				question.setText((String) row.get("text"));
 				Timestamp d = (Timestamp) row.get("created_date");
@@ -46,5 +48,26 @@ public class QuestionManagerRepository implements IQuestionManagerRepository {
 		return rows;
 	}
 	
+
+	@Override
+	public String FindRoleForID(String id) {
+
+		String SQL_FIND_ROLE = "select instructor_id from AllQuestions where question_id= ?";
+		List<Object> params = new ArrayList<>();
+		params.add(id);
+		List<HashMap<String, Object>> usersData = db.readData(new SQLInput(SQL_FIND_ROLE, params));
+		AllQuestions qData = new AllQuestions();
+		if (usersData != null)
+			usersData.stream().forEach(row -> {
+
+				qData.setInstructor_id((String) row.get("instructor_id"));
+
+			});
+		else {
+			return null;
+		}
+		return qData.getInstructor_id();
+
+	}
 
 }

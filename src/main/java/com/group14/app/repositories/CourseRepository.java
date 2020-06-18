@@ -11,10 +11,15 @@ import com.group14.app.utils.CRUDRepository;
 import com.group14.app.utils.MySQLDBOperations;
 
 @Repository
-public class CourseRepository {
+public class CourseRepository implements ICourseRepository{
 
-	private CRUDRepository<SQLInput> db = new MySQLDBOperations();
+	private CRUDRepository<SQLInput> db;
 
+	public CourseRepository(CRUDRepository<SQLInput> db) {
+		this.db = db;
+	}
+
+	@Override
 	public List<Courses> list() throws SQLException {
 
 		String SQL_GET_COURSES = "select * from Courses";
@@ -42,6 +47,7 @@ public class CourseRepository {
 		return rows;
 	}
 
+	@Override
 	public void addCourse(Courses courses) throws SQLException {
 
 		String SQL_GET_USER = "insert into Courses(course_id,name,year,term,description) values (?,?,?,?,?)";
@@ -56,6 +62,7 @@ public class CourseRepository {
 
 	}
 
+	@Override
 	public void deleteCourse(Courses courses) throws SQLException {
 
 		System.out.println(courses);

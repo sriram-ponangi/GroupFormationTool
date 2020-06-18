@@ -1,7 +1,7 @@
 package com.group14.app.models;
 
 public class Forgotpassword {
-	
+
 	private String banner;
 	private String password;
 	private String email;
@@ -29,9 +29,5 @@ public class Forgotpassword {
 	public void setBanner(String banner) {
 		this.banner = banner;
 	}
-	
-	
-	
-	
 
 }

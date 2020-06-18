@@ -10,13 +10,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.group14.app.models.AllQuestions;
 import com.group14.app.models.Questions;
 import com.group14.app.repositories.QuestionManagerRepository;
 
 @Controller
 public class QuestionManagerController {
 	
-	private QuestionManagerRepository questionManagerRepository = new QuestionManagerRepository();
+	QuestionManagerRepository questionManagerRepository;
 	
 	private String bannerId;
 
@@ -33,7 +34,7 @@ public class QuestionManagerController {
 			bannerId = principal.toString();
 		}
 		System.out.println("Current instructor's bannerId found = " + bannerId);
-		ArrayList<Questions> questionsList=questionManagerRepository.getAllQuestions(bannerId);
+		ArrayList<AllQuestions> questionsList=questionManagerRepository.getAllQuestions(bannerId);
 		model.addAttribute("questionsList", questionsList);
 		model.addAttribute("question", new Questions());
 		return "allQuestions";
@@ -46,7 +47,7 @@ public class QuestionManagerController {
 
 	@PostMapping("/instructor/deletequestion")
 	public String assignta(@ModelAttribute Questions question) {
-		return "redirect:/instructor/deletequestion?id=" + question.getQuestionId();
+		return "redirect:/instructor/deletequestion?id=" + question.getQid();
 	}
 
 }
