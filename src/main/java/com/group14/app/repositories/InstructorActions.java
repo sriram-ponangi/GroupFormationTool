@@ -15,14 +15,18 @@ import com.group14.app.utils.CRUDRepository;
 import com.group14.app.utils.MySQLDBOperations;
 
 @Repository
-public class InstructorActions implements IInstructorActionsService {
+public class InstructorActions implements IInstructorActionsRepository {
 
 	private AppUserRepository appUserRepo = new AppUserRepository();
 
-	private CRUDRepository<SQLInput> db = new MySQLDBOperations();
+	private CRUDRepository<SQLInput> db;
 
 	private static final Logger LOG = LoggerFactory.getLogger(AppUserRepository.class);
-
+	
+	public InstructorActions(CRUDRepository<SQLInput> db) {
+		this.db = db;
+	}
+	
 	@Override
 	public AppUser AddStudentToTAList(String courseId, String bannerId) {
 		AppUser appUser = new AppUser();

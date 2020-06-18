@@ -1,6 +1,10 @@
 package com.group14.app.services;
 
+import java.util.ArrayList;
+
 import org.springframework.stereotype.Service;
+
+import com.group14.app.models.AllQuestions;
 import com.group14.app.repositories.IQuestionManagerRepository;
 
 @Service
@@ -13,7 +17,7 @@ public class QuestionManagerService implements IQuestionManagerService {
 	}
 
 	@Override
-	public boolean getRoleFromID(String id, String currentUser) {
+	public boolean getRoleFromID(int id, String currentUser) {
 		String role;
 
 		role = iQMR.FindRoleForID(id);
@@ -29,5 +33,14 @@ public class QuestionManagerService implements IQuestionManagerService {
 			}
 		}
 
+	}
+	
+	@Override
+	public ArrayList<AllQuestions> getAllQuestions(String instructorId) {
+		ArrayList<AllQuestions> questions = new ArrayList<AllQuestions>();
+		
+		questions = iQMR.getAllQuestions(instructorId);
+	
+		return questions;
 	}
 }

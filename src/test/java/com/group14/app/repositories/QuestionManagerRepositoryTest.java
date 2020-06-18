@@ -40,7 +40,7 @@ public class QuestionManagerRepositoryTest {
 
 		when(mockDB.readData(any(SQLInput.class))).thenReturn(usersData);
 
-		final String id = this.qMR.FindRoleForID("1");
+		final String id = this.qMR.FindRoleForID(1);
 		assertEquals("B00100001", id);
 	}
 

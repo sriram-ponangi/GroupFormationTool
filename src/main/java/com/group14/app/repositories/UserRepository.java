@@ -14,6 +14,11 @@ public class UserRepository implements IUserRepository {
 
 	private CRUDRepository<SQLInput> db = new MySQLDBOperations();
 
+	
+	public UserRepository(CRUDRepository<SQLInput> db) {
+		this.db=db;
+	}
+
 	@Override
 	public boolean addUser(String bno, String fname, String lname, String email, String pass) {
 		String SQL_INSERT_USER = "insert into Users ( user_id, password, first_name, last_name, email) values (?,?,?,?,?)";

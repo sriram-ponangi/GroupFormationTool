@@ -14,11 +14,15 @@ import com.group14.app.utils.CRUDRepository;
 import com.group14.app.utils.MySQLDBOperations;
 
 @Repository
-public class CoursesStudRepository {
+public class CoursesStudRepository implements ICourseStudRepository {
 
 	private CRUDRepository<SQLInput> db = new MySQLDBOperations();
 
-	private static final Logger LOG = LoggerFactory.getLogger(CourseRepository.class);
+	//private static final Logger LOG = LoggerFactory.getLogger(CourseRepository.class);
+	
+	public CoursesStudRepository(CRUDRepository<SQLInput> db) {
+		this.db=db;
+	}
 
 	public ArrayList<Course> getAllCourse(String id) {
 		final ArrayList<Course> courseList = new ArrayList<Course>();

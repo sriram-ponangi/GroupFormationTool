@@ -13,11 +13,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.group14.app.models.AllQuestions;
 import com.group14.app.models.Questions;
 import com.group14.app.repositories.QuestionManagerRepository;
+import com.group14.app.services.IAnswerManagerService;
+import com.group14.app.services.IQuestionManagerService;
 
 @Controller
 public class QuestionManagerController {
 	
-	QuestionManagerRepository questionManagerRepository;
+	IQuestionManagerService iQMS;
+	IAnswerManagerService iAMS;
+
+	public QuestionManagerController(IQuestionManagerService iQMS,IAnswerManagerService iAMS) {
+		this.iQMS = iQMS;
+		this.iAMS = iAMS;
+	}
 	
 	private String bannerId;
 
@@ -34,9 +42,9 @@ public class QuestionManagerController {
 			bannerId = principal.toString();
 		}
 		System.out.println("Current instructor's bannerId found = " + bannerId);
-		ArrayList<AllQuestions> questionsList=questionManagerRepository.getAllQuestions(bannerId);
+		ArrayList<AllQuestions> questionsList=iQMS.getAllQuestions(bannerId);
 		model.addAttribute("questionsList", questionsList);
-		model.addAttribute("question", new Questions());
+		model.addAttribute("question", new AllQuestions());
 		return "allQuestions";
 	}
 	
@@ -46,8 +54,8 @@ public class QuestionManagerController {
 	}
 
 	@PostMapping("/instructor/deletequestion")
-	public String assignta(@ModelAttribute Questions question) {
-		return "redirect:/instructor/deletequestion?id=" + question.getQid();
+	public String assignta(@ModelAttribute AllQuestions question) {
+		return "redirect:/instructor/deletequestion?qid=" + question.getQid();
 	}
 
 }

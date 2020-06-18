@@ -31,6 +31,19 @@ public class DependencyInjector {
 	
 	private ICourseRoleMapperRepository ICourseRoleMapperRepository;
 	private ICourseRoleMapperService ICourseRoleMapperService;
+	
+	private IChoicesRepository IChoicesRepository;
+	
+	private ICourseStudRepository ICourseStudRepository;
+	
+	private IUserRepository IUserRepository;
+	
+	private IInstructorActionsService IInstructorActionsService;
+
+	private IInstructorActionsRepository IInstructorActionsRepository;
+	
+	
+
 
 
 	private DependencyInjector() {
@@ -52,6 +65,14 @@ public class DependencyInjector {
 		this.IAnswerManagerService = new AnswerManagerService(this.IAnswerManagerRepository);
 		this.ICourseRoleMapperRepository = new CourseRoleMapperRepository(this.CRUDRepository);
 		this.ICourseRoleMapperService = new CourseRoleMapperService(this.ICourseRoleMapperRepository);
+		
+		this.IChoicesRepository=new ChoicesRepository(this.CRUDRepository);
+
+		this.ICourseStudRepository=new CoursesStudRepository(this.CRUDRepository);
+
+		this.IUserRepository=new UserRepository(this.CRUDRepository);
+		this.IInstructorActionsService = new InstructorActionsService(this.IInstructorActionsRepository);
+		this.IInstructorActionsRepository = new InstructorActions(this.CRUDRepository);
 
 	}
 
@@ -158,6 +179,46 @@ public class DependencyInjector {
 
 	public void setIAnswerManagerService(IAnswerManagerService iAnswerManagerService) {
 		IAnswerManagerService = iAnswerManagerService;
+	}
+	
+	public IChoicesRepository getIChoicesRepository() {
+		return IChoicesRepository;
+	}
+
+	public void setIChoicesRepository(IChoicesRepository iChoicesRepository) {
+		IChoicesRepository = iChoicesRepository;
+	}
+
+	public ICourseStudRepository getICourseStudRepository() {
+		return ICourseStudRepository;
+	}
+
+	public void setICourseStudRepository(ICourseStudRepository iCourseStudRepository) {
+		ICourseStudRepository = iCourseStudRepository;
+	}
+
+	public IUserRepository getIUserRepository() {
+		return IUserRepository;
+	}
+
+	public void setIUserRepository(IUserRepository iUserRepository) {
+		IUserRepository = iUserRepository;
+	}
+	
+	public IInstructorActionsService getIInstructorActionsService() {
+		return IInstructorActionsService;
+	}
+
+	public void setIInstructorActionsService(IInstructorActionsService iInstructorActionsService) {
+		IInstructorActionsService = iInstructorActionsService;
+	}
+
+	public IInstructorActionsRepository getIInstructorActionsRepository() {
+		return IInstructorActionsRepository;
+	}
+
+	public void setIInstructorActionsRepository(IInstructorActionsRepository iInstructorActionsRepository) {
+		IInstructorActionsRepository = iInstructorActionsRepository;
 	}
 
 }

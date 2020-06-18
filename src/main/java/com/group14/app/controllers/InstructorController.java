@@ -1,6 +1,5 @@
 package com.group14.app.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -11,43 +10,45 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.group14.app.models.AppUser;
+import com.group14.app.models.Course;
 import com.group14.app.models.Student;
 import com.group14.app.repositories.AppUserRepository;
-import com.group14.app.repositories.InstructorActions;
+import com.group14.app.services.IInstructorActionsService;
 
 @Controller
 public class InstructorController {
-
-	@Autowired
-	private InstructorActions instructorActions;
 	
-	@Autowired
-	private AppUserRepository appUserRepo;
+	private AppUserRepository appUserRepo = new AppUserRepository();
+	
+	private Course course = new Course();
+	private AppUser mAppUser = new AppUser();
+	private AppUser mAppUserStudent = new AppUser();
+	
+	private IInstructorActionsService instructorActionsService;
 
-	private String courseID;
-	private String bannerId;
-	private String role;
-	private String roleTA = "TA";
-	private String bannerIdStudent;
+	public InstructorController(IInstructorActionsService instructorActionsService) {
+		this.instructorActionsService = instructorActionsService;
+	}
 	
 	@GetMapping("/instructor/assignta")
 	public String AssignTaGET(Model model, @RequestParam(name="id") String courseId) {
+		
 		AppUser appUser = new AppUser();
 		AppUser student = new AppUser();
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (principal instanceof UserDetails) 
 		{
-			bannerId = ((UserDetails)principal).getUsername();
+			mAppUser.setUserId(((UserDetails)principal).getUsername());
 		} 
 		else 
 		{	
-			bannerId = principal.toString();
+			mAppUser.setUserId(principal.toString());
 		}
-		appUser = appUserRepo.findByUserName(bannerId);
-		role = appUser.getCourseRoles().get(courseId);
+		appUser = appUserRepo.findByUserName(mAppUser.getUserId());
+		mAppUser.setCourseRoles(appUser.getCourseRoles());
 		model.addAttribute("studentUser", new Student());
-		this.courseID = courseId;
-		if(role != null && role.equalsIgnoreCase("Instructor")) 
+		course.setcourseId(courseId);
+		if(mAppUser.getCourseRoles().get(course.getcourseId()) != null && mAppUser.getCourseRoles().get(course.getcourseId()).equalsIgnoreCase("Instructor")) 
 		{
 			model.addAttribute("student", student);
 			return "assignta";
@@ -64,8 +65,8 @@ public class InstructorController {
 		
 		AppUser user;
 		
-		user = instructorActions.AddStudentToTAList(courseID, studentUser.getBannerId());
-		bannerIdStudent = studentUser.getBannerId();
+		user = instructorActionsService.AddStudentToTAList(course.getcourseId(), studentUser.getBannerId());
+		mAppUserStudent.setUserId(studentUser.getBannerId());
 		
 		if(user != null)
 		{
@@ -82,7 +83,7 @@ public class InstructorController {
 	
 	@PostMapping("/instructor/assigntasubmit")
 	public String AssignTaPosition(Model model) {
-		int res = instructorActions.GiveTaPermission(bannerIdStudent, roleTA, courseID);
+		int res = instructorActionsService.GiveTaPermission(mAppUserStudent.getUserId(), course.getcourseId());
 		if(res > 1)
 		{
 			model.addAttribute("success", "TA is assigned");
@@ -97,7 +98,7 @@ public class InstructorController {
 	
 	@GetMapping("/instructor/assigntasubmit")
 	public String AssignTaPositionGet(Model model) {
-		int res = instructorActions.GiveTaPermission(bannerIdStudent, roleTA, courseID);
+		int res = instructorActionsService.GiveTaPermission(mAppUserStudent.getUserId(), course.getcourseId());
 		if(res > 0)
 		{
 			model.addAttribute("success", "TA is assigned");

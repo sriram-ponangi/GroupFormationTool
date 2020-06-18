@@ -14,6 +14,24 @@
 <body>
 	<div class="container">
 	<h1><b><i>CSCI-5308 : Questions Manager</i></b></h1>
+	  <div class="container">
+	<div class="container">
+    <form action="#" th:action="@{/instructor/createquestion}" method="post">
+    	<h4>Create a new Question?</h4>
+        <p><input type="submit" value="Yes" /></p>
+    </form>
+    </div>
+    </div>
+    <div class="container">
+	<h3>Delete Question</h3>
+	<h4>Enter Question id</h4>
+	<div class="container">
+	<form action="#" th:action="@{/instructor/deletequestion}" th:object="${question}" method="post">
+        <p><input type="number" th:field="*{qid}"/>
+        <input type="submit" value="Submit" /></p>
+	</form>
+    </div>
+    </div>
 	<h4>All Questions</h4>
 	<h5>Click on the Column Name to Sort questions based on that column.</h5>
 	<table border=4 id="questionsTable" class="table">
@@ -27,7 +45,7 @@
         </thead>
         <tbody>
 	        <tr th:each="question, itemStat: *{questionsList}">
-	        	<td><span th:text="${question.questionId}"></span></td>
+	        	<td><span th:text="${question.qid}"></span></td>
 	            <td><span th:text="${question.title}"></span></td>
 	            <td><span th:text="${question.text}"></span></td>
 	            <td><span th:text="${question.createdDate}"></span></td>            
@@ -36,24 +54,7 @@
     </table>
     <br/>
     <br/>
-    <div class="container">
-	<div class="container">
-    <form action="#" th:action="@{/instructor/createquestion}" method="post">
-    	<h4>Create a new Question?</h4>
-        <p><input type="submit" value="Yes" /></p>
-    </form>
-    </div>
-    </div>
-    <div class="container">
-	<h3>Delete Question</h3>
-	<h4>Enter Question id</h4>
-	<div class="container">
-	<form action="#" th:action="@{/instructor/deletequestion}" th:object="${question}" method="post">
-        <p><input type="text" th:field="*{questionId}"/>
-        <input type="submit" value="Submit" /></p>
-	</form>
-    </div>
-    </div>   
+     
     </div> 
     <script>
 		function sortTable(n) {

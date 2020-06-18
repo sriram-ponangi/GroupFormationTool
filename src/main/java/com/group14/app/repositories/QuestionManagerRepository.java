@@ -50,7 +50,7 @@ public class QuestionManagerRepository implements IQuestionManagerRepository {
 	
 
 	@Override
-	public String FindRoleForID(String id) {
+	public String FindRoleForID(int id) {
 
 		String SQL_FIND_ROLE = "select instructor_id from AllQuestions where question_id= ?";
 		List<Object> params = new ArrayList<>();

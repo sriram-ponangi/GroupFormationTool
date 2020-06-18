@@ -83,14 +83,14 @@ public class QuestionsTest {
 	void setCreatedDateTest() {
 		AllQuestions question = new AllQuestions();
 		question.setCreatedDate(Timestamp.valueOf("2016-11-16 06:43:19.77"));
-		assertEquals(question.createdDate, Timestamp.valueOf("2016-11-16 06:43:19.77"));
+		assertEquals(question.getCreatedDate(), Timestamp.valueOf("2016-11-16 06:43:19.77"));
 	}
 	
 	@Test
 	void getCreatedDateTest() {
 		AllQuestions question = new AllQuestions();
 		question.setCreatedDate(Timestamp.valueOf("2016-11-16 06:43:19.77"));
-		assertEquals(question.createdDate, Timestamp.valueOf("2016-11-16 06:43:19.77"));
+		assertEquals(question.getCreatedDate(), Timestamp.valueOf("2016-11-16 06:43:19.77"));
 	}
 	
 }
