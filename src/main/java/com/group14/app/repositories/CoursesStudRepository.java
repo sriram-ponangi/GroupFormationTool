@@ -4,14 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-import com.group14.app.models.Course;
+import com.group14.app.models.Courses;
 import com.group14.app.models.SQLInput;
 import com.group14.app.utils.CRUDRepository;
-import com.group14.app.utils.MySQLDBOperations;
 
 @Repository
 public class CoursesStudRepository implements ICourseStudRepository {
@@ -22,8 +19,8 @@ public class CoursesStudRepository implements ICourseStudRepository {
 		this.db = db;
 	}
 
-	public ArrayList<Course> getAllCourse(String id) {
-		final ArrayList<Course> courseList = new ArrayList<Course>();
+	public ArrayList<Courses> getAllCourse(String id) {
+		final ArrayList<Courses> courseList = new ArrayList<Courses>();
 
 		List<Object> params = new ArrayList<>();
 		params.add(id);
@@ -33,9 +30,9 @@ public class CoursesStudRepository implements ICourseStudRepository {
 		if (courseData != null) {
 
 			courseData.stream().forEach(row -> {
-				Course course = new Course();
-				course.setcourseId((String) row.get("course_id"));
-				course.setcourseName((String) row.get("name"));
+				Courses course = new Courses();
+				course.setCid((String) row.get("course_id"));
+				course.setName((String) row.get("name"));
 				course.setYear((String) row.get("year"));
 				course.setTerm((String) row.get("term"));
 				course.setDescription((String) row.get("description"));
@@ -48,8 +45,8 @@ public class CoursesStudRepository implements ICourseStudRepository {
 		return courseList;
 	}
 
-	public ArrayList<Course> getAssignedCourse(String id) {
-		final ArrayList<Course> courseList = new ArrayList<Course>();
+	public ArrayList<Courses> getAssignedCourse(String id) {
+		final ArrayList<Courses> courseList = new ArrayList<Courses>();
 
 		List<Object> params = new ArrayList<>();
 		params.add(id);
@@ -59,9 +56,9 @@ public class CoursesStudRepository implements ICourseStudRepository {
 		if (courseData != null) {
 
 			courseData.stream().forEach(row -> {
-				Course course = new Course();
-				course.setcourseId((String) row.get("course_id"));
-				course.setcourseName((String) row.get("name"));
+				Courses course = new Courses();
+				course.setCid((String) row.get("course_id"));
+				course.setName((String) row.get("name"));
 				course.setYear((String) row.get("year"));
 				course.setTerm((String) row.get("term"));
 				course.setDescription((String) row.get("description"));

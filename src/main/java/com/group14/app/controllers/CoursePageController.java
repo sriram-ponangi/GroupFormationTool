@@ -7,9 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.group14.app.models.Course;
+import com.group14.app.models.Courses;
 import com.group14.app.models.UserPrincipal;
-
 import com.group14.app.repositories.ICourseStudRepository;
 
 @Controller
@@ -26,7 +25,7 @@ public class CoursePageController {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		UserPrincipal userPrincipal = (UserPrincipal) principal;
 		String uid = userPrincipal.getUser().getUserId();
-		ArrayList<Course> courseList = ICourseStudRepository.getAssignedCourse(uid);
+		ArrayList<Courses> courseList = ICourseStudRepository.getAssignedCourse(uid);
 		model.addAttribute("courseList", courseList);
 		return "TAandInstructorCourses";
 	}
@@ -36,7 +35,7 @@ public class CoursePageController {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		UserPrincipal userPrincipal = (UserPrincipal) principal;
 		String uid = userPrincipal.getUser().getUserId();
-		ArrayList<Course> courseList = ICourseStudRepository.getAllCourse(uid);
+		ArrayList<Courses> courseList = ICourseStudRepository.getAllCourse(uid);
 		model.addAttribute("courseList", courseList);
 
 		return "StudentCourses";
