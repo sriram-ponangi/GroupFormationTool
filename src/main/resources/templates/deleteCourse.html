@@ -1,54 +1,52 @@
 <!DOCTYPE HTML>
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
-    <title>Getting Started: Handling Form Submission</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-     <link rel="stylesheet" href="/css/form.css" type="text/css">
+<title>Getting Started: Handling Form Submission</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="/css/form.css" type="text/css">
 
 </head>
 <body>
-<center>
-<div>
-<div th:replace="header :: header"></div>
-<h1>All Courses</h1>
+	<center>
+		<div>
+			<div th:replace="header :: header"></div>
+			<h1>All Courses</h1>
 
-<table id="course">
-<tr>
-<th>Course ID</th>
-<th>Course Name</th>
-<th> Term </th>
-<th> Year </th>
-<tr>
+			<table id="course">
+				<tr>
+					<th>Course ID</th>
+					<th>Course Name</th>
+					<th>Term</th>
+					<th>Year</th>
+				<tr>
+				<tr th:each="course, itemStat: *{allCourse}">
+					<td th:text="*{allCourse[__${itemStat.index}__].cid}" />
+					<td th:text="*{allCourse[__${itemStat.index}__].name}" />
+					<td th:text="*{allCourse[__${itemStat.index}__].term}" />
+					<td th:text="*{allCourse[__${itemStat.index}__].year}" />
+				</tr>
+			</table>
+		</div>
+	</center>
+	<h2>Delete Course</h2>
+	<div>
+		<form action="#" th:action="@{/admin/deleteCourse}"
+			th:object="${deleteCourse}" method="post">
+			<table border="2">
+				<tr>
+					<td>Course Id (CSCI XXXX)</td>
+					<td><input type="text" th:field="*{cid}" /></td>
+				</tr>
 
-<tr th:each="course, itemStat: *{allCourse}">
-	<td th:text="*{allCourse[__${itemStat.index}__].cid}" />
-    <td th:text="*{allCourse[__${itemStat.index}__].name}" />
-    <td th:text="*{allCourse[__${itemStat.index}__].term}" />
-    <td th:text="*{allCourse[__${itemStat.index}__].year}" />
-</tr>
-</table>
-</div>
-</center>
-<h2>Delete Course</h2>
-<div>
-    <form action="#" th:action="@{/admin/deleteCourse}" th:object="${deleteCourse}" method="post">
-    <table border="2">
-    	<tr>
-    	<td>Course Id (CSCI XXXX)</td>
-    	<td><input type="text" th:field="*{cid}" /></td>
-    	</tr>
- 		
-    	<tr>
-    	<td></td>
-    	<td>
-    	<input type="submit" value="Submit" />
-    	</td>
-    	</tr>
-    	
-        
-    </table>
-    </form>
-    </div>
+				<tr>
+					<td></td>
+					<td><input type="submit" value="Submit" /></td>
+				</tr>
+
+
+			</table>
+		</form>
+	</div>
 
 </body>
 </html>

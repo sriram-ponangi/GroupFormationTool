@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<title>CSCI 5308: Answer Setter</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script>
+	var ct = 1;
+	function new_link() {
+		ct++;
+		var div1 = document.createElement('div');
+		div1.id = ct;
+		// link to delete extended form elements
+		var delLink = '<div style="text-align:right;margin-right:65px"><button onclick="javascript:delIt('
+				+ ct + ')" value="Delete Answer">Delete Answer</button></div>';
+		div1.innerHTML = document.getElementById('newlinktpl').innerHTML
+				+ delLink;
+		document.getElementById('newlink').appendChild(div1);
+	}
+	function delIt(eleId) {
+		d = document;
+		var ele = d.getElementById(eleId);
+		var parentEle = d.getElementById('newlink');
+		parentEle.removeChild(ele);
+	}
+
+	function storedVal() {
+
+		document.getElementById("myNumber").stepUp();
+	}
+</script>
+
+<style>
+#newlink {
+	width: 600px
+}
+</style>
+
+</head>
+<body>
+	<h2>
+		<b><i>Answers</i></b>
+	</h2>
+
+	<form action="#" th:action="@{/instructor/insertMCQ}"
+		th:object="${question}" method="post">
+		<div>
+			<p>
+				Title: <input type="text" th:attr="value = ${question.title}"
+					th:field="*{title}" />
+			</p>
+			<p>
+				Text: <input type="text" th:attr="value = ${question.text}"
+					th:field="*{text}" />
+			</p>
+			<p>
+				Type: <input type="text" th:attr="value = ${question.type}"
+					th:field="*{type}" />
+			</p>
+		</div>
+		<div id="newlink">
+			<div>
+				<p>
+					Display Text: <input name="dt[]" type="text"
+						th:field="*{displayText}" /> Stored As: <input name="sa[]"
+						type="text" th:field="*{storedAs}" />
+				</p>
+
+			</div>
+		</div>
+		<p>
+			<input type="button" onclick="javascript:new_link()"
+				value="More Answers" /> <br />
+		<p>
+			<input type="submit" value="Submit" /> <br />
+		</p>
+
+	</form>
+
+
+
+	<div id="newlinktpl" style="display: none">
+		<div>
+			<p>
+				Display Text: <input name="dt[]" type="text"
+					th:field="${question.displayText}" /> Stored As: <input name="sa[]"
+					type="text" th:field="${question.storedAs}" />
+			</p>
+		</div>
+	</div>
+
+</body>
+
+</html>

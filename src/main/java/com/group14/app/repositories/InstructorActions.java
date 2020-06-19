@@ -11,38 +11,42 @@ import org.springframework.stereotype.Repository;
 import com.group14.app.models.AppUser;
 import com.group14.app.models.SQLInput;
 import com.group14.app.services.IInstructorActionsService;
+import com.group14.app.utils.CRUDRepository;
 import com.group14.app.utils.MySQLDBOperations;
 
 @Repository
-public class InstructorActions implements IInstructorActionsService {
-	
-	@Autowired
-	private AppUserRepository appUserRepo;
-	
-	@Autowired
-	private MySQLDBOperations db;
-	
-	private static final Logger LOG = LoggerFactory.getLogger(AppUserRepository.class);
+public class InstructorActions implements IInstructorActionsRepository {
+
+	private IAppUserRepository appUserRepo;
+
+	private CRUDRepository<SQLInput> db;
+
+	private static final Logger LOG = LoggerFactory.getLogger(AppUserRepository.class);	
+
+	public InstructorActions(IAppUserRepository appUserRepo, CRUDRepository<SQLInput> db) {
+		this.appUserRepo = appUserRepo;
+		this.db = db;
+	}
 
 	@Override
-	public AppUser AddStudentToTAList(String courseId, String bannerId) {		
-			AppUser appUser = new AppUser();
-			appUser = appUserRepo.findByUserName(bannerId);
-			LOG.info("AppUser is found");
-			return appUser;
+	public AppUser AddStudentToTAList(String courseId, String bannerId) {
+		AppUser appUser = new AppUser();
+		appUser = appUserRepo.findByUserName(bannerId);
+		LOG.info("AppUser is found");
+		return appUser;
 	}
 
 	@Override
 	public int GiveTaPermission(String bannerId, String role, String courseId) {
 		String query = "Update CourseRoleMapper set role_id= ? WHERE user_id= ? AND course_id=?";
-		List<String> params = new ArrayList<>();
+		List<Object> params = new ArrayList<>();
 		params.add(role);
 		params.add(bannerId);
 		params.add(courseId);
-		
+
 		System.out.println(params);
-		
-		int rowsUpdated = db.save(new SQLInput( query, params));
+
+		int rowsUpdated = db.save(new SQLInput(query, params));
 		LOG.info("Database Updated");
 		return rowsUpdated;
 	}

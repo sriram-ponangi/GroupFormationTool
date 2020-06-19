@@ -7,29 +7,25 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-import com.group14.app.models.Course;
+import com.group14.app.models.Courses;
 
 class CourseRepositoryTest {
 
-	private CoursesStudRepository cr=mock(CoursesStudRepository.class);
+	private CoursesStudRepository cr = mock(CoursesStudRepository.class);
 
-	ArrayList<Course> list=new ArrayList<>();
-	Course c=new Course();
-	
-	
+	ArrayList<Courses> list = new ArrayList<>();
+	Courses c = new Courses();
+
 	@Test
-	
 	void showCourseTest() {
-		
+
 		when(this.cr.getAllCourse("B00100001")).thenReturn(list);
 	}
-	
 
 	@Test
-	
 	void showSpecificCourseTest() {
-		
+
 		when(this.cr.getAssignedCourse("B00100001")).thenReturn(list);
 	}
-	
+
 }
