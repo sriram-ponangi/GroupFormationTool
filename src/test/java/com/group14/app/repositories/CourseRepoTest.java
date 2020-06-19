@@ -19,7 +19,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.group14.app.models.Course;
 import com.group14.app.models.Courses;
 import com.group14.app.models.SQLInput;
 import com.group14.app.utils.CRUDRepository;

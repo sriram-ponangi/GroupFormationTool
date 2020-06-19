@@ -1,12 +1,12 @@
 package com.group14.app.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import java.sql.*;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-import com.group14.app.models.Forgotpassword;
+
+import com.group14.app.models.AppUser;
 import com.group14.app.repositories.ForgotPasswordRepository;
 
 @Service
@@ -29,14 +29,14 @@ public class EmailService {
 
 	}
 
-	public void sendMail(Forgotpassword forgotpassword) throws MailException {
+	public void sendMail(AppUser forgotpassword) throws MailException {
 		SimpleMailMessage mail = new SimpleMailMessage();
-		email = fPR.readEmail(forgotpassword.getBanner().toString());
+		email = fPR.readEmail(forgotpassword.getUserId().toString());
 		mail.setTo(email);
 		mail.setFrom("group14sdc@gmail.com");
 		mail.setSubject("Forgot Password Link");
 
-		pass = fPR.readPass(forgotpassword.getBanner().toString());
+		pass = fPR.readPass(forgotpassword.getUserId().toString());
 
 		mail.setText("Your password is " + pass);
 

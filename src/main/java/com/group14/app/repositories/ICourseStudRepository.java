@@ -2,11 +2,11 @@ package com.group14.app.repositories;
 
 import java.util.ArrayList;
 
-import com.group14.app.models.Course;
+import com.group14.app.models.Courses;
 
 public interface ICourseStudRepository {
-	public ArrayList<Course> getAllCourse(String id);
+	public ArrayList<Courses> getAllCourse(String id);
 
-	public ArrayList<Course> getAssignedCourse(String id);
+	public ArrayList<Courses> getAssignedCourse(String id);
 
 }
