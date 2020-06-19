@@ -12,7 +12,7 @@ import com.group14.app.utils.MySQLDBOperations;
 @Repository
 public class UserRepository implements IUserRepository {
 
-	private CRUDRepository<SQLInput> db = new MySQLDBOperations();
+	private CRUDRepository<SQLInput> db;
 
 	public UserRepository(CRUDRepository<SQLInput> db) {
 		this.db = db;

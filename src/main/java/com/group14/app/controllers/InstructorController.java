@@ -10,24 +10,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.group14.app.models.AppUser;
-import com.group14.app.models.Course;
-import com.group14.app.models.Student;
-import com.group14.app.repositories.AppUserRepository;
+import com.group14.app.models.Courses;
+import com.group14.app.repositories.IAppUserRepository;
 import com.group14.app.services.IInstructorActionsService;
 
 @Controller
 public class InstructorController {
 
-	private AppUserRepository appUserRepo = new AppUserRepository();
+	private IAppUserRepository appUserRepo;
 
-	private Course course = new Course();
+	private Courses course = new Courses();
 	private AppUser mAppUser = new AppUser();
 	private AppUser mAppUserStudent = new AppUser();
 
 	private IInstructorActionsService instructorActionsService;
 
-	public InstructorController(IInstructorActionsService instructorActionsService) {
+	public InstructorController(IInstructorActionsService instructorActionsService, IAppUserRepository appUserRepo) {
 		this.instructorActionsService = instructorActionsService;
+		this.appUserRepo = appUserRepo;
 	}
 
 	@GetMapping("/instructor/assignta")
@@ -43,10 +43,10 @@ public class InstructorController {
 		}
 		appUser = appUserRepo.findByUserName(mAppUser.getUserId());
 		mAppUser.setCourseRoles(appUser.getCourseRoles());
-		model.addAttribute("studentUser", new Student());
-		course.setcourseId(courseId);
-		if (mAppUser.getCourseRoles().get(course.getcourseId()) != null
-				&& mAppUser.getCourseRoles().get(course.getcourseId()).equalsIgnoreCase("Instructor")) {
+		model.addAttribute("studentUser", new AppUser());
+		course.setCid(courseId);
+		if (mAppUser.getCourseRoles().get(course.getCid()) != null
+				&& mAppUser.getCourseRoles().get(course.getCid()).equalsIgnoreCase("Instructor")) {
 			model.addAttribute("student", student);
 			return "assignta";
 		} else {
@@ -56,12 +56,12 @@ public class InstructorController {
 	}
 
 	@PostMapping("instructor/assignta")
-	public String AssignTaPost(@ModelAttribute("studentUser") Student studentUser, Model model) {
+	public String AssignTaPost(@ModelAttribute("studentUser") AppUser studentUser, Model model) {
 
 		AppUser user;
 
-		user = instructorActionsService.AddStudentToTAList(course.getcourseId(), studentUser.getBannerId());
-		mAppUserStudent.setUserId(studentUser.getBannerId());
+		user = instructorActionsService.AddStudentToTAList(course.getCid(), studentUser.getUserId());
+		mAppUserStudent.setUserId(studentUser.getUserId());
 
 		if (user != null) {
 			user.setFirstName(user.getFirstName() + " " + user.getLastName());
@@ -75,7 +75,7 @@ public class InstructorController {
 
 	@PostMapping("/instructor/assigntasubmit")
 	public String AssignTaPosition(Model model) {
-		int res = instructorActionsService.GiveTaPermission(mAppUserStudent.getUserId(), course.getcourseId());
+		int res = instructorActionsService.GiveTaPermission(mAppUserStudent.getUserId(), course.getCid());
 		if (res > 1) {
 			model.addAttribute("success", "TA is assigned");
 			return "assignta";
@@ -87,7 +87,7 @@ public class InstructorController {
 
 	@GetMapping("/instructor/assigntasubmit")
 	public String AssignTaPositionGet(Model model) {
-		int res = instructorActionsService.GiveTaPermission(mAppUserStudent.getUserId(), course.getcourseId());
+		int res = instructorActionsService.GiveTaPermission(mAppUserStudent.getUserId(), course.getCid());
 		if (res > 0) {
 			model.addAttribute("success", "TA is assigned");
 			return "assignta";

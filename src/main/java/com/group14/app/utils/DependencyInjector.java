@@ -41,6 +41,8 @@ public class DependencyInjector {
 	private IInstructorActionsService IInstructorActionsService;
 
 	private IInstructorActionsRepository IInstructorActionsRepository;
+	
+	private IAppUserRepository IAppUserRepository;
 
 	private DependencyInjector() {
 		this.CRUDRepository = new MySQLDBOperations();
@@ -67,8 +69,11 @@ public class DependencyInjector {
 		this.ICourseStudRepository = new CoursesStudRepository(this.CRUDRepository);
 
 		this.IUserRepository = new UserRepository(this.CRUDRepository);
-		this.IInstructorActionsService = new InstructorActionsService(this.IInstructorActionsRepository);
-		this.IInstructorActionsRepository = new InstructorActions(this.CRUDRepository);
+		this.IInstructorActionsService = new InstructorActionsService(this.IInstructorActionsRepository);		
+		
+		this.IAppUserRepository = new AppUserRepository(this.CRUDRepository);
+		
+		this.IInstructorActionsRepository = new InstructorActions(this.IAppUserRepository, this.CRUDRepository);
 
 	}
 
@@ -213,6 +218,38 @@ public class DependencyInjector {
 
 	public void setIInstructorActionsRepository(IInstructorActionsRepository iInstructorActionsRepository) {
 		IInstructorActionsRepository = iInstructorActionsRepository;
+	}
+
+	public IEmailSenderService getIEmailSenderService() {
+		return IEmailSenderService;
+	}
+
+	public void setIEmailSenderService(IEmailSenderService iEmailSenderService) {
+		IEmailSenderService = iEmailSenderService;
+	}
+
+	public ICourseRoleMapperRepository getICourseRoleMapperRepository() {
+		return ICourseRoleMapperRepository;
+	}
+
+	public void setICourseRoleMapperRepository(ICourseRoleMapperRepository iCourseRoleMapperRepository) {
+		ICourseRoleMapperRepository = iCourseRoleMapperRepository;
+	}
+
+	public ICourseRoleMapperService getICourseRoleMapperService() {
+		return ICourseRoleMapperService;
+	}
+
+	public void setICourseRoleMapperService(ICourseRoleMapperService iCourseRoleMapperService) {
+		ICourseRoleMapperService = iCourseRoleMapperService;
+	}
+
+	public IAppUserRepository getIAppUserRepository() {
+		return IAppUserRepository;
+	}
+
+	public void setIAppUserRepository(IAppUserRepository iAppUserRepository) {
+		IAppUserRepository = iAppUserRepository;
 	}
 
 }

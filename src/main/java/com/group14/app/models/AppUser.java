@@ -24,6 +24,18 @@ public class AppUser {
 	public AppUser() {
 	}
 
+
+	public AppUser(String bannerId, String firstName, String lastName) {
+		super();
+		this.firstName = firstName;
+		this.userId = bannerId;
+		this.lastName = lastName;
+	}
+	
+	public AppUser(String bannerID) {
+		super();
+		this.userId = bannerID;
+	}
 	public AppUser(String userId, String firstName, String lastName, String email) {
 		this.userId = userId;
 		this.password = getRandomPassword();
@@ -187,5 +199,18 @@ public class AppUser {
 			return false;
 		}
 	}
+	
+	public Boolean isValidStudent() {
+		return isValidBannerId() && isValidName() ? true : false;
+
+	}
+
+	private Boolean isValidBannerId() {
+		if (this.getUserId() != null && this.getUserId().length() > 0)
+			return this.getUserId().matches("B00\\d{6}");
+		return false;
+	}
+
+	
 
 }

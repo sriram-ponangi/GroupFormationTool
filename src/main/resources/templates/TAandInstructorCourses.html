@@ -14,7 +14,7 @@
 	<h2>
 		<center>List of Courses Assigned</center>
 	</h2>
-	<!-- p th:text="'Course Name : ' + ${course.courseName}" /-->
+
 	<center>
 		<table border=4>
 			<tr>
@@ -28,8 +28,8 @@
 
 			<tr th:each="course, itemStat: *{courseList}">
 
-				<td><span th:text="${course.courseId}"></span></td>
-				<td><span th:text="${course.courseName}"></span></td>
+				<td><span th:text="${course.cid}"></span></td>
+				<td><span th:text="${course.name}"></span></td>
 				<td><span th:text="${course.year}"></span></td>
 				<td><span th:text="${course.term}"></span></td>
 				<td><span th:text="${course.description}"></span></td>
