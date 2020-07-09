@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 public class AllQuestions {
 
 	private int qid;
-	private String instructor_id;
+	private String instructorId;
 	private String title;
 	private String text;
 	private String type;
@@ -22,11 +22,11 @@ public class AllQuestions {
 	}
 
 	public String getInstructor_id() {
-		return instructor_id;
+		return instructorId;
 	}
 
 	public void setInstructor_id(String instructor_id) {
-		this.instructor_id = instructor_id;
+		this.instructorId = instructor_id;
 	}
 
 	public String getTitle() {
@@ -79,7 +79,7 @@ public class AllQuestions {
 
 	@Override
 	public String toString() {
-		return "AllQuestions [qid=" + qid + ", instructor_id=" + instructor_id + ", title=" + title + ", text=" + text
+		return "AllQuestions [qid=" + qid + ", instructor_id=" + instructorId + ", title=" + title + ", text=" + text
 				+ ", type=" + type + ", createdDate=" + createdDate + ", storedAs=" + storedAs + ", displayText="
 				+ displayText + "]";
 	}

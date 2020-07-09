@@ -69,4 +69,33 @@ public class QuestionManagerRepository implements IQuestionManagerRepository {
 
 	}
 
+	@Override
+	public AllQuestions getQuestionDetailsById(String questionId) {
+		final String SQL = "SELECT * FROM AllQuestions WHERE question_id = ?";
+		final List<Object> params = new ArrayList<>();
+		params.add(questionId);
+
+		final AllQuestions questionInfo = new AllQuestions();
+
+		List<HashMap<String, Object>> questionsData = db.readData(new SQLInput(SQL, params));
+
+		if (questionsData != null) {
+			questionsData.stream().forEach(row -> {
+				questionInfo.setInstructor_id("instructor_id");
+				questionInfo.setQid((int) row.get("question_id"));
+				questionInfo.setTitle((String) row.get("title"));
+				questionInfo.setText((String) row.get("text"));
+				Timestamp d = (Timestamp) row.get("created_date");
+				questionInfo.setCreatedDate(d);
+				questionInfo.setType((String) row.get("type"));
+				
+			});
+		}
+		else {
+			System.out.println("Could not Execute: " + SQL);
+			return null;
+		}
+		return questionInfo;
+	}
+
 }
