@@ -2,6 +2,7 @@ package com.group14.app.services;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -59,7 +60,16 @@ public class GroupFormationAlgorithmService implements IGroupFormationAlgorithmS
 		}
 		
 		List<SurveyRuleMapper> surveyQuestionRules = info.getAlgorithmRules();
-		groupFormationAlgorithmRepository.saveSurveyRules(surveyQuestionRules);
+		groupFormationAlgorithmRepository.saveAlgorithmRules(surveyQuestionRules);
+	}
+	
+	@Override
+	public Map<Integer,SurveyRuleMapper> mapQuestionIdWithSavedAlgorithmRules(List<SurveyQuestionMapper> surveyQuestions){
+		final Map<Integer,SurveyRuleMapper> savedRules = new HashMap<>();
+		surveyQuestions.stream().forEach(e -> {
+			savedRules.put(e.getQuestionId(), this.groupFormationAlgorithmRepository.getSavedAlgorithmRules(e.getResponseId()) );
+		});
+		return savedRules;
 	}
 
 }

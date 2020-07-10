@@ -37,12 +37,9 @@ public class MySQLDBOperations implements CRUDRepository<SQLInput> {
 			DB_USER = "CSCI5308_14_PRODUCTION_USER";
 			DB_PASSWORD = "CSCI5308_14_PRODUCTION_14739";
 		} else {
-//			DB_HOST = "jdbc:mysql://db-5308.cs.dal.ca:3306/CSCI5308_14_DEVINT?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-//			DB_USER = "CSCI5308_14_DEVINT_USER";
-//			DB_PASSWORD = "CSCI5308_14_DEVINT_14103";
-			DB_HOST = "jdbc:mysql://localhost:3306/csci5308_group14?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-			DB_USER = "root";
-			DB_PASSWORD = "default";
+			DB_HOST = "jdbc:mysql://db-5308.cs.dal.ca:3306/CSCI5308_14_DEVINT?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+			DB_USER = "CSCI5308_14_DEVINT_USER";
+			DB_PASSWORD = "CSCI5308_14_DEVINT_14103";
 		}
 		LOG.info("Connected Database: {}", DB_HOST);
 

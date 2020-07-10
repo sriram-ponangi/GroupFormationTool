@@ -15,10 +15,10 @@ import com.group14.app.utils.CRUDRepository;
 
 @Repository
 public class GroupFormationAlgorithmRepository implements IGroupFormationAlgorithmRepository {
-	
+
 	private CRUDRepository<SQLInput> db;
 
-	private static final Logger LOG = LoggerFactory.getLogger(GroupFormationAlgorithmRepository.class);	
+	private static final Logger LOG = LoggerFactory.getLogger(GroupFormationAlgorithmRepository.class);
 
 	public GroupFormationAlgorithmRepository(CRUDRepository<SQLInput> db) {
 		this.db = db;
@@ -27,7 +27,7 @@ public class GroupFormationAlgorithmRepository implements IGroupFormationAlgorit
 	@Override
 	public List<GroupFormationAlgoRule> getAllGroupFormationAlgoRules() {
 		final String SQL = "SELECT * FROM GroupFormationAlgorithmRules";
-		final List<Object> params = new ArrayList<>();		
+		final List<Object> params = new ArrayList<>();
 
 		final List<GroupFormationAlgoRule> rules = new ArrayList<>();
 
@@ -39,61 +39,62 @@ public class GroupFormationAlgorithmRepository implements IGroupFormationAlgorit
 				rule.setDescription((String) row.get("description"));
 				rule.setName((String) row.get("name"));
 				rule.setQuestionType((String) row.get("question_type"));
-				rule.setRuleId((Integer) row.get("rule_id"));		
-				
+				rule.setRuleId((Integer) row.get("rule_id"));
+
 				rules.add(rule);
 			});
-		}
-		else {
-			LOG.debug("Could not Execute: " + SQL);
+		} else {
+			LOG.error("Could not Execute: " + SQL);
 			return null;
 		}
 		return rules;
 	}
 
 	@Override
-	public int getSavedSurveyRuleId(String responseId) {
-		final String SQL = "SELECT rule_id FROM SurveyRuleMapper WHERE response_id= ?";
-		final List<Object> params = new ArrayList<>();		
-		params.add(responseId);
-		final GroupFormationAlgoRule rule = new GroupFormationAlgoRule();
-
-		List<HashMap<String, Object>> rulesData = db.readData(new SQLInput(SQL, params));
-
-		if (rulesData != null) {
-			rulesData.stream().forEach(row -> {				
-				rule.setRuleId((Integer) row.get("rule_id"));				
-			});
-		}
-		else {
-			LOG.debug("Could not Execute: " + SQL);
-			return -1;
-		}
-		return rule.getRuleId();
-	}
-
-	@Override
-	public void saveSurveyRules(List<SurveyRuleMapper> surveyQuestionRules) {
+	public void saveAlgorithmRules(List<SurveyRuleMapper> surveyQuestionRules) {
+		// Inserting or Updating the survey rules.
 		final String INSERT_SQL = "INSERT INTO  SurveyRuleMapper (rule_id, additional_info, response_id) VALUES (?, ?, ?)";
 		final String UPDATE_SQL = "UPDATE SurveyRuleMapper SET rule_id = ? , additional_info = ? WHERE response_id = ?";
 		final String SELECT_SQL = "SELECT * FROM SurveyRuleMapper WHERE response_id = ? ";
-		
-		for(SurveyRuleMapper rule : surveyQuestionRules) {
+
+		for (SurveyRuleMapper rule : surveyQuestionRules) {
 			final List<Object> params = new ArrayList<>();
 			params.add(rule.getRuleId());
 			params.add(rule.getAdditionalInfo());
 			params.add(rule.getResponseId());
-			
+
 			final List<Object> selectParams = new ArrayList<>();
 			selectParams.add(rule.getResponseId());
-			if(db.existsById(new SQLInput(SELECT_SQL, selectParams))) {
-				LOG.info("Updating the RULE for responseId = {}",rule.getResponseId() );
+			if (db.existsById(new SQLInput(SELECT_SQL, selectParams))) {
+				LOG.debug("Updating the RULE for responseId = {}", rule.getResponseId());
 				db.save(new SQLInput(UPDATE_SQL, params));
-			}else {
-				LOG.info("Inserting the RULE for responseId = {}",rule.getResponseId() );
+			} else {
+				LOG.debug("Inserting the RULE for responseId = {}", rule.getResponseId());
 				db.save(new SQLInput(INSERT_SQL, params));
-			}			
-		}		
+			}
+		}
+	}
+
+	@Override
+	public SurveyRuleMapper getSavedAlgorithmRules(Integer surveyResponseId) {
+		final String SQL = "SELECT * FROM SurveyRuleMapper WHERE response_id= ?";
+		final List<Object> params = new ArrayList<>();
+		params.add(surveyResponseId);
+		final SurveyRuleMapper savedRule = new SurveyRuleMapper();
+
+		List<HashMap<String, Object>> savedRulesData = db.readData(new SQLInput(SQL, params));
+
+		if (savedRulesData != null) {
+			savedRulesData.stream().forEach(row -> {
+				savedRule.setRuleId((Integer) row.get("rule_id"));
+				savedRule.setResponseId((Integer) row.get("response_id"));
+				savedRule.setAdditionalInfo((String) row.get("additional_info"));
+			});
+		} else {
+			LOG.error("Could not Execute: " + SQL);
+			return savedRule;
+		}
+		return savedRule;
 	}
 
 }

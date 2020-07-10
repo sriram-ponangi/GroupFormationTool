@@ -64,14 +64,20 @@
 								<select th:name="'algorithmRules[' + ${iter.index} + '].ruleId' ">
 										<option th:each="rule : ${allAlgorithmRules}"											
 											th:if="${rule.questionType==question.type}"
-											th:value="${rule.ruleId}" th:text="${rule.name}"></option>
+											th:value="${rule.ruleId}" th:text="${rule.name}"
+											th:selected="${savedRulesInfo.get(question.qid).ruleId == rule.ruleId}"
+											></option>
 								</select>
 								 <input type="hidden"
 									th:name="'algorithmRules[' + ${iter.index} + '].responseId' "
 									th:value="${questionsResponseIds.get(question.qid)}">
 								</td>
 								<td>
-								<input type="text" th:field="${algoInfo.algorithmRules[__${iter.index}__].additionalInfo}">
+								<input type="text"  th:name="'algorithmRules[' + ${iter.index} + '].additionalInfo'"
+								th:value="${savedRulesInfo.get(question.qid).additionalInfo}"
+								>
+								<!-- th:name="${algoInfo.algorithmRules[__${iter.index}__].additionalInfo}" -->								
+								
 								</td>
 							</tr>							
 
