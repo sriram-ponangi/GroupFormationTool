@@ -91,7 +91,7 @@ public class GroupFormationAlgorithmRepository implements IGroupFormationAlgorit
 		final SurveyRuleMapper savedRule = new SurveyRuleMapper();
 
 		List<HashMap<String, Object>> savedRulesData = db.readData(new SQLInput(SQL, params));
-		System.out.println("savedRulesData "+ savedRulesData);
+		
 		if (savedRulesData != null) {
 			savedRulesData.stream().forEach(row -> {
 				savedRule.setRuleId((Integer) row.get("rule_id"));

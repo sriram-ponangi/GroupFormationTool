@@ -62,12 +62,14 @@ public class GroupFormationAlgorithmController {
 			List<GroupFormationAlgoRule> allAlgorithmRules = groupFormationAlgorithmRepository
 					.getAllGroupFormationAlgoRules();
 
+			Map<Integer, Integer> questionsResponseIds = groupFormationAlgorithmService
+					.mapQuestionIdWithResponseIdForSurvey(surveyQuestions);
+
 			Map<Integer, SurveyRuleMapper> savedRulesInfo = groupFormationAlgorithmService
 					.mapQuestionIdWithSavedAlgorithmRules(surveyQuestions);
 
 			model.addAttribute("survey", survey);
-			model.addAttribute("questionsResponseIds",
-					groupFormationAlgorithmService.mapQuestionIdWithResponseIdForSurvey(surveyQuestions));
+			model.addAttribute("questionsResponseIds", questionsResponseIds);
 			model.addAttribute("savedRulesInfo", savedRulesInfo);
 			model.addAttribute("surveyQuestionInfoList", surveyQuestionInfoList);
 			model.addAttribute("allAlgorithmRules", allAlgorithmRules);

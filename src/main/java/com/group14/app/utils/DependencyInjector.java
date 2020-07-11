@@ -86,7 +86,7 @@ public class DependencyInjector {
 
 	}
 
-	public static DependencyInjector getInstance() {
+	public static DependencyInjector instance() {
 		if (dependencyInjector == null) {
 			dependencyInjector = new DependencyInjector();
 		}

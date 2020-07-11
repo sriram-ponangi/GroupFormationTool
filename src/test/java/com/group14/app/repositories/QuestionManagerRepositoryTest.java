@@ -4,6 +4,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -50,4 +51,28 @@ public class QuestionManagerRepositoryTest {
 		when(this.qMR.getAllQuestions("B00100001")).thenReturn(list);
 	}
 
+	@Test
+	void getQuestionDetailsByIdTest() {
+		List<HashMap<String, Object>> mockQuestionsData = new ArrayList<HashMap<String,Object>>();
+		HashMap<String, Object> row1 = new HashMap<>();
+		row1.put("instructor_id", "B00100007");
+		row1.put("question_id", 1);
+		row1.put("title", "Q1 Title");
+		row1.put("text", "Q1 Text");
+		row1.put("created_date", null);
+		row1.put("type", "MCQS");
+		mockQuestionsData.add(row1);		
+		
+		when(mockDB.readData(any(SQLInput.class))).thenReturn(mockQuestionsData);
+		
+		AllQuestions response = qMR.getQuestionDetailsById("1");
+		assertEquals("B00100007", response.getInstructor_id());
+		assertEquals(1, response.getQid());
+		assertEquals("Q1 Title", response.getTitle());
+		assertEquals("Q1 Text", response.getText());
+		assertEquals(null, response.getCreatedDate());
+		assertEquals("MCQS", response.getType());
+		
+	}
+	
 }
