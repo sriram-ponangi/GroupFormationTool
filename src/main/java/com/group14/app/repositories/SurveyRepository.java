@@ -80,21 +80,21 @@ public class SurveyRepository implements ISurveyRepository {
 	}
 
 	@Override
-	public void publishSurvey(int surveyId) {
+	public int publishSurvey(int surveyId) {
 		final String SQL = "UPDATE Surveys SET published = 1 WHERE survey_id = ?";
 		final List<Object> params = new ArrayList<>();
 		params.add(surveyId);
 		final SQLInput sqlInput = new SQLInput(SQL, params);
-		db.save(sqlInput);
+		return db.save(sqlInput);
 	}
 	
 	@Override
-	public void unpublishSurvey(int surveyId) {
+	public int unpublishSurvey(int surveyId) {
 		final String SQL = "UPDATE Surveys SET published = 0 WHERE survey_id = ?";
 		final List<Object> params = new ArrayList<>();
 		params.add(surveyId);
 		final SQLInput sqlInput = new SQLInput(SQL, params);
-		db.save(sqlInput);
+		return db.save(sqlInput);
 	}
 
 }

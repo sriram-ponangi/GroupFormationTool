@@ -52,15 +52,23 @@ public class GroupFormationAlgorithmService implements IGroupFormationAlgorithmS
 	}
 
 	@Override
-	public void saveSurveyAlgorithm(SurveyAlgorithmInfo info) {
+	public boolean saveSurveyAlgorithm(SurveyAlgorithmInfo info) {
+		boolean isSavePublishInfoSuccess = false;
 		if (info.getPublished() == 1) {
-			surveyRepository.publishSurvey(info.getSurveyId());
+			int updatedRows = surveyRepository.publishSurvey(info.getSurveyId());
+			if(updatedRows > 0) {
+				isSavePublishInfoSuccess = true;
+			}
 		} else {
-			surveyRepository.unpublishSurvey(info.getSurveyId());
+			int updatedRows = surveyRepository.unpublishSurvey(info.getSurveyId());
+			if(updatedRows > 0) {
+				isSavePublishInfoSuccess = true;
+			}
 		}
 		
 		List<SurveyRuleMapper> surveyQuestionRules = info.getAlgorithmRules();
-		groupFormationAlgorithmRepository.saveAlgorithmRules(surveyQuestionRules);
+		boolean isSaveAlgorithmInfoSuccess = groupFormationAlgorithmRepository.saveAlgorithmRules(surveyQuestionRules);
+		return (isSavePublishInfoSuccess && isSaveAlgorithmInfoSuccess);
 	}
 	
 	@Override

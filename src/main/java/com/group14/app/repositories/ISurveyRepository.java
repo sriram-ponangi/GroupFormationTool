@@ -10,8 +10,8 @@ public interface ISurveyRepository {
 
 	List<SurveyQuestionMapper> getSurveyQuestionsInfo(int surveyId);
 
-	void publishSurvey(int surveyId);
+	int publishSurvey(int surveyId);
 	
-	void unpublishSurvey(int surveyId);
+	int unpublishSurvey(int surveyId);
 	
 }

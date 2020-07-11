@@ -13,7 +13,7 @@ public interface IGroupFormationAlgorithmService {
 
 	Map<Integer, Integer> mapQuestionIdWithResponseIdForSurvey(List<SurveyQuestionMapper> surveyQuestions);
 
-	void saveSurveyAlgorithm(SurveyAlgorithmInfo info);
+	boolean saveSurveyAlgorithm(SurveyAlgorithmInfo info);
 	
 	Map<Integer,SurveyRuleMapper> mapQuestionIdWithSavedAlgorithmRules(List<SurveyQuestionMapper> surveyQuestions);
 }

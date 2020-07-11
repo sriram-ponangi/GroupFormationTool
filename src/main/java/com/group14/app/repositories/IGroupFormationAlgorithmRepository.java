@@ -7,10 +7,8 @@ import com.group14.app.models.SurveyRuleMapper;
 
 public interface IGroupFormationAlgorithmRepository {
 	List<GroupFormationAlgoRule> getAllGroupFormationAlgoRules();
-	
-//	int getSavedSurveyRuleId(String responseId);
-	
-	void saveAlgorithmRules(List<SurveyRuleMapper> surveyQuestionRules);
+		
+	boolean saveAlgorithmRules(List<SurveyRuleMapper> surveyQuestionRules);
 	
 	SurveyRuleMapper getSavedAlgorithmRules(Integer surveyResponseId);
 }

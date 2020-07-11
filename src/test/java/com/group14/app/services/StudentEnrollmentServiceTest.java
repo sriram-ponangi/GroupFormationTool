@@ -34,8 +34,6 @@ public class StudentEnrollmentServiceTest {
 
 	@BeforeEach
 	public void setup() {
-		this.studentEnrollmentService = new StudentEnrollmentService(studentEnrollmentRepository, parseCSV,
-				emailSenderService);
 		MockitoAnnotations.initMocks(this);
 	}
 

@@ -51,7 +51,7 @@ public class GroupFormationAlgorithmRepository implements IGroupFormationAlgorit
 	}
 
 	@Override
-	public void saveAlgorithmRules(List<SurveyRuleMapper> surveyQuestionRules) {
+	public boolean saveAlgorithmRules(List<SurveyRuleMapper> surveyQuestionRules) {
 		// Inserting or Updating the survey rules.
 		final String INSERT_SQL = "INSERT INTO  SurveyRuleMapper (rule_id, additional_info, response_id) VALUES (?, ?, ?)";
 		final String UPDATE_SQL = "UPDATE SurveyRuleMapper SET rule_id = ? , additional_info = ? WHERE response_id = ?";
@@ -64,15 +64,23 @@ public class GroupFormationAlgorithmRepository implements IGroupFormationAlgorit
 			params.add(rule.getResponseId());
 
 			final List<Object> selectParams = new ArrayList<>();
+			int rowsUpdated = 0;
 			selectParams.add(rule.getResponseId());
 			if (db.existsById(new SQLInput(SELECT_SQL, selectParams))) {
 				LOG.debug("Updating the RULE for responseId = {}", rule.getResponseId());
-				db.save(new SQLInput(UPDATE_SQL, params));
+				rowsUpdated = db.save(new SQLInput(UPDATE_SQL, params));
 			} else {
 				LOG.debug("Inserting the RULE for responseId = {}", rule.getResponseId());
-				db.save(new SQLInput(INSERT_SQL, params));
+				rowsUpdated = db.save(new SQLInput(INSERT_SQL, params));
+			}
+			
+			if(rowsUpdated<=0) {
+				LOG.error("Failed to save the rule: {}", rule);
+				return false;
 			}
 		}
+		return true;
+		
 	}
 
 	@Override
@@ -83,7 +91,7 @@ public class GroupFormationAlgorithmRepository implements IGroupFormationAlgorit
 		final SurveyRuleMapper savedRule = new SurveyRuleMapper();
 
 		List<HashMap<String, Object>> savedRulesData = db.readData(new SQLInput(SQL, params));
-
+		System.out.println("savedRulesData "+ savedRulesData);
 		if (savedRulesData != null) {
 			savedRulesData.stream().forEach(row -> {
 				savedRule.setRuleId((Integer) row.get("rule_id"));

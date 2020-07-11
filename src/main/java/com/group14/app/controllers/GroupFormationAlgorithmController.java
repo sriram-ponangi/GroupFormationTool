@@ -61,8 +61,9 @@ public class GroupFormationAlgorithmController {
 
 			List<GroupFormationAlgoRule> allAlgorithmRules = groupFormationAlgorithmRepository
 					.getAllGroupFormationAlgoRules();
-			
-			Map<Integer, SurveyRuleMapper> savedRulesInfo = groupFormationAlgorithmService.mapQuestionIdWithSavedAlgorithmRules(surveyQuestions);
+
+			Map<Integer, SurveyRuleMapper> savedRulesInfo = groupFormationAlgorithmService
+					.mapQuestionIdWithSavedAlgorithmRules(surveyQuestions);
 
 			model.addAttribute("survey", survey);
 			model.addAttribute("questionsResponseIds",
@@ -82,22 +83,30 @@ public class GroupFormationAlgorithmController {
 
 	@PostMapping(value = "/instructor/createGroupFormationAlgorithm")
 	public String saveGroupFormationAlgorithm(@ModelAttribute SurveyAlgorithmInfo info, Model model) {
-		groupFormationAlgorithmService.saveSurveyAlgorithm(info);
-		model.addAttribute("courseId", info.getCourseId());
+		boolean isSaveSuccessful = groupFormationAlgorithmService.saveSurveyAlgorithm(info);
+		if (isSaveSuccessful) {
+			model.addAttribute("courseId", info.getCourseId());
 
-		if (info.getAction().equalsIgnoreCase("RUN")) {
-			if (info.getPublished() == 1) {
-				// Run The Algorithm.
-				System.out.println(" Applying the GROUP FORMATION ALGORITHM");
-			} else {
-				model.addAttribute("warnMessage",
-						"Survey is not published so cannot run the algorithm, but saving the algorithm is completed.");
-				return "createGroupFormationAlgorithmPageWarn";
+			if (info.getAction().equalsIgnoreCase("RUN")) {
+				if (info.getPublished() == 1) {
+					// Run The Algorithm.
+					System.out.println(" Applying the GROUP FORMATION ALGORITHM");
+				} else {
+					model.addAttribute("warnMessage",
+							"Survey is not published so cannot run the algorithm, but saving the algorithm is completed.");
+					return "createGroupFormationAlgorithmPageWarn";
+				}
+
 			}
-
+			model.addAttribute("successMessage", "Saving the algorithm completed.");
+			return "createGroupFormationAlgorithmPageSuccess";
+		} else {
+			model.addAttribute("courseId", info.getCourseId());
+			model.addAttribute("errorMessage",
+					"Was not able to save some of the rules. Sorry, cannot run the algorithm now. Please try again later");
+			return "createGroupFormationAlgorithmPageError";
 		}
-		model.addAttribute("successMessage", "Saving the algorithm completed.");
-		return "createGroupFormationAlgorithmPageSuccess";
+
 	}
 
 }
