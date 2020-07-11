@@ -61,10 +61,11 @@ public class PasswordReposiotry implements IPasswordReposiotry {
 		final List<HashMap<String, Object>> passwords = db.readData(sqlInput);
 		final List<String> previousPasswords = new ArrayList<>();
 
-		if (passwords != null)
+		if (passwords != null) {
 			passwords.stream().forEach(row -> {
 				previousPasswords.add((String) row.get("password"));
 			});
+		}
 		else {
 			LOG.error("Could not Execute: " + SQL);
 			return null;

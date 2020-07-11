@@ -6,8 +6,10 @@ import com.group14.app.models.AllQuestions;
 
 public interface IQuestionManagerRepository {
 
-	public ArrayList<AllQuestions> getAllQuestions(String instructorId);
+	ArrayList<AllQuestions> getAllQuestions(String instructorId);
 
 	String FindRoleForID(int role);
+	
+	AllQuestions getQuestionDetailsById(String questionId);
 
 }
