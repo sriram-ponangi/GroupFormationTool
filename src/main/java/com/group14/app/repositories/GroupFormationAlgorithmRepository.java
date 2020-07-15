@@ -1,5 +1,6 @@
 package com.group14.app.repositories;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +26,7 @@ public class GroupFormationAlgorithmRepository implements IGroupFormationAlgorit
 	}
 
 	@Override
-	public List<GroupFormationAlgoRule> getAllGroupFormationAlgoRules() {
+	public List<GroupFormationAlgoRule> getAllGroupFormationAlgoRules() throws SQLException{
 		final String SQL = "SELECT * FROM GroupFormationAlgorithmRules";
 		final List<Object> params = new ArrayList<>();
 
@@ -51,7 +52,7 @@ public class GroupFormationAlgorithmRepository implements IGroupFormationAlgorit
 	}
 
 	@Override
-	public boolean saveAlgorithmRules(List<SurveyRuleMapper> surveyQuestionRules) {
+	public boolean saveAlgorithmRules(List<SurveyRuleMapper> surveyQuestionRules) throws SQLException{
 		// Inserting or Updating the survey rules.
 		final String INSERT_SQL = "INSERT INTO  SurveyRuleMapper (rule_id, additional_info, response_id) VALUES (?, ?, ?)";
 		final String UPDATE_SQL = "UPDATE SurveyRuleMapper SET rule_id = ? , additional_info = ? WHERE response_id = ?";
@@ -84,7 +85,7 @@ public class GroupFormationAlgorithmRepository implements IGroupFormationAlgorit
 	}
 
 	@Override
-	public SurveyRuleMapper getSavedAlgorithmRules(Integer surveyResponseId) {
+	public SurveyRuleMapper getSavedAlgorithmRules(Integer surveyResponseId) throws SQLException{
 		final String SQL = "SELECT * FROM SurveyRuleMapper WHERE response_id= ?";
 		final List<Object> params = new ArrayList<>();
 		params.add(surveyResponseId);

@@ -52,7 +52,7 @@ public class QuestionManagerRepositoryTest {
 	}
 
 	@Test
-	void getQuestionDetailsByIdTest() {
+	void getQuestionDetailsByIdTest() throws SQLException{
 		List<HashMap<String, Object>> mockQuestionsData = new ArrayList<HashMap<String,Object>>();
 		HashMap<String, Object> row1 = new HashMap<>();
 		row1.put("instructor_id", "B00100007");

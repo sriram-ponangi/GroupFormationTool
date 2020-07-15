@@ -74,7 +74,7 @@ public class QuestionManagerRepository implements IQuestionManagerRepository {
 	}
 
 	@Override
-	public AllQuestions getQuestionDetailsById(String questionId) {
+	public AllQuestions getQuestionDetailsById(String questionId) throws SQLException{
 		final String SQL = "SELECT * FROM AllQuestions WHERE question_id = ?";
 		final List<Object> params = new ArrayList<>();
 		params.add(questionId);

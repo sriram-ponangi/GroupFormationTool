@@ -1,5 +1,6 @@
 package com.group14.app.repositories;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +26,7 @@ public class SurveyRepository implements ISurveyRepository {
 	}
 
 	@Override
-	public Survey getSurveyInfo(String courseId) {
+	public Survey getSurveyInfo(String courseId) throws SQLException{
 		LOG.info("Getting Survey Info from DB for {} courseId",courseId);
 		final String SQL = " SELECT * FROM Surveys WHERE course_id = ?";
 		final List<Object> params = new ArrayList<>();
@@ -51,7 +52,7 @@ public class SurveyRepository implements ISurveyRepository {
 	}
 
 	@Override
-	public List<SurveyQuestionMapper> getSurveyQuestionsInfo(int surveyId) {
+	public List<SurveyQuestionMapper> getSurveyQuestionsInfo(int surveyId) throws SQLException{
 
 		final String SQL = " SELECT * FROM SurveyQuestionsMapper WHERE survey_id = ?";
 		final List<Object> params = new ArrayList<>();
@@ -80,7 +81,7 @@ public class SurveyRepository implements ISurveyRepository {
 	}
 
 	@Override
-	public int publishSurvey(int surveyId) {
+	public int publishSurvey(int surveyId) throws SQLException{
 		final String SQL = "UPDATE Surveys SET published = 1 WHERE survey_id = ?";
 		final List<Object> params = new ArrayList<>();
 		params.add(surveyId);
@@ -89,7 +90,7 @@ public class SurveyRepository implements ISurveyRepository {
 	}
 	
 	@Override
-	public int unpublishSurvey(int surveyId) {
+	public int unpublishSurvey(int surveyId) throws SQLException{
 		final String SQL = "UPDATE Surveys SET published = 0 WHERE survey_id = ?";
 		final List<Object> params = new ArrayList<>();
 		params.add(surveyId);

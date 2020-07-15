@@ -1,5 +1,6 @@
 package com.group14.app.services;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -35,47 +36,58 @@ public class GroupFormationAlgorithmService implements IGroupFormationAlgorithmS
 	}
 
 	@Override
-	public List<AllQuestions> getAllSurveyQuestionDetailsById(List<Integer> questionIds) {
+	public List<AllQuestions> getAllSurveyQuestionDetailsById(List<Integer> questionIds) throws SQLException {
 
 		final List<AllQuestions> allQuestionsList = new ArrayList<>();
 		questionIds.stream().forEach(qId -> {
-			allQuestionsList.add(questionManagerRepository.getQuestionDetailsById(qId + ""));
+			try {
+				allQuestionsList.add(questionManagerRepository.getQuestionDetailsById(qId + ""));
+			} catch (SQLException e) {				
+				e.printStackTrace();
+			}
 		});
 
 		return allQuestionsList;
 	}
 
 	@Override
-	public Map<Integer, Integer> mapQuestionIdWithResponseIdForSurvey(List<SurveyQuestionMapper> surveyQuestions) {
+	public Map<Integer, Integer> mapQuestionIdWithResponseIdForSurvey(List<SurveyQuestionMapper> surveyQuestions)
+			throws SQLException {
 		return surveyQuestions.stream()
 				.collect(Collectors.toMap(SurveyQuestionMapper::getQuestionId, SurveyQuestionMapper::getResponseId));
 	}
 
 	@Override
-	public boolean saveSurveyAlgorithm(SurveyAlgorithmInfo info) {
+	public boolean saveSurveyAlgorithm(SurveyAlgorithmInfo info) throws SQLException {
 		boolean isSavePublishInfoSuccess = false;
 		if (info.getPublished() == 1) {
 			int updatedRows = surveyRepository.publishSurvey(info.getSurveyId());
-			if(updatedRows > 0) {
+			if (updatedRows > 0) {
 				isSavePublishInfoSuccess = true;
 			}
 		} else {
 			int updatedRows = surveyRepository.unpublishSurvey(info.getSurveyId());
-			if(updatedRows > 0) {
+			if (updatedRows > 0) {
 				isSavePublishInfoSuccess = true;
 			}
 		}
-		
+
 		List<SurveyRuleMapper> surveyQuestionRules = info.getAlgorithmRules();
 		boolean isSaveAlgorithmInfoSuccess = groupFormationAlgorithmRepository.saveAlgorithmRules(surveyQuestionRules);
 		return (isSavePublishInfoSuccess && isSaveAlgorithmInfoSuccess);
 	}
-	
+
 	@Override
-	public Map<Integer,SurveyRuleMapper> mapQuestionIdWithSavedAlgorithmRules(List<SurveyQuestionMapper> surveyQuestions){
-		final Map<Integer,SurveyRuleMapper> savedRules = new HashMap<>();
+	public Map<Integer, SurveyRuleMapper> mapQuestionIdWithSavedAlgorithmRules(
+			List<SurveyQuestionMapper> surveyQuestions) throws SQLException {
+		final Map<Integer, SurveyRuleMapper> savedRules = new HashMap<>();
 		surveyQuestions.stream().forEach(e -> {
-			savedRules.put(e.getQuestionId(), this.groupFormationAlgorithmRepository.getSavedAlgorithmRules(e.getResponseId()) );
+			try {
+				savedRules.put(e.getQuestionId(),
+						this.groupFormationAlgorithmRepository.getSavedAlgorithmRules(e.getResponseId()));
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 		});
 		return savedRules;
 	}

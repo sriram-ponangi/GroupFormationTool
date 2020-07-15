@@ -1,5 +1,6 @@
 package com.group14.app.controllers;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -39,7 +40,7 @@ public class GroupFormationAlgorithmController {
 	}
 
 	@GetMapping("/instructor/createGroupFormationAlgorithm")
-	public String getCreateAlgorithmPage(@RequestParam String courseId, Model model) {
+	public String getCreateAlgorithmPage(@RequestParam String courseId, Model model) throws SQLException{
 
 		if (AppUser.hasInstructorOrTARoleForCourse(courseId)) {
 
@@ -84,7 +85,7 @@ public class GroupFormationAlgorithmController {
 	}
 
 	@PostMapping(value = "/instructor/createGroupFormationAlgorithm")
-	public String saveGroupFormationAlgorithm(@ModelAttribute SurveyAlgorithmInfo info, Model model) {
+	public String saveGroupFormationAlgorithm(@ModelAttribute SurveyAlgorithmInfo info, Model model) throws SQLException{
 		boolean isSaveSuccessful = groupFormationAlgorithmService.saveSurveyAlgorithm(info);
 		if (isSaveSuccessful) {
 			model.addAttribute("courseId", info.getCourseId());
