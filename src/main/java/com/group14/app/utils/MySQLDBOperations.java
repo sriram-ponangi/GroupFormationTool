@@ -46,7 +46,7 @@ public class MySQLDBOperations implements CRUDRepository<SQLInput> {
 	}
 
 	@Override
-	public <S extends SQLInput> boolean existsById(S entity) {
+	public <S extends SQLInput> boolean existsById(S entity) throws SQLException {
 
 		try (Connection connection = this.getConnection();
 				PreparedStatement stmt = connection.prepareStatement(entity.getSql())) {
@@ -57,13 +57,16 @@ public class MySQLDBOperations implements CRUDRepository<SQLInput> {
 			if (rs.next())
 				return true;
 		} catch (SQLException e) {
+			LOG.error("Could not execute SQL :: "+ entity.getSql());
 			e.printStackTrace();
+			throw e;
+			
 		}
 		return false;
 	}
 
 	@Override
-	public List<HashMap<String, Object>> readData(SQLInput entity) {
+	public List<HashMap<String, Object>> readData(SQLInput entity)  throws SQLException {
 		try (Connection connection = getConnection();
 				PreparedStatement stmt = connection.prepareStatement(entity.getSql())) {
 
@@ -82,13 +85,15 @@ public class MySQLDBOperations implements CRUDRepository<SQLInput> {
 			return data;
 
 		} catch (SQLException e) {
+			LOG.error("Could not execute SQL :: "+ entity.getSql());
 			e.printStackTrace();
+			throw e;
 		}
-		return null;
+		
 	}
 
 	@Override
-	public <S extends SQLInput> int save(S entity) {
+	public <S extends SQLInput> int save(S entity)  throws SQLException {
 		try (Connection connection = getConnection();
 				PreparedStatement stmt = connection.prepareStatement(entity.getSql())) {
 			for (int i = 0; i < entity.getParameters().size(); i++) {
@@ -100,13 +105,15 @@ public class MySQLDBOperations implements CRUDRepository<SQLInput> {
 			return rowsUpdated;
 
 		} catch (SQLException e) {
+			LOG.error("Could not execute SQL :: "+ entity.getSql());
 			e.printStackTrace();
+			throw e;
 		}
-		return 0;
+		
 	}
 
 	@Override
-	public <S extends SQLInput> int[] saveTransaction(List<S> entities) {
+	public <S extends SQLInput> int[] saveTransaction(List<S> entities)  throws SQLException {
 		Connection connection = null;
 		try {
 			connection = getConnection();
@@ -127,21 +134,23 @@ public class MySQLDBOperations implements CRUDRepository<SQLInput> {
 			return rowsUptadedForEachTransaction;
 		} catch (SQLException e) {
 			try {
-				if (connection != null)
+				if (connection != null) {
 					connection.rollback();
+				}
+				throw e;
 			} catch (SQLException e1) {
 				e1.printStackTrace();
-			}
-			e.printStackTrace();
+				throw e1;
+			}			
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
+				throw e;
 			}
 		}
 
-		return null;
 	}
 
 	public Connection getConnection() {

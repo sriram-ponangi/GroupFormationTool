@@ -1,5 +1,6 @@
 package com.group14.app.repositories;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +20,7 @@ public class CoursesStudRepository implements ICourseStudRepository {
 		this.db = db;
 	}
 
-	public ArrayList<Courses> getAllCourse(String id) {
+	public ArrayList<Courses> getAllCourse(String id) throws SQLException {
 		final ArrayList<Courses> courseList = new ArrayList<Courses>();
 
 		List<Object> params = new ArrayList<>();
@@ -45,7 +46,7 @@ public class CoursesStudRepository implements ICourseStudRepository {
 		return courseList;
 	}
 
-	public ArrayList<Courses> getAssignedCourse(String id) {
+	public ArrayList<Courses> getAssignedCourse(String id) throws SQLException {
 		final ArrayList<Courses> courseList = new ArrayList<Courses>();
 
 		List<Object> params = new ArrayList<>();

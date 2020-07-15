@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,7 +35,7 @@ public class UserPrincipalDetailsServiceTest {
 	}
 
 	@Test
-	public void loadUserByUsernameTest_basic() {
+	public void loadUserByUsernameTest_basic() throws SQLException {
 		AppUser appUser = new AppUser("userId", "password", "email", "firstName", "lastName", 1);
 		appUser.setSystemRole("GUEST");
 		Map<String, String> courseRoles = new HashMap<>();
@@ -58,7 +59,7 @@ public class UserPrincipalDetailsServiceTest {
 	}
 
 	@Test
-	public void loadUserByUsernameTest_testUsernameNotFoundException() {
+	public void loadUserByUsernameTest_testUsernameNotFoundException() throws SQLException {
 		AppUser appUser = null;
 
 		when(appUserRepositoryMock.findByUserName(Mockito.anyString())).thenReturn(appUser);

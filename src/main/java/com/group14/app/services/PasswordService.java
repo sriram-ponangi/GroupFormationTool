@@ -1,5 +1,6 @@
 package com.group14.app.services;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -21,7 +22,7 @@ public class PasswordService implements IPasswordService {
 	}
 
 	@Override
-	public List<PasswordValidatorRules> validatePassword(AppUser user, String newPassword) {
+	public List<PasswordValidatorRules> validatePassword(AppUser user, String newPassword) throws SQLException {
 		List<PasswordValidatorRules> activeRules = pvr.getActiveRules();
 		List<PasswordValidatorRules> failedRules = new ArrayList<>();
 
@@ -60,7 +61,7 @@ public class PasswordService implements IPasswordService {
 	}
 
 	@Override
-	public boolean updatePassword(String userId, String newPassword) {
+	public boolean updatePassword(String userId, String newPassword) throws SQLException {
 		int[] rowsUpdated = pvr.updatePassword(userId, newPassword);
 		for (int count : rowsUpdated) {
 			if (count <= 0)

@@ -1,5 +1,7 @@
 package com.group14.app.controllers;
 
+import java.sql.SQLException;
+
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -31,7 +33,7 @@ public class InstructorController {
 	}
 
 	@GetMapping("/instructor/assignta")
-	public String AssignTaGET(Model model, @RequestParam(name = "id") String courseId) {
+	public String AssignTaGET(Model model, @RequestParam(name = "id") String courseId) throws SQLException {
 
 		AppUser appUser = new AppUser();
 		AppUser student = new AppUser();
@@ -56,7 +58,7 @@ public class InstructorController {
 	}
 
 	@PostMapping("instructor/assignta")
-	public String AssignTaPost(@ModelAttribute("studentUser") AppUser studentUser, Model model) {
+	public String AssignTaPost(@ModelAttribute("studentUser") AppUser studentUser, Model model) throws SQLException {
 
 		AppUser user;
 
@@ -74,7 +76,7 @@ public class InstructorController {
 	}
 
 	@PostMapping("/instructor/assigntasubmit")
-	public String AssignTaPosition(Model model) {
+	public String AssignTaPosition(Model model) throws SQLException {
 		int res = instructorActionsService.GiveTaPermission(mAppUserStudent.getUserId(), course.getCid());
 		if (res > 1) {
 			model.addAttribute("success", "TA is assigned");
@@ -86,7 +88,7 @@ public class InstructorController {
 	}
 
 	@GetMapping("/instructor/assigntasubmit")
-	public String AssignTaPositionGet(Model model) {
+	public String AssignTaPositionGet(Model model) throws SQLException {
 		int res = instructorActionsService.GiveTaPermission(mAppUserStudent.getUserId(), course.getCid());
 		if (res > 0) {
 			model.addAttribute("success", "TA is assigned");

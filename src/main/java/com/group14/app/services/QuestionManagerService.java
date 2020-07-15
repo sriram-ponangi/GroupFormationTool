@@ -1,5 +1,6 @@
 package com.group14.app.services;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ public class QuestionManagerService implements IQuestionManagerService {
 	}
 
 	@Override
-	public boolean getRoleFromID(int id, String currentUser) {
+	public boolean getRoleFromID(int id, String currentUser) throws SQLException {
 		String role;
 
 		role = iQMR.FindRoleForID(id);
@@ -36,7 +37,7 @@ public class QuestionManagerService implements IQuestionManagerService {
 	}
 
 	@Override
-	public ArrayList<AllQuestions> getAllQuestions(String instructorId) {
+	public ArrayList<AllQuestions> getAllQuestions(String instructorId) throws SQLException {
 		ArrayList<AllQuestions> questions = new ArrayList<AllQuestions>();
 
 		questions = iQMR.getAllQuestions(instructorId);

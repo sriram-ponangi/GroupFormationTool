@@ -1,5 +1,6 @@
 package com.group14.app.repositories;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,7 +27,7 @@ public class AppUserRepository implements IAppUserRepository{
 	}
 
 	@Override
-	public AppUser findByUserName(String id) {
+	public AppUser findByUserName(String id) throws SQLException {
 		final AppUser appUser = new AppUser();
 		List<Object> params = new ArrayList<>();
 		params.add(id);

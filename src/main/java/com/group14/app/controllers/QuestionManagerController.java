@@ -1,5 +1,6 @@
 package com.group14.app.controllers;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,7 +31,7 @@ public class QuestionManagerController {
 	private String bannerId;
 
 	@GetMapping("/instructor/allquestions")
-	public String AssignTaGET(Model model) {
+	public String AssignTaGET(Model model) throws SQLException {
 
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (principal instanceof UserDetails) {

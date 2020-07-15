@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,7 +33,7 @@ public class PasswordReposiotryTest {
 	}
 
 	@Test
-	public void getActiveRulesTest_basic() {
+	public void getActiveRulesTest_basic() throws SQLException {
 		List<HashMap<String, Object>> activeRules = new ArrayList<HashMap<String, Object>>();
 		HashMap<String, Object> row = new HashMap<String, Object>();
 		row.put("rule_id", "rule_id");
@@ -56,7 +57,7 @@ public class PasswordReposiotryTest {
 	}
 
 	@Test
-	public void getPreviousPasswordsTest_basic() {
+	public void getPreviousPasswordsTest_basic() throws SQLException {
 		List<HashMap<String, Object>> previousPasswords = new ArrayList<HashMap<String, Object>>();
 		HashMap<String, Object> row = new HashMap<String, Object>();
 		row.put("password", "password");
@@ -70,7 +71,7 @@ public class PasswordReposiotryTest {
 	}
 
 	@Test
-	public void updatePasswordTest_basic() {
+	public void updatePasswordTest_basic() throws SQLException {
 		when(mockDB.saveTransaction(any())).thenReturn(new int[] { 1, 1 });
 
 		int[] result = this.pvr.updatePassword("", "");

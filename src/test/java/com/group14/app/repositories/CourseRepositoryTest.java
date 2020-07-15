@@ -3,6 +3,7 @@ package com.group14.app.repositories;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
@@ -17,13 +18,13 @@ class CourseRepositoryTest {
 	Courses c = new Courses();
 
 	@Test
-	void showCourseTest() {
+	void showCourseTest() throws SQLException {
 
 		when(this.cr.getAllCourse("B00100001")).thenReturn(list);
 	}
 
 	@Test
-	void showSpecificCourseTest() {
+	void showSpecificCourseTest() throws SQLException {
 
 		when(this.cr.getAssignedCourse("B00100001")).thenReturn(list);
 	}

@@ -2,6 +2,9 @@ package com.group14.app.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
+
+import java.sql.SQLException;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -24,7 +27,7 @@ public class QuestionManagerServiceTest {
 	}
 
 	@Test
-	public void getRole() {
+	public void getRole() throws SQLException {
 		AppUser user = new AppUser();
 
 		user.setUserId("B00100001");

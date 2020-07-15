@@ -1,5 +1,7 @@
 package com.group14.app.services;
 
+import java.sql.SQLException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
@@ -29,7 +31,7 @@ public class EmailService {
 
 	}
 
-	public void sendMail(AppUser forgotpassword) throws MailException {
+	public void sendMail(AppUser forgotpassword) throws MailException, SQLException {
 		SimpleMailMessage mail = new SimpleMailMessage();
 		email = fPR.readEmail(forgotpassword.getUserId().toString());
 		mail.setTo(email);

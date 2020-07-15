@@ -3,6 +3,7 @@ package com.group14.app.repositories;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.mock;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
@@ -14,7 +15,7 @@ class UserRepositoryTests {
 	private UserRepository ur = mock(UserRepository.class);
 
 	@Test
-	void addUserTest() {
+	void addUserTest() throws SQLException {
 
 		AppUser user = new AppUser();
 		ArrayList<AppUser> list = new ArrayList<>();

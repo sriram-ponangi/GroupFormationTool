@@ -1,5 +1,6 @@
 package com.group14.app.repositories;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class StudentEnrollmentRepository implements IStudentEnrollmentRepository
 	}
 
 	@Override
-	public int[] enrollStudentToCourse(AppUser user, String courseId) {
+	public int[] enrollStudentToCourse(AppUser user, String courseId) throws SQLException{
 		List<SQLInput> transactionsQueries = new ArrayList<>();
 
 		String isExistingUser = "SELECT user_id FROM Users WHERE user_id= ?";

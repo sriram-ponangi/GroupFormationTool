@@ -1,5 +1,6 @@
 package com.group14.app.controllers;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,7 +31,7 @@ public class PasswordController {
 	}
 
 	@PostMapping("/guest/updatePassword")
-	public String updatePassword(@ModelAttribute AppUser userPassword, Model model) {
+	public String updatePassword(@ModelAttribute AppUser userPassword, Model model) throws SQLException {
 		String newPassword = userPassword.getPassword();
 		if (newPassword == null) {
 			return "UpdatePasswordError";

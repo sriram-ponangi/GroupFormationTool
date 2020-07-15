@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -31,7 +32,7 @@ public class InstructorActionsTest {
 	private InstructorActions instructorActions;
 
 	@Test
-	public void AddStudentToTAList_basic() {
+	public void AddStudentToTAList_basic() throws SQLException {
 		HashMap<String, String> courseRoles = new HashMap<String, String>();
 		courseRoles.put("course_id", "CSCI1001");
 		courseRoles.put("role_id", "STUDENT");
@@ -53,7 +54,7 @@ public class InstructorActionsTest {
 	}
 
 	@Test
-	public void AddStudentToTAList_ReturnsNull() {
+	public void AddStudentToTAList_ReturnsNull() throws SQLException {
 		HashMap<String, String> courseRoles = new HashMap<String, String>();
 		courseRoles.put("course_id", "CSCI1001");
 		courseRoles.put("role_id", "STUDENT");
@@ -65,14 +66,14 @@ public class InstructorActionsTest {
 	}
 
 	@Test
-	public void GiveTaPermission_success() {
+	public void GiveTaPermission_success() throws SQLException {
 		instructorActions = mock(InstructorActions.class);
 		when(instructorActions.GiveTaPermission("B00100001", "TA", "CSCI1001")).thenReturn(1);
 		assertEquals(1, 1);
 	}
 
 	@Test
-	public void GiveTaPermission_failed() {
+	public void GiveTaPermission_failed() throws SQLException {
 		instructorActions = mock(InstructorActions.class);
 		when(instructorActions.GiveTaPermission("B00100001", "TA", "CSCI1001")).thenReturn(0);
 		assertEquals(0, 0);
