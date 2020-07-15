@@ -41,8 +41,12 @@ public class DependencyInjector {
 	private IInstructorActionsService IInstructorActionsService;
 
 	private IInstructorActionsRepository IInstructorActionsRepository;
-	
+
 	private IAppUserRepository IAppUserRepository;
+
+	private IGroupFormationAlgorithmService IGroupFormationAlgorithmService;
+	private ISurveyRepository ISurveyRepository;
+	private IGroupFormationAlgorithmRepository IGroupFormationAlgorithmRepository;
 
 	private DependencyInjector() {
 		this.CRUDRepository = new MySQLDBOperations();
@@ -69,15 +73,20 @@ public class DependencyInjector {
 		this.ICourseStudRepository = new CoursesStudRepository(this.CRUDRepository);
 
 		this.IUserRepository = new UserRepository(this.CRUDRepository);
-		this.IInstructorActionsService = new InstructorActionsService(this.IInstructorActionsRepository);		
-		
+		this.IInstructorActionsService = new InstructorActionsService(this.IInstructorActionsRepository);
+
 		this.IAppUserRepository = new AppUserRepository(this.CRUDRepository);
-		
+
 		this.IInstructorActionsRepository = new InstructorActions(this.IAppUserRepository, this.CRUDRepository);
+
+		this.ISurveyRepository = new SurveyRepository(this.CRUDRepository);
+		this.IGroupFormationAlgorithmRepository = new GroupFormationAlgorithmRepository(this.CRUDRepository);
+		this.IGroupFormationAlgorithmService = new GroupFormationAlgorithmService(this.ISurveyRepository,
+				this.IQuestionManagerRepository, this.IGroupFormationAlgorithmRepository);
 
 	}
 
-	public static DependencyInjector getInstance() {
+	public static DependencyInjector instance() {
 		if (dependencyInjector == null) {
 			dependencyInjector = new DependencyInjector();
 		}
@@ -250,6 +259,31 @@ public class DependencyInjector {
 
 	public void setIAppUserRepository(IAppUserRepository iAppUserRepository) {
 		IAppUserRepository = iAppUserRepository;
+	}
+
+	public IGroupFormationAlgorithmService getIGroupFormationAlgorithmService() {
+		return IGroupFormationAlgorithmService;
+	}
+
+	public void setIGroupFormationAlgorithmService(IGroupFormationAlgorithmService iGroupFormationAlgorithmService) {
+		IGroupFormationAlgorithmService = iGroupFormationAlgorithmService;
+	}
+
+	public ISurveyRepository getISurveyRepository() {
+		return ISurveyRepository;
+	}
+
+	public void setISurveyRepository(ISurveyRepository iSurveyRepository) {
+		ISurveyRepository = iSurveyRepository;
+	}
+
+	public IGroupFormationAlgorithmRepository getIGroupFormationAlgorithmRepository() {
+		return IGroupFormationAlgorithmRepository;
+	}
+
+	public void setIGroupFormationAlgorithmRepository(
+			IGroupFormationAlgorithmRepository iGroupFormationAlgorithmRepository) {
+		IGroupFormationAlgorithmRepository = iGroupFormationAlgorithmRepository;
 	}
 
 }
