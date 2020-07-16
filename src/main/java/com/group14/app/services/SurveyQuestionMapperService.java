@@ -52,21 +52,12 @@ public class SurveyQuestionMapperService implements ISurveyQuestionMapperService
 
 	@Override
 	public int addSurveyQuestion(int surveyId, int questionId) throws SQLException {
-		int rowsUpdated = 0;
-		try {
-			rowsUpdated = iSurveyQuestionMapperRepository.addSurveyQuestion(surveyId, questionId);
+		
+		
+			int rowsUpdated = iSurveyQuestionMapperRepository.addSurveyQuestion(surveyId, questionId);
 			
-			if(rowsUpdated == 0) {
-				return 0;
-			}
-			else
-			{
-				return rowsUpdated;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return 0;
-		}
+			return rowsUpdated;
+		
 	}
 
 	

@@ -34,9 +34,10 @@ public class GlobalExceptionHandler {
 	}
 	
 	@ExceptionHandler(Exception.class)
-	public String anyExceptionHandler(SQLException e, Model model) {
-		String errorMessage = "Reason: There has been some unexpected issue with systems.";
+	public String anyExceptionHandler(Exception e, Model model) {
+		String errorMessage = "Reason: There has been some unexpected issue with our systems.";
 		model.addAttribute("errorMessage", errorMessage);
+		e.printStackTrace();
 		return "GlobalExceptionHandlerPage";
 	}
 }

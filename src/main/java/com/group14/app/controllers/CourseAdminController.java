@@ -25,6 +25,11 @@ public class CourseAdminController {
 	public String assignStudent(@ModelAttribute Courses courseAdmin) {
 		return "redirect:/ta/upload-csv?courseId=" + courseAdmin.getCid();
 	}
+	
+	@PostMapping("/ta/courseAdmin/createSurvey")
+	public String createSurvey(@ModelAttribute Courses courseAdmin) {
+		return "redirect:/ta/createSurvey?courseId=" + courseAdmin.getCid();
+	}
 
 	@PostMapping("/instructor/courseAdmin/assignta")
 	public String assignta(@ModelAttribute Courses courseAdmin) {

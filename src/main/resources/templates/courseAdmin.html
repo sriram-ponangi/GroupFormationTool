@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+	<!DOCTYPE HTML>
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
 <title>Getting Started: Handling Form Submission</title>
@@ -11,6 +11,20 @@
 		<h1>Navigate to Question Manager Page</h1>
 		<br> <a href="/instructor/allquestions" class="button">Question
 			Manager</a>
+	</div>
+	
+	<div>
+		<h1>Create Survey</h1>
+		<h2>Enter Course id</h2>
+		<div>
+			<form action="#" th:action="@{/ta/courseAdmin/createSurvey}"
+				th:object="${courseAdmin}" method="post">
+				<p>
+					<input type="text" th:field="*{cid}" /> <input type="submit"
+						value="Submit" />
+				</p>
+			</form>
+		</div>
 	</div>
 
 	<div>
