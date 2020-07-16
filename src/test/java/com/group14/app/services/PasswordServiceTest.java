@@ -3,6 +3,7 @@ package com.group14.app.services;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class PasswordServiceTest {
 	}
 
 	@Test
-	public void validatePasswordTest_HistoryPolicyFailed() {
+	public void validatePasswordTest_HistoryPolicyFailed() throws SQLException {
 		AppUser user = new AppUser();
 		user.setUserId("B00100001");
 		List<String> previousPasswords = new ArrayList<>();
@@ -48,7 +49,7 @@ public class PasswordServiceTest {
 	}
 
 	@Test
-	public void validatePasswordTest_LengthPolicyFailed() {
+	public void validatePasswordTest_LengthPolicyFailed() throws SQLException {
 		AppUser user = new AppUser();
 		user.setUserId("B00100001");
 		List<String> previousPasswords = new ArrayList<>();
@@ -65,7 +66,7 @@ public class PasswordServiceTest {
 	}
 
 	@Test
-	public void validatePasswordTest_CasePolicyFailed() {
+	public void validatePasswordTest_CasePolicyFailed() throws SQLException {
 		AppUser user = new AppUser();
 		user.setUserId("B00100001");
 		List<String> previousPasswords = new ArrayList<>();
@@ -84,7 +85,7 @@ public class PasswordServiceTest {
 	}
 
 	@Test
-	public void validatePasswordTest_SpecialCharacterPolicyFailed() {
+	public void validatePasswordTest_SpecialCharacterPolicyFailed() throws SQLException {
 		AppUser user = new AppUser();
 		user.setUserId("B00100001");
 		List<String> previousPasswords = new ArrayList<>();

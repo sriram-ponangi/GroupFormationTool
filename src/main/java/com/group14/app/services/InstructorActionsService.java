@@ -1,5 +1,7 @@
 package com.group14.app.services;
 
+import java.sql.SQLException;
+
 import org.springframework.stereotype.Service;
 
 import com.group14.app.models.AppUser;
@@ -15,7 +17,7 @@ public class InstructorActionsService implements IInstructorActionsService {
 	}
 
 	@Override
-	public AppUser AddStudentToTAList(String courseId, String bannerId) {
+	public AppUser AddStudentToTAList(String courseId, String bannerId) throws SQLException {
 
 		AppUser appUser = instructorActionsRepository.AddStudentToTAList(courseId, bannerId);
 
@@ -23,7 +25,7 @@ public class InstructorActionsService implements IInstructorActionsService {
 	}
 
 	@Override
-	public int GiveTaPermission(String bannerId, String courseId) {
+	public int GiveTaPermission(String bannerId, String courseId) throws SQLException {
 
 		int count = instructorActionsRepository.GiveTaPermission(bannerId, "TA", courseId);
 		return count;

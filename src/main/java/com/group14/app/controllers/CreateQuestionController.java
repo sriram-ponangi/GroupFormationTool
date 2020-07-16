@@ -1,5 +1,7 @@
 package com.group14.app.controllers;
 
+import java.sql.SQLException;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +29,7 @@ public class CreateQuestionController {
 	}
 
 	@PostMapping("/instructor/checkAdditionalInfo")
-	public String createQuestionCheck(@ModelAttribute("question") AllQuestions question) {
+	public String createQuestionCheck(@ModelAttribute("question") AllQuestions question) throws SQLException {
 		if ((question.getType().equalsIgnoreCase("Numbers")) || (question.getType().equalsIgnoreCase("Letters"))) {
 			IChoicesRepository.addQuestionSingle(AppUser.getCurrentUser().getUserId(), question.getTitle(),
 					question.getText(), question.getType());
@@ -39,7 +41,7 @@ public class CreateQuestionController {
 	}
 
 	@PostMapping("/instructor/insertMCQ")
-	public String createOption(@ModelAttribute("question") AllQuestions question) {
+	public String createOption(@ModelAttribute("question") AllQuestions question) throws SQLException {
 		IChoicesRepository.addQuestionMultiple(AppUser.getCurrentUser().getUserId(), question.getTitle(),
 				question.getText(), question.getType(), question.getDisplayText(), question.getStoredAs());
 

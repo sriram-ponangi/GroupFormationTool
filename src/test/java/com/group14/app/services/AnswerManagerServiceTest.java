@@ -3,6 +3,9 @@ package com.group14.app.services;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+
+import java.sql.SQLException;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -24,7 +27,7 @@ public class AnswerManagerServiceTest {
 	}
 
 	@Test
-	public void deleteData() {
+	public void deleteData() throws SQLException {
 		int id = 1;
 		doNothing().when(this.aMR).deleteQuestionAsTransaction(id);
 		aMS.deleteData(id);

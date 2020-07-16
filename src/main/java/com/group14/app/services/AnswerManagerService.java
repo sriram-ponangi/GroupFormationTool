@@ -1,5 +1,7 @@
 package com.group14.app.services;
 
+import java.sql.SQLException;
+
 import org.springframework.stereotype.Service;
 import com.group14.app.repositories.IAnswerManagerRepository;
 
@@ -13,7 +15,7 @@ public class AnswerManagerService implements IAnswerManagerService {
 	}
 
 	@Override
-	public void deleteData(int id) {
+	public void deleteData(int id) throws SQLException {
 		iAMR.deleteQuestionAsTransaction(id);// deletes Questions and Corresponding Answers
 	}
 }

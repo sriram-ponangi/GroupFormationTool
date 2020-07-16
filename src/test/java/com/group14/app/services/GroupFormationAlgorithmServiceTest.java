@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -41,7 +42,7 @@ public class GroupFormationAlgorithmServiceTest {
 	}
 
 	@Test
-	public void getAllSurveyQuestionDetailsByIdTest() {
+	public void getAllSurveyQuestionDetailsByIdTest() throws SQLException{
 		AllQuestions question1 = new AllQuestions();
 		question1.setDisplayText("question1");
 		AllQuestions question2 = new AllQuestions();
@@ -66,7 +67,7 @@ public class GroupFormationAlgorithmServiceTest {
 	}
 
 	@Test
-	public void mapQuestionIdWithResponseIdForSurveyTest() {
+	public void mapQuestionIdWithResponseIdForSurveyTest() throws SQLException{
 		List<SurveyQuestionMapper> surveyQuestionsMock = new ArrayList<>();
 		SurveyQuestionMapper mock1 = new SurveyQuestionMapper();
 		mock1.setQuestionId(1);
@@ -90,7 +91,7 @@ public class GroupFormationAlgorithmServiceTest {
 	}
 
 	@Test
-	public void saveSurveyAlgorithmTest_BasicSuccessCase() {
+	public void saveSurveyAlgorithmTest_BasicSuccessCase() throws SQLException{
 		SurveyAlgorithmInfo mockInfo = new SurveyAlgorithmInfo();
 		mockInfo.setPublished(1);
 		mockInfo.setSurveyId(1);
@@ -102,7 +103,7 @@ public class GroupFormationAlgorithmServiceTest {
 	}
 
 	@Test
-	public void saveSurveyAlgorithmTest_BasicFailedCases() {
+	public void saveSurveyAlgorithmTest_BasicFailedCases() throws SQLException{
 		SurveyAlgorithmInfo mockInfo = new SurveyAlgorithmInfo();
 		mockInfo.setPublished(0);
 		mockInfo.setSurveyId(1);
@@ -121,7 +122,7 @@ public class GroupFormationAlgorithmServiceTest {
 	}
 
 	@Test
-	public void mapQuestionIdWithSavedAlgorithmRulesTest() {
+	public void mapQuestionIdWithSavedAlgorithmRulesTest() throws SQLException{
 		List<SurveyQuestionMapper> mockSurveyQuestions = new ArrayList<>();
 		SurveyQuestionMapper mock1 = new SurveyQuestionMapper();
 		mock1.setQuestionId(1);

@@ -1,5 +1,6 @@
 package com.group14.app.repositories;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,7 +21,7 @@ public class ForgotPasswordRepository {
 		this.db = db;
 	}
 
-	public String readPass(String banner) {
+	public String readPass(String banner) throws SQLException {
 		String SQL_GET_USER = "SELECT password FROM Users WHERE USER_ID = ?";
 		List<Object> params = new ArrayList<>();
 		params.add(banner);
@@ -38,7 +39,7 @@ public class ForgotPasswordRepository {
 		return finalPass.getPassword();
 	}
 
-	public String readEmail(String banner) {
+	public String readEmail(String banner) throws SQLException {
 
 		String SQL_GET_USER = "SELECT email FROM Users WHERE USER_ID = ?";
 		List<Object> params = new ArrayList<>();

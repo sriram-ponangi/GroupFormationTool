@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +35,7 @@ public class GroupFormationAlgorithmRepositoryTest {
 	}
 
 	@Test
-	public void getAllGroupFormationAlgoRulesTest_BasicSuccessCase() {
+	public void getAllGroupFormationAlgoRulesTest_BasicSuccessCase() throws SQLException{
 		List<HashMap<String, Object>> mockDBResponse = new ArrayList<HashMap<String, Object>>();
 		HashMap<String, Object> row1 = new HashMap<>();
 		row1.put("description", "description");
@@ -67,7 +68,7 @@ public class GroupFormationAlgorithmRepositoryTest {
 	}
 
 	@Test
-	public void getAllGroupFormationAlgoRulesTest_BasicFailedCase() {
+	public void getAllGroupFormationAlgoRulesTest_BasicFailedCase() throws SQLException{
 		List<HashMap<String, Object>> mockDBResponse = new ArrayList<HashMap<String, Object>>();
 
 		when(mockDB.readData(any(SQLInput.class))).thenReturn(mockDBResponse);
@@ -78,7 +79,7 @@ public class GroupFormationAlgorithmRepositoryTest {
 	}
 
 	@Test
-	public void saveAlgorithmRulesTest_BasicSuccessCase() {
+	public void saveAlgorithmRulesTest_BasicSuccessCase() throws SQLException{
 		List<SurveyRuleMapper> mockSurveyQuestionRules = new ArrayList<>();
 		mockSurveyQuestionRules.add(new SurveyRuleMapper());
 		mockSurveyQuestionRules.add(new SurveyRuleMapper());
@@ -92,7 +93,7 @@ public class GroupFormationAlgorithmRepositoryTest {
 	}
 
 	@Test
-	public void saveAlgorithmRulesTest_BasicFailedCase() {
+	public void saveAlgorithmRulesTest_BasicFailedCase() throws SQLException{
 		List<SurveyRuleMapper> mockSurveyQuestionRules = new ArrayList<>();
 		mockSurveyQuestionRules.add(new SurveyRuleMapper());
 		mockSurveyQuestionRules.add(new SurveyRuleMapper());
@@ -106,7 +107,7 @@ public class GroupFormationAlgorithmRepositoryTest {
 	}
 
 	@Test
-	public void getSavedAlgorithmRulesTest_BasicSuccessCase() {
+	public void getSavedAlgorithmRulesTest_BasicSuccessCase() throws SQLException{
 		List<HashMap<String, Object>> mockDBResponse = new ArrayList<HashMap<String, Object>>();
 		HashMap<String, Object> row1 = new HashMap<>();
 		row1.put("additional_info", "additional_info");
@@ -124,7 +125,7 @@ public class GroupFormationAlgorithmRepositoryTest {
 	}
 
 	@Test
-	public void getSavedAlgorithmRulesTest_BasicFailedCase() {
+	public void getSavedAlgorithmRulesTest_BasicFailedCase() throws SQLException{
 		List<HashMap<String, Object>> mockDBResponse = new ArrayList<HashMap<String, Object>>();
 
 		when(mockDB.readData(any(SQLInput.class))).thenReturn(mockDBResponse);

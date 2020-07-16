@@ -4,7 +4,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-import java.sql.Timestamp;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,7 +32,7 @@ public class QuestionManagerRepositoryTest {
 	}
 
 	@Test
-	void findRole() {
+	void findRole() throws SQLException {
 		List<HashMap<String, Object>> usersData = new ArrayList<HashMap<String, Object>>();
 		HashMap<String, Object> row = new HashMap<String, Object>();
 		row.put("instructor_id", "B00100001");
@@ -46,13 +46,13 @@ public class QuestionManagerRepositoryTest {
 	}
 
 	@Test
-	void showCourseTest() {
+	void showCourseTest() throws SQLException {
 		ArrayList<AllQuestions> list = new ArrayList<>();
 		when(this.qMR.getAllQuestions("B00100001")).thenReturn(list);
 	}
 
 	@Test
-	void getQuestionDetailsByIdTest() {
+	void getQuestionDetailsByIdTest() throws SQLException{
 		List<HashMap<String, Object>> mockQuestionsData = new ArrayList<HashMap<String,Object>>();
 		HashMap<String, Object> row1 = new HashMap<>();
 		row1.put("instructor_id", "B00100007");

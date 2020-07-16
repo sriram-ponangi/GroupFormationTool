@@ -4,5 +4,5 @@ import java.sql.SQLException;
 
 public interface IAnswerManagerRepository {
 
-	public void deleteQuestionAsTransaction(int id);
+	public void deleteQuestionAsTransaction(int id) throws SQLException;
 }

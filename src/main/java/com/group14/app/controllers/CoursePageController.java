@@ -1,5 +1,6 @@
 package com.group14.app.controllers;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,7 +22,7 @@ public class CoursePageController {
 	}
 
 	@GetMapping("/student/mycourses")
-	public String listStudent(Model model) {
+	public String listStudent(Model model) throws SQLException {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		UserPrincipal userPrincipal = (UserPrincipal) principal;
 		String uid = userPrincipal.getUser().getUserId();
@@ -31,7 +32,7 @@ public class CoursePageController {
 	}
 
 	@GetMapping("/guest/allcourses")
-	public String listTA(Model model) {
+	public String listTA(Model model) throws SQLException {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		UserPrincipal userPrincipal = (UserPrincipal) principal;
 		String uid = userPrincipal.getUser().getUserId();

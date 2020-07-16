@@ -1,5 +1,7 @@
 package com.group14.app.controllers;
 
+import java.sql.SQLException;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +27,7 @@ public class RegisterController {
 	}
 
 	@PostMapping("/confirm")
-	public String greetingSubmit(@ModelAttribute AppUser greeting) {
+	public String greetingSubmit(@ModelAttribute AppUser greeting) throws SQLException {
 
 		IUserRepository.addUser(greeting.getUserId(), greeting.getFirstName(), greeting.getLastName(),
 				greeting.getEmail(), greeting.getPassword());

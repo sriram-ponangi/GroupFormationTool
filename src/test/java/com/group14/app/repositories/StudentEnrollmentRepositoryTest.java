@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
+import java.sql.SQLException;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -28,7 +30,7 @@ public class StudentEnrollmentRepositoryTest {
 	}
 
 	@Test
-	public void enrollStudentToCourseTest() {
+	public void enrollStudentToCourseTest() throws SQLException {
 		AppUser appUser = new AppUser("userId", "password", "email", "firstName", "lastName", 1);
 
 		when(mockDB.existsById(any(SQLInput.class))).thenReturn(false).thenReturn(false).thenReturn(false);
