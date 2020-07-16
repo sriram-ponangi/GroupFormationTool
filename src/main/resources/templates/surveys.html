@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+	<head>
+		<title>Student Survey</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	</head>
+	<body>
+		<center>
+			<h1>Course Survey : <span th:text="${courseId}"></span> </h1>
+			<form action="#" th:action="@{/submitSurvey/{courseId}(courseId=${courseId})}" method="post">				
+				<p th:each="survey, itemStat: *{surveyList}">				
+					<span th:text="${survey.text}"></span>
+					<span th:if="${survey.type=='MCQS'}">				
+						<select id="numanswer" name="numanswer" th:field="*{answernum.numanswer}">
+							<option  th:each="option, itemStat: ${survey.options}" 
+							th:value="${option.key}" th:text="${option.value}" 
+							th:selected="${option.key}== ${answernum.numanswer}" >
+							</option>				
+						</select>
+						<input type="checkbox" name="qid" th:value="${survey.qid}" th:field="${answernum.qid}"/>						
+					</span>
+					<span>
+						<span th:if="${survey.type=='MCQM'}" th:each="option, itemStat: ${survey.options}">
+							<input type="checkbox" th:value="${option.key}" th:text="${option.value}" th:field="${answernum.numanswer}"><br/>
+							<input type="checkbox" name="qid" th:value="${survey.qid}" th:field="${answernum.qid}"/>	
+						</span>							
+					</span>
+								
+					<span th:if="${survey.type=='TEXT'}">
+						<textarea name="message" rows="3" cols="20" th:field="${answertext.textanswer}"></textarea>
+						<input type="checkbox" name="qid" th:value="${survey.qid}" th:field="${answertext.tqid}"/>
+					</span>
+					
+					<span th:if="${survey.type=='NUMERIC'}">
+						<input type="number" th:field="${answernum.numanswer}" />
+						<input type="checkbox" name="qid" th:value="${survey.qid}" th:field="${answernum.qid}"/>	
+					</span>
+				</p>
+				<p>
+					<input type="submit" value="Submit" />
+					<input type="reset" value="Reset" />
+				</p>
+			</form>
+			<a href="/student/mycourses">Click Here to go back to the Course List</a>
+		</center>
+	</body>
+</html>
