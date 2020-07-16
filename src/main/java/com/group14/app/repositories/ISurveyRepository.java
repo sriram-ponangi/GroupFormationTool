@@ -15,4 +15,6 @@ public interface ISurveyRepository {
 	
 	int unpublishSurvey(int surveyId) throws SQLException;
 	
+	int createSurvey(Survey survey)  throws SQLException;
+	
 }

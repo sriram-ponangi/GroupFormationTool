@@ -34,7 +34,7 @@ public class SurveyRepositoryTest {
 	}
 	
 	@Test
-	public void getSurveyInfo_BasicSuccessCase() throws SQLException{
+	public void getSurveyInfo_BasicSuccessCase() throws SQLException {
 		List<HashMap<String, Object>> mockDBResponse = new ArrayList<HashMap<String, Object>>();
 		HashMap<String, Object> row1 = new HashMap<>();
 		row1.put("survey_id", 1);
@@ -53,7 +53,7 @@ public class SurveyRepositoryTest {
 	}
 	
 	@Test
-	public void getSurveyInfo_BasicFailedCase() throws SQLException{
+	public void getSurveyInfo_BasicFailedCase() throws SQLException {
 		List<HashMap<String, Object>> mockDBResponse = new ArrayList<HashMap<String, Object>>();
 		
 		when(mockDB.readData(any(SQLInput.class))).thenReturn(mockDBResponse);
@@ -67,7 +67,7 @@ public class SurveyRepositoryTest {
 	
 	
 	@Test
-	public void getSurveyQuestionsInfoTest_BasicSuccessCase() throws SQLException{
+	public void getSurveyQuestionsInfoTest_BasicSuccessCase() throws SQLException {
 		List<HashMap<String, Object>> mockDBResponse = new ArrayList<HashMap<String, Object>>();
 		HashMap<String, Object> row1 = new HashMap<>();
 		row1.put("question_id", 1);
@@ -91,7 +91,7 @@ public class SurveyRepositoryTest {
 	}
 	
 	@Test
-	public void getSurveyQuestionsInfoTest_BasicFailedCase() throws SQLException{
+	public void getSurveyQuestionsInfoTest_BasicFailedCase() throws SQLException {
 		List<HashMap<String, Object>> mockDBResponse = new ArrayList<HashMap<String, Object>>();
 				
 		when(mockDB.readData(any(SQLInput.class))).thenReturn(mockDBResponse);
@@ -102,7 +102,7 @@ public class SurveyRepositoryTest {
 	}	
 	
 	@Test
-	public void publishSurvey_BasicSuccessCase() throws SQLException{		
+	public void publishSurvey_BasicSuccessCase() throws SQLException {		
 		int mockDBResponse = 1;
 		
 		when(mockDB.save(any(SQLInput.class))).thenReturn(mockDBResponse);	
@@ -112,7 +112,7 @@ public class SurveyRepositoryTest {
 	}
 	
 	@Test
-	public void publishSurvey_BasicFailedCase() throws SQLException{		
+	public void publishSurvey_BasicFailedCase() throws SQLException {		
 		int mockDBResponse = 0;
 		
 		when(mockDB.save(any(SQLInput.class))).thenReturn(mockDBResponse);	
@@ -122,7 +122,7 @@ public class SurveyRepositoryTest {
 	}
 	
 	@Test
-	public void unpublishSurvey_BasicSuccessCase() throws SQLException{		
+	public void unpublishSurvey_BasicSuccessCase() throws SQLException {		
 		int mockDBResponse = 1;
 		
 		when(mockDB.save(any(SQLInput.class))).thenReturn(mockDBResponse);	
@@ -132,7 +132,7 @@ public class SurveyRepositoryTest {
 	}
 	
 	@Test
-	public void unpublishSurvey_BasicFailedCase() throws SQLException{		
+	public void unpublishSurvey_BasicFailedCase() throws SQLException {		
 		int mockDBResponse = 0;
 		
 		when(mockDB.save(any(SQLInput.class))).thenReturn(mockDBResponse);	
@@ -141,4 +141,27 @@ public class SurveyRepositoryTest {
 		assertEquals(0, response);		
 	}
 	
+	@Test
+	public void createSurvey_BasicSuccessCase() throws SQLException {
+		Survey survey = new Survey(1,1,1, "CSCI1001");
+		int mockDBResponse = 1;
+		
+		when(mockDB.save(any(SQLInput.class))).thenReturn(mockDBResponse);
+		
+		int response = surveyRepository.createSurvey(survey);
+		
+		assertEquals(1, response);
+	}
+	
+	@Test
+	public void createSurvey_BasicFailedCase() throws SQLException {
+		Survey survey = new Survey(1,1,1, "CSCI1001");
+		int mockDBResponse = 0;
+		
+		when(mockDB.save(any(SQLInput.class))).thenReturn(mockDBResponse);
+		
+		int response = surveyRepository.createSurvey(survey);
+		
+		assertEquals(0, response);
+	}
 }

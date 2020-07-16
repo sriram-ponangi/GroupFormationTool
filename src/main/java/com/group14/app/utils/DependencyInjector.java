@@ -47,6 +47,11 @@ public class DependencyInjector {
 	private IGroupFormationAlgorithmService IGroupFormationAlgorithmService;
 	private ISurveyRepository ISurveyRepository;
 	private IGroupFormationAlgorithmRepository IGroupFormationAlgorithmRepository;
+	
+	private ISurveyQuestionMapperService ISurveyQuestionMapperService;
+	private ISurveyQuestionMapperRepository ISurveyQuestionMapperRepository;
+	
+	private ISurveyService ISurveyService;
 
 	private DependencyInjector() {
 		this.CRUDRepository = new MySQLDBOperations();
@@ -80,9 +85,13 @@ public class DependencyInjector {
 		this.IInstructorActionsRepository = new InstructorActions(this.IAppUserRepository, this.CRUDRepository);
 
 		this.ISurveyRepository = new SurveyRepository(this.CRUDRepository);
+		this.ISurveyService = new SurveyService(ISurveyRepository);
 		this.IGroupFormationAlgorithmRepository = new GroupFormationAlgorithmRepository(this.CRUDRepository);
 		this.IGroupFormationAlgorithmService = new GroupFormationAlgorithmService(this.ISurveyRepository,
 				this.IQuestionManagerRepository, this.IGroupFormationAlgorithmRepository);
+		
+		this.ISurveyQuestionMapperService = new SurveyQuestionMapperService(this.ISurveyQuestionMapperRepository);
+		this.ISurveyQuestionMapperRepository = new SurveyQuestionMapperRepository(this.CRUDRepository);
 
 	}
 

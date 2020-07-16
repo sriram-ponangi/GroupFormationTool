@@ -6,6 +6,17 @@ public class Survey {
 	private int groupSize;
 	private String courseId;
 
+	public Survey (int surveyId, int published, int groupSize, String courseId) {
+		this.courseId = courseId;
+		this.groupSize = groupSize;
+		this.published = published;
+		this.surveyId = surveyId;
+	}
+	
+	public Survey() {
+		
+	}
+	
 	public int getSurveyId() {
 		return surveyId;
 	}
@@ -44,4 +55,16 @@ public class Survey {
 				+ courseId + "]";
 	}
 
+	private Boolean isValidSurveyDetails() {
+		if (this.getCourseId() != null && this.getCourseId().matches("CSCI\\d{4}") && this.getCourseId().length() > 0 && this.getPublished() >= 0 && this.getGroupSize() > 0 && 
+			this.getSurveyId() > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public Boolean isValidSurvey() {
+		return isValidSurveyDetails() ? true : false;
+	}
 }

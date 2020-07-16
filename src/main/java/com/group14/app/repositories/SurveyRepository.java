@@ -26,7 +26,7 @@ public class SurveyRepository implements ISurveyRepository {
 	}
 
 	@Override
-	public Survey getSurveyInfo(String courseId) throws SQLException{
+	public Survey getSurveyInfo(String courseId) throws SQLException {
 		LOG.info("Getting Survey Info from DB for {} courseId",courseId);
 		final String SQL = " SELECT * FROM Surveys WHERE course_id = ?";
 		final List<Object> params = new ArrayList<>();
@@ -52,7 +52,7 @@ public class SurveyRepository implements ISurveyRepository {
 	}
 
 	@Override
-	public List<SurveyQuestionMapper> getSurveyQuestionsInfo(int surveyId) throws SQLException{
+	public List<SurveyQuestionMapper> getSurveyQuestionsInfo(int surveyId) throws SQLException {
 
 		final String SQL = " SELECT * FROM SurveyQuestionsMapper WHERE survey_id = ?";
 		final List<Object> params = new ArrayList<>();
@@ -81,7 +81,7 @@ public class SurveyRepository implements ISurveyRepository {
 	}
 
 	@Override
-	public int publishSurvey(int surveyId) throws SQLException{
+	public int publishSurvey(int surveyId) throws SQLException {
 		final String SQL = "UPDATE Surveys SET published = 1 WHERE survey_id = ?";
 		final List<Object> params = new ArrayList<>();
 		params.add(surveyId);
@@ -90,12 +90,27 @@ public class SurveyRepository implements ISurveyRepository {
 	}
 	
 	@Override
-	public int unpublishSurvey(int surveyId) throws SQLException{
+	public int unpublishSurvey(int surveyId) throws SQLException {
 		final String SQL = "UPDATE Surveys SET published = 0 WHERE survey_id = ?";
 		final List<Object> params = new ArrayList<>();
 		params.add(surveyId);
 		final SQLInput sqlInput = new SQLInput(SQL, params);
 		return db.save(sqlInput);
+	}
+
+	@Override
+	public int createSurvey(Survey survey) throws SQLException {
+		
+		String SQL_GET_USER = "insert into Surveys(course_id,published,group_size) values (?,?,?)";
+		
+		List<Object> params = new ArrayList<>();
+		params.add(survey.getCourseId());
+		params.add(survey.getPublished());
+		params.add(survey.getGroupSize());
+		
+		int rowInserted = db.save(new SQLInput(SQL_GET_USER, params));
+		
+		return rowInserted;
 	}
 
 }
