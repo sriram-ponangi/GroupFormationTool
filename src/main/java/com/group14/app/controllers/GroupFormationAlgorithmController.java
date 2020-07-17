@@ -97,13 +97,14 @@ public class GroupFormationAlgorithmController {
 
 			if (info.getAction().equalsIgnoreCase("RUN")) {
 				if (info.getPublished() == 1) {
+				    LOG.info("Applying the GROUP FORMATION ALGORITHM");
 					return "redirect:/ta/groupFormationResults?courseId=" + info.getCourseId();
 				} else {
 					model.addAttribute("warnMessage",
 							"Survey is not published so cannot run the algorithm, but saving the algorithm is completed.");
 					return "createGroupFormationAlgorithmPageWarn";
 				}
-				LOG.info("Applying the GROUP FORMATION ALGORITHM");
+				
 			}
 			model.addAttribute("successMessage", "Saving the algorithm completed.");
 			return "createGroupFormationAlgorithmPageSuccess";
