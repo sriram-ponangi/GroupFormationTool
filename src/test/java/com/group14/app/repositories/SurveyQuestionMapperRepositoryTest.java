@@ -32,7 +32,7 @@ public class SurveyQuestionMapperRepositoryTest {
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
 	}
-	
+
 	@Test
 	public void getAllSurveyQuestions_BasicSuccessCase() throws SQLException {
 		List<HashMap<String, Object>> mockDBResponse = new ArrayList<HashMap<String, Object>>();
@@ -45,10 +45,10 @@ public class SurveyQuestionMapperRepositoryTest {
 		row2.put("response_id", 2);
 		row2.put("survey_id", 1);
 		mockDBResponse.add(row1);
-		mockDBResponse.add(row2);		
-		
+		mockDBResponse.add(row2);
+
 		when(mockDB.readData(any(SQLInput.class))).thenReturn(mockDBResponse);
-		
+
 		List<SurveyQuestionMapper> response = surveyQuestionMapperRepository.getAllSurveyQuestions(1);
 		assertEquals(2, response.size());
 		assertEquals(1, response.get(0).getQuestionId());
@@ -56,62 +56,65 @@ public class SurveyQuestionMapperRepositoryTest {
 		assertEquals(2, response.get(1).getQuestionId());
 		assertEquals(2, response.get(1).getResponseId());
 	}
-	
+
 	@Test
 	public void getAllSurveyQuestions_BasicFailureCase() throws SQLException {
 		List<HashMap<String, Object>> mockDBResponse = new ArrayList<HashMap<String, Object>>();
-		
+
 		when(mockDB.readData(any(SQLInput.class))).thenReturn(mockDBResponse);
-		
+
 		List<SurveyQuestionMapper> response = surveyQuestionMapperRepository.getAllSurveyQuestions(1);
 		assertEquals(0, response.size());
 	}
-	
+
 	@Test
 	public void addSurveyQuestion_BasicSuccessCase() throws SQLException {
-		SurveyQuestionMapper surveyQuestionMapper = new SurveyQuestionMapper(1,1,1);
+		SurveyQuestionMapper surveyQuestionMapper = new SurveyQuestionMapper(1, 1, 1);
 		int mockDBResponse = 1;
-		
+
 		when(mockDB.save(any(SQLInput.class))).thenReturn(mockDBResponse);
-		
-		int response = surveyQuestionMapperRepository.addSurveyQuestion(surveyQuestionMapper.getQuestionId(), surveyQuestionMapper.getSurveyId());
-		
+
+		int response = surveyQuestionMapperRepository.addSurveyQuestion(surveyQuestionMapper.getQuestionId(),
+				surveyQuestionMapper.getSurveyId());
+
 		assertEquals(1, response);
 	}
-	
+
 	@Test
 	public void addSurveyQuestion_BasicFailedCase() throws SQLException {
-		SurveyQuestionMapper surveyQuestionMapper = new SurveyQuestionMapper(1,1,1);
+		SurveyQuestionMapper surveyQuestionMapper = new SurveyQuestionMapper(1, 1, 1);
 		int mockDBResponse = 0;
-		
+
 		when(mockDB.save(any(SQLInput.class))).thenReturn(mockDBResponse);
-		
-		int response = surveyQuestionMapperRepository.addSurveyQuestion(surveyQuestionMapper.getQuestionId(), surveyQuestionMapper.getSurveyId());
-		
+
+		int response = surveyQuestionMapperRepository.addSurveyQuestion(surveyQuestionMapper.getQuestionId(),
+				surveyQuestionMapper.getSurveyId());
+
 		assertEquals(0, response);
 	}
-	
+
 	@Test
 	public void deleteSurveyQuestion_BasicSuccessCase() throws SQLException {
-		SurveyQuestionMapper surveyQuestionMapper = new SurveyQuestionMapper(1,1,1);
-		int mockDBResponse = 1;
-		
-		when(mockDB.save(any(SQLInput.class))).thenReturn(mockDBResponse);
-		
-		int response = surveyQuestionMapperRepository.deleteSurveyQuestion(surveyQuestionMapper.getQuestionId(), surveyQuestionMapper.getSurveyId());
-		
-		assertEquals(1, response);
+		SurveyQuestionMapper surveyQuestionMapper = new SurveyQuestionMapper(1, 1, 1);
+		int[] mockDBResponse = new int[4];
+		mockDBResponse[0] = 1;
+
+		when(mockDB.saveTransaction(any())).thenReturn(mockDBResponse);
+
+		int[] response = surveyQuestionMapperRepository.deleteSurveyQuestion(surveyQuestionMapper.getResponseId());
+
+		assertEquals(1, response[0]);
 	}
-	
+
 	@Test
 	public void deleteSurveyQuestion_BasicFailedCase() throws SQLException {
-		SurveyQuestionMapper surveyQuestionMapper = new SurveyQuestionMapper(1,1,1);
-		int mockDBResponse = 0;
-		
-		when(mockDB.save(any(SQLInput.class))).thenReturn(mockDBResponse);
-		
-		int response = surveyQuestionMapperRepository.deleteSurveyQuestion(surveyQuestionMapper.getQuestionId(), surveyQuestionMapper.getSurveyId());
-		
-		assertEquals(0, response);
+		SurveyQuestionMapper surveyQuestionMapper = new SurveyQuestionMapper(1, 1, 1);
+		int[] mockDBResponse = new int[4];
+		mockDBResponse[0] = 1;
+		when(mockDB.saveTransaction(any())).thenReturn(mockDBResponse);
+
+		int[] response = surveyQuestionMapperRepository.deleteSurveyQuestion(surveyQuestionMapper.getResponseId());
+
+		assertEquals(1, response[0]);
 	}
 }

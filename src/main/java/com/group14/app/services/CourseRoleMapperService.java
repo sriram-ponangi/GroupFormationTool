@@ -30,10 +30,10 @@ public class CourseRoleMapperService implements ICourseRoleMapperService {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Override
 	public ArrayList<CourseRoleMapper> getInstructorId(String courseId) {
-		
+
 		try {
 			ArrayList<CourseRoleMapper> roles = new ArrayList<CourseRoleMapper>();
 			roles = cRMP.getInstructorId(courseId);
@@ -42,6 +42,6 @@ public class CourseRoleMapperService implements ICourseRoleMapperService {
 			e.printStackTrace();
 			return null;
 		}
-		
+
 	}
 }

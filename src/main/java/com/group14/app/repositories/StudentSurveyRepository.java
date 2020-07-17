@@ -54,11 +54,11 @@ public class StudentSurveyRepository implements IStudentSurveyRepository {
 					params1.add(survey.getQid());
 
 					final String SQL1 = "select stored_as,display_text from MultipleChoiceQuestions as mcq, SurveyQuestionsMapper as sqm where sqm.question_id=mcq.question_id and mcq.question_id=?;";
-					List<HashMap<String, Object>> optionsData=null;
+					List<HashMap<String, Object>> optionsData = null;
 					try {
 						optionsData = db.readData(new SQLInput(SQL1, params1));
 					} catch (SQLException e) {
-						
+
 						e.printStackTrace();
 					}
 
@@ -76,7 +76,7 @@ public class StudentSurveyRepository implements IStudentSurveyRepository {
 		return questionList;
 	}
 
-	public boolean isSurveyPublished(String cid) throws SQLException{
+	public boolean isSurveyPublished(String cid) throws SQLException {
 		List<Object> params = new ArrayList<>();
 		params.add(cid);
 
@@ -114,7 +114,8 @@ public class StudentSurveyRepository implements IStudentSurveyRepository {
 		return surveyId;
 	}
 
-	public boolean addNumericSurveyResponse(String userId, String cid, String response, String qid) throws SQLException{
+	public boolean addNumericSurveyResponse(String userId, String cid, String response, String qid)
+			throws SQLException {
 		List<String> numResponseList = Arrays.asList(response.split(","));
 		List<String> qidList = Arrays.asList(qid.split(","));
 		List<SQLInput> sqlList = new ArrayList<>();

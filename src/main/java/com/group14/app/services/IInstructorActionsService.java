@@ -6,7 +6,7 @@ import com.group14.app.models.AppUser;
 
 public interface IInstructorActionsService {
 
-	public AppUser AddStudentToTAList(String courseId, String bannerId) throws SQLException ;
+	public AppUser AddStudentToTAList(String courseId, String bannerId) throws SQLException;
 
-	public int GiveTaPermission(String bannerId, String courseId) throws SQLException ;
+	public int GiveTaPermission(String bannerId, String courseId) throws SQLException;
 }

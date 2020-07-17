@@ -22,7 +22,7 @@ public class InstructorActions implements IInstructorActionsRepository {
 
 	private CRUDRepository<SQLInput> db;
 
-	private static final Logger LOG = LoggerFactory.getLogger(AppUserRepository.class);	
+	private static final Logger LOG = LoggerFactory.getLogger(AppUserRepository.class);
 
 	public InstructorActions(IAppUserRepository appUserRepo, CRUDRepository<SQLInput> db) {
 		this.appUserRepo = appUserRepo;

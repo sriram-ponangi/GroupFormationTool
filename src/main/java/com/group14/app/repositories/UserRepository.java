@@ -20,7 +20,7 @@ public class UserRepository implements IUserRepository {
 	}
 
 	@Override
-	public boolean addUser(String bno, String fname, String lname, String email, String pass) throws SQLException{
+	public boolean addUser(String bno, String fname, String lname, String email, String pass) throws SQLException {
 		String SQL_INSERT_USER = "insert into Users ( user_id, password, first_name, last_name, email) values (?,?,?,?,?)";
 		List<Object> params1 = new ArrayList<>();
 		params1.add(bno);

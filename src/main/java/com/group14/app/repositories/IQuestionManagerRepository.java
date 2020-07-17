@@ -10,7 +10,7 @@ public interface IQuestionManagerRepository {
 	ArrayList<AllQuestions> getAllQuestions(String instructorId) throws SQLException;
 
 	String FindRoleForID(int role) throws SQLException;
-	
+
 	AllQuestions getQuestionDetailsById(String questionId) throws SQLException;
 
 }

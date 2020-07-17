@@ -3,6 +3,8 @@ package com.group14.app.controllers;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -22,6 +24,7 @@ public class QuestionManagerController {
 
 	IQuestionManagerService iQMS;
 	IAnswerManagerService iAMS;
+	private static final Logger LOG = LoggerFactory.getLogger(QuestionManagerController.class);
 
 	public QuestionManagerController(IQuestionManagerService iQMS, IAnswerManagerService iAMS) {
 		this.iQMS = iQMS;
@@ -39,7 +42,7 @@ public class QuestionManagerController {
 		} else {
 			bannerId = principal.toString();
 		}
-		
+		LOG.info("Displaying all questions to the instructor.");
 		ArrayList<AllQuestions> questionsList = iQMS.getAllQuestions(bannerId);
 		model.addAttribute("questionsList", questionsList);
 		model.addAttribute("question", new AllQuestions());

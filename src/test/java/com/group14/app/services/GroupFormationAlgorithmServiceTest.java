@@ -42,7 +42,7 @@ public class GroupFormationAlgorithmServiceTest {
 	}
 
 	@Test
-	public void getAllSurveyQuestionDetailsByIdTest() throws SQLException{
+	public void getAllSurveyQuestionDetailsByIdTest() throws SQLException {
 		AllQuestions question1 = new AllQuestions();
 		question1.setDisplayText("question1");
 		AllQuestions question2 = new AllQuestions();
@@ -67,7 +67,7 @@ public class GroupFormationAlgorithmServiceTest {
 	}
 
 	@Test
-	public void mapQuestionIdWithResponseIdForSurveyTest() throws SQLException{
+	public void mapQuestionIdWithResponseIdForSurveyTest() throws SQLException {
 		List<SurveyQuestionMapper> surveyQuestionsMock = new ArrayList<>();
 		SurveyQuestionMapper mock1 = new SurveyQuestionMapper();
 		mock1.setQuestionId(1);
@@ -91,7 +91,7 @@ public class GroupFormationAlgorithmServiceTest {
 	}
 
 	@Test
-	public void saveSurveyAlgorithmTest_BasicSuccessCase() throws SQLException{
+	public void saveSurveyAlgorithmTest_BasicSuccessCase() throws SQLException {
 		SurveyAlgorithmInfo mockInfo = new SurveyAlgorithmInfo();
 		mockInfo.setPublished(1);
 		mockInfo.setSurveyId(1);
@@ -103,7 +103,7 @@ public class GroupFormationAlgorithmServiceTest {
 	}
 
 	@Test
-	public void saveSurveyAlgorithmTest_BasicFailedCases() throws SQLException{
+	public void saveSurveyAlgorithmTest_BasicFailedCases() throws SQLException {
 		SurveyAlgorithmInfo mockInfo = new SurveyAlgorithmInfo();
 		mockInfo.setPublished(0);
 		mockInfo.setSurveyId(1);
@@ -122,7 +122,7 @@ public class GroupFormationAlgorithmServiceTest {
 	}
 
 	@Test
-	public void mapQuestionIdWithSavedAlgorithmRulesTest() throws SQLException{
+	public void mapQuestionIdWithSavedAlgorithmRulesTest() throws SQLException {
 		List<SurveyQuestionMapper> mockSurveyQuestions = new ArrayList<>();
 		SurveyQuestionMapper mock1 = new SurveyQuestionMapper();
 		mock1.setQuestionId(1);

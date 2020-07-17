@@ -12,9 +12,9 @@ public interface ISurveyRepository {
 	List<SurveyQuestionMapper> getSurveyQuestionsInfo(int surveyId) throws SQLException;
 
 	int publishSurvey(int surveyId) throws SQLException;
-	
+
 	int unpublishSurvey(int surveyId) throws SQLException;
-	
-	int createSurvey(Survey survey)  throws SQLException;
-	
+
+	int createSurvey(Survey survey) throws SQLException;
+
 }

@@ -3,6 +3,8 @@ package com.group14.app.controllers;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +16,8 @@ import com.group14.app.repositories.ICourseStudRepository;
 
 @Controller
 public class CoursePageController {
-
+	
+	private static final Logger LOG = LoggerFactory.getLogger(CoursePageController.class);
 	private ICourseStudRepository ICourseStudRepository;
 
 	public CoursePageController(ICourseStudRepository ICourseStudRepository) {
@@ -28,6 +31,7 @@ public class CoursePageController {
 		String uid = userPrincipal.getUser().getUserId();
 		ArrayList<Courses> courseList = ICourseStudRepository.getAssignedCourse(uid);
 		model.addAttribute("courseList", courseList);
+		LOG.info("Displaying courses of Instructor with bannerId: {}", uid);
 		return "TAandInstructorCourses";
 	}
 
@@ -38,7 +42,7 @@ public class CoursePageController {
 		String uid = userPrincipal.getUser().getUserId();
 		ArrayList<Courses> courseList = ICourseStudRepository.getAllCourse(uid);
 		model.addAttribute("courseList", courseList);
-
+		LOG.info("Displaying all courses to bannerId: {}", uid);
 		return "StudentCourses";
 	}
 

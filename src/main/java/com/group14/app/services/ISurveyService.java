@@ -7,7 +7,7 @@ import com.group14.app.models.AllQuestions;
 import com.group14.app.models.Survey;
 
 public interface ISurveyService {
-	
+
 	int getSurveyId(String courseId) throws SQLException;
 
 	List<AllQuestions> getAllSurveyQuestions(String surveyId);
@@ -15,7 +15,7 @@ public interface ISurveyService {
 	boolean isSurveyPublished(String surveyId);
 
 	void publishSurvey(String surveyId);
-	
+
 	int createSurvey(Survey survey) throws SQLException;
-	
+
 }

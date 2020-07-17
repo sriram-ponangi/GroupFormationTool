@@ -29,20 +29,17 @@ public class MySQLDBOperations implements CRUDRepository<SQLInput> {
 		final String ENV = System.getenv("APP_PROFILE");
 		LOG.info("APP_PROFILE: {}", ENV);
 		if (ENV != null && ENV.equalsIgnoreCase("test")) {
-			DB_HOST = "jdbc:mysql://db-5308.cs.dal.ca:3306/CSCI5308_14_TEST?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&allowMultiQueries=true";
+			DB_HOST = "jdbc:mysql://db-5308.cs.dal.ca:3306/CSCI5308_14_TEST?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 			DB_USER = "CSCI5308_14_TEST_USER";
 			DB_PASSWORD = "CSCI5308_14_TEST_14577";
 		} else if (ENV != null && ENV.equalsIgnoreCase("prod")) {
-			DB_HOST = "jdbc:mysql://db-5308.cs.dal.ca:3306/CSCI5308_14_PRODUCTION?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&allowMultiQueries=true";
+			DB_HOST = "jdbc:mysql://db-5308.cs.dal.ca:3306/CSCI5308_14_PRODUCTION?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 			DB_USER = "CSCI5308_14_PRODUCTION_USER";
 			DB_PASSWORD = "CSCI5308_14_PRODUCTION_14739";
 		} else {
-			DB_HOST = "jdbc:mysql://db-5308.cs.dal.ca:3306/CSCI5308_14_TEST?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&allowMultiQueries=true";
-			DB_USER = "CSCI5308_14_TEST_USER";
-			DB_PASSWORD = "CSCI5308_14_TEST_14577";
-//			DB_HOST = "jdbc:mysql://db-5308.cs.dal.ca:3306/CSCI5308_14_DEVINT?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&allowMultiQueries=true";
-//			DB_USER = "CSCI5308_14_DEVINT_USER";
-//			DB_PASSWORD = "CSCI5308_14_DEVINT_14103";
+			DB_HOST = "jdbc:mysql://db-5308.cs.dal.ca:3306/CSCI5308_14_DEVINT?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+			DB_USER = "CSCI5308_14_DEVINT_USER";
+			DB_PASSWORD = "CSCI5308_14_DEVINT_14103";
 		}
 		LOG.info("Connected Database: {}", DB_HOST);
 
@@ -60,16 +57,16 @@ public class MySQLDBOperations implements CRUDRepository<SQLInput> {
 			if (rs.next())
 				return true;
 		} catch (SQLException e) {
-			LOG.error("Could not execute SQL :: "+ entity.getSql());
+			LOG.error("Could not execute SQL :: " + entity.getSql());
 			e.printStackTrace();
 			throw e;
-			
+
 		}
 		return false;
 	}
 
 	@Override
-	public List<HashMap<String, Object>> readData(SQLInput entity)  throws SQLException {
+	public List<HashMap<String, Object>> readData(SQLInput entity) throws SQLException {
 		try (Connection connection = getConnection();
 				PreparedStatement stmt = connection.prepareStatement(entity.getSql())) {
 
@@ -88,15 +85,15 @@ public class MySQLDBOperations implements CRUDRepository<SQLInput> {
 			return data;
 
 		} catch (SQLException e) {
-			LOG.error("Could not execute SQL :: "+ entity.getSql());
+			LOG.error("Could not execute SQL :: " + entity.getSql());
 			e.printStackTrace();
 			throw e;
 		}
-		
+
 	}
 
 	@Override
-	public <S extends SQLInput> int save(S entity)  throws SQLException {
+	public <S extends SQLInput> int save(S entity) throws SQLException {
 		try (Connection connection = getConnection();
 				PreparedStatement stmt = connection.prepareStatement(entity.getSql())) {
 			for (int i = 0; i < entity.getParameters().size(); i++) {
@@ -108,15 +105,15 @@ public class MySQLDBOperations implements CRUDRepository<SQLInput> {
 			return rowsUpdated;
 
 		} catch (SQLException e) {
-			LOG.error("Could not execute SQL :: "+ entity.getSql());
+			LOG.error("Could not execute SQL :: " + entity.getSql());
 			e.printStackTrace();
 			throw e;
 		}
-		
+
 	}
 
 	@Override
-	public <S extends SQLInput> int[] saveTransaction(List<S> entities)  throws SQLException {
+	public <S extends SQLInput> int[] saveTransaction(List<S> entities) throws SQLException {
 		Connection connection = null;
 		try {
 			connection = getConnection();
@@ -144,7 +141,7 @@ public class MySQLDBOperations implements CRUDRepository<SQLInput> {
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 				throw e1;
-			}			
+			}
 		} finally {
 			try {
 				connection.close();

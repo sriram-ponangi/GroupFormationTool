@@ -15,7 +15,7 @@ import com.group14.app.models.AllQuestions;
 
 @Repository
 public class QuestionManagerRepository implements IQuestionManagerRepository {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(QuestionManagerRepository.class);
 
 	private CRUDRepository<SQLInput> db;
@@ -53,7 +53,7 @@ public class QuestionManagerRepository implements IQuestionManagerRepository {
 	}
 
 	@Override
-	public String FindRoleForID(int id) throws SQLException{
+	public String FindRoleForID(int id) throws SQLException {
 
 		String SQL_FIND_ROLE = "select instructor_id from AllQuestions where question_id= ?";
 		List<Object> params = new ArrayList<>();
@@ -74,7 +74,7 @@ public class QuestionManagerRepository implements IQuestionManagerRepository {
 	}
 
 	@Override
-	public AllQuestions getQuestionDetailsById(String questionId) throws SQLException{
+	public AllQuestions getQuestionDetailsById(String questionId) throws SQLException {
 		final String SQL = "SELECT * FROM AllQuestions WHERE question_id = ?";
 		final List<Object> params = new ArrayList<>();
 		params.add(questionId);
@@ -92,10 +92,9 @@ public class QuestionManagerRepository implements IQuestionManagerRepository {
 				Timestamp d = (Timestamp) row.get("created_date");
 				questionInfo.setCreatedDate(d);
 				questionInfo.setType((String) row.get("type"));
-				
+
 			});
-		}
-		else {
+		} else {
 			LOG.error("Could not Execute: {}", SQL);
 			return null;
 		}

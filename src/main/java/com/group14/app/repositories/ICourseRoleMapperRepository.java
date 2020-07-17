@@ -11,6 +11,6 @@ public interface ICourseRoleMapperRepository {
 	public List<CourseRoleMapper> list() throws SQLException;
 
 	public void addCourseI(String banner, String cid) throws SQLException;
-	
+
 	public ArrayList<CourseRoleMapper> getInstructorId(String courseId) throws SQLException;
 }

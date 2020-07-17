@@ -3,6 +3,8 @@ package com.group14.app.controllers;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +23,7 @@ import com.group14.app.repositories.IStudentSurveyRepository;
 public class StudentSurveyController {
 
 	private IStudentSurveyRepository IStudentSurveyRepository;
+	private static final Logger LOG = LoggerFactory.getLogger(StudentSurveyController.class);
 
 	public StudentSurveyController(IStudentSurveyRepository IStudentSurveyRepository) {
 		this.IStudentSurveyRepository = IStudentSurveyRepository;
@@ -32,6 +35,7 @@ public class StudentSurveyController {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		UserPrincipal userPrincipal = (UserPrincipal) principal;
 		String userId = userPrincipal.getUser().getUserId();
+		LOG.info("Submitting survey for courseId: {}", courseId);
 		IStudentSurveyRepository.addNumericSurveyResponse(userId, courseId, answernum.getNumanswer(),
 				answernum.getQid());
 		IStudentSurveyRepository.addTextSurveyResponse(userId, courseId, answertext.getTextanswer(),
@@ -44,6 +48,7 @@ public class StudentSurveyController {
 		model.addAttribute("courseId", courseId);
 		model.addAttribute("answernum", new NumericResponses());
 		model.addAttribute("answertext", new TextResponses());
+		LOG.info("Displaying survey page to student for courseId: {}", courseId);
 		if (IStudentSurveyRepository.isSurveyPublished(courseId)) {
 			ArrayList<AllQuestions> surveyList = IStudentSurveyRepository.getSurvey(courseId);
 			model.addAttribute("surveyList", surveyList);
