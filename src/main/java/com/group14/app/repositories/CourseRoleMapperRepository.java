@@ -60,4 +60,29 @@ public class CourseRoleMapperRepository implements ICourseRoleMapperRepository {
 		int usersData = db.save(new SQLInput(SQL_GET_USER, params));
 
 	}
+
+	@Override
+	public ArrayList<CourseRoleMapper> getInstructorId(String courseId) throws SQLException {
+
+		String SQL_GET_USER = "SELECT * FROM CourseRoleMapper WHERE course_id = ?";
+		List<Object> params = new ArrayList<>();
+		params.add(courseId);
+		final List<CourseRoleMapper> rows = new ArrayList<CourseRoleMapper>();
+
+		List<HashMap<String, Object>> usersData = db.readData(new SQLInput(SQL_GET_USER, params));
+
+		if (usersData != null)
+			usersData.stream().forEach(row -> {
+				CourseRoleMapper cRM = new CourseRoleMapper();
+				cRM.setRole_id((String) row.get("role_id"));
+				cRM.setUser_id((String) row.get("user_id"));
+				cRM.setCourse_id((String) row.get("course_id"));
+				rows.add(cRM);
+			});
+		else {
+			return null;
+		}
+
+		return (ArrayList<CourseRoleMapper>) rows;
+	}
 }

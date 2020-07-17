@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,13 +35,11 @@ public class StudentEnrollmentServiceTest {
 
 	@BeforeEach
 	public void setup() {
-		this.studentEnrollmentService = new StudentEnrollmentService(studentEnrollmentRepository, parseCSV,
-				emailSenderService);
 		MockitoAnnotations.initMocks(this);
 	}
 
 	@Test
-	public void enrollStudentsToCourseTest_basic() {
+	public void enrollStudentsToCourseTest_basic() throws SQLException {
 		List<AppUser> expectedResult = new ArrayList<>();
 		List<AppUser> invalidUsersList = null;
 
@@ -64,7 +63,7 @@ public class StudentEnrollmentServiceTest {
 	}
 
 	@Test
-	public void enrollStudentsToCourseTest_invaliData() {
+	public void enrollStudentsToCourseTest_invaliData() throws SQLException {
 		List<AppUser> invalidUsersList = null;
 		// Using Mockito.any() because the focus of this Class is to test the service
 		// class not the repository.

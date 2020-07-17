@@ -1,5 +1,7 @@
 package com.group14.app.controllers;
 
+import java.sql.SQLException;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +27,7 @@ public class QuestionManager {
 	}
 
 	@GetMapping("/instructor/deletequestion")
-	public String deleteQuestion(Model model, @RequestParam(name = "qid") String qid) {
+	public String deleteQuestion(Model model, @RequestParam(name = "qid") String qid) throws SQLException {
 		String currentUserRole;
 		int id = Integer.parseInt(qid);
 		currentUserRole = AppUser.getCurrentUser().getUserId().toString();

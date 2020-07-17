@@ -1,5 +1,6 @@
 package com.group14.app.services;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +32,8 @@ public class StudentEnrollmentService implements IStudentEnrollmentService {
 	}
 
 	@Override
-	public List<AppUser> enrollStudentsToCourseFromFile(MultipartFile studentsListFile, String courseId) {
+	public List<AppUser> enrollStudentsToCourseFromFile(MultipartFile studentsListFile, String courseId)
+			throws SQLException {
 		List<AppUser> studentsList = parseCSV.parseFile(studentsListFile);
 		List<AppUser> validUsersList = new ArrayList<>();
 		List<AppUser> invalidUsersList = new ArrayList<>();

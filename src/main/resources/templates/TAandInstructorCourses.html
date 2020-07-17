@@ -28,7 +28,7 @@
 
 			<tr th:each="course, itemStat: *{courseList}">
 
-				<td><span th:text="${course.cid}"></span></td>
+				<td><a th:href="@{/student/survey/{courseId}(courseId=${course.cid})}"><span th:text="${course.cid}"></span></a></td>
 				<td><span th:text="${course.name}"></span></td>
 				<td><span th:text="${course.year}"></span></td>
 				<td><span th:text="${course.term}"></span></td>

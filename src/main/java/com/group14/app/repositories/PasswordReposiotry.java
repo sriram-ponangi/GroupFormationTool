@@ -1,5 +1,6 @@
 package com.group14.app.repositories;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +25,7 @@ public class PasswordReposiotry implements IPasswordReposiotry {
 	}
 
 	@Override
-	public List<PasswordValidatorRules> getActiveRules() {
+	public List<PasswordValidatorRules> getActiveRules() throws SQLException {
 		final String SQL = " SELECT * FROM PasswordRules WHERE enabled = 1";
 		final List<Object> params = new ArrayList<>();
 		final SQLInput sqlInput = new SQLInput(SQL, params);
@@ -51,7 +52,7 @@ public class PasswordReposiotry implements IPasswordReposiotry {
 	}
 
 	@Override
-	public List<String> getPreviousPasswords(String userId, int limit) {
+	public List<String> getPreviousPasswords(String userId, int limit) throws SQLException {
 		final String SQL = " SELECT password FROM PasswordHistory where user_id = ? ORDER BY created_date DESC LIMIT ?";
 		final List<Object> params = new ArrayList<>();
 		params.add(userId);
@@ -61,11 +62,11 @@ public class PasswordReposiotry implements IPasswordReposiotry {
 		final List<HashMap<String, Object>> passwords = db.readData(sqlInput);
 		final List<String> previousPasswords = new ArrayList<>();
 
-		if (passwords != null)
+		if (passwords != null) {
 			passwords.stream().forEach(row -> {
 				previousPasswords.add((String) row.get("password"));
 			});
-		else {
+		} else {
 			LOG.error("Could not Execute: " + SQL);
 			return null;
 		}
@@ -73,7 +74,7 @@ public class PasswordReposiotry implements IPasswordReposiotry {
 	}
 
 	@Override
-	public int[] updatePassword(String userId, String newPassword) {
+	public int[] updatePassword(String userId, String newPassword) throws SQLException {
 		final List<SQLInput> transactionsQueries = new ArrayList<>();
 		final List<Object> params = new ArrayList<>();
 		params.add(newPassword);

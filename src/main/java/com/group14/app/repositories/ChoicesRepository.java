@@ -1,5 +1,6 @@
 package com.group14.app.repositories;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -28,7 +29,7 @@ public class ChoicesRepository implements IChoicesRepository {
 	}
 
 	public boolean addQuestionMultiple(String id, String title, String text, String type, String displayText,
-			String savedAs) {
+			String savedAs) throws SQLException {
 		String SQL_INSERT_QUESTION = "insert into AllQuestions (instructor_id,title,text,type) values (?,?,?,?)";
 		List<Object> params1 = new ArrayList<>();
 		params1.add(id);
@@ -88,7 +89,7 @@ public class ChoicesRepository implements IChoicesRepository {
 		return true;
 	}
 
-	public boolean addQuestionSingle(String id, String title, String text, String type) {
+	public boolean addQuestionSingle(String id, String title, String text, String type) throws SQLException {
 		String SQL_INSERT_QUESTION = "insert into AllQuestions (instructor_id,title,text,type) values (?,?,?,?)";
 		List<Object> params1 = new ArrayList<>();
 		params1.add(id);

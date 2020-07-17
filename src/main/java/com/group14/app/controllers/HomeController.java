@@ -2,6 +2,9 @@ package com.group14.app.controllers;
 
 import java.sql.SQLException;
 import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +15,9 @@ import com.group14.app.services.ICourseService;
 
 @Controller
 public class HomeController {
-
+	
+	private static final Logger LOG = LoggerFactory.getLogger(HomeController.class);
+	
 	ICourseService course;
 
 	public HomeController(ICourseService course) {
@@ -29,6 +34,7 @@ public class HomeController {
 		try {
 			List<Courses> courseL = course.list();
 			model.addAttribute("allCourse", courseL);
+			LOG.info("Displaying all courses for admin page.");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

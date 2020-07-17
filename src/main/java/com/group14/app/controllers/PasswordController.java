@@ -1,7 +1,10 @@
 package com.group14.app.controllers;
 
+import java.sql.SQLException;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +21,7 @@ import com.group14.app.services.IPasswordService;
 public class PasswordController {
 
 	private IPasswordService pvs;
+	private static final Logger LOG = LoggerFactory.getLogger(PasswordController.class);
 
 	public PasswordController(IPasswordService pvs) {
 		this.pvs = pvs;
@@ -30,7 +34,7 @@ public class PasswordController {
 	}
 
 	@PostMapping("/guest/updatePassword")
-	public String updatePassword(@ModelAttribute AppUser userPassword, Model model) {
+	public String updatePassword(@ModelAttribute AppUser userPassword, Model model) throws SQLException {
 		String newPassword = userPassword.getPassword();
 		if (newPassword == null) {
 			return "UpdatePasswordError";
@@ -38,7 +42,7 @@ public class PasswordController {
 		AppUser user = AppUser.getCurrentUser();
 		System.out.println(user);
 		List<PasswordValidatorRules> failedRulesList = pvs.validatePassword(user, newPassword);
-
+		LOG.info("Updating password for a user.");
 		if (failedRulesList != null && failedRulesList.size() == 0) {
 			// Updating Password in users table and passwordHistory table
 			boolean updateSuccessful = pvs.updatePassword(user.getUserId(), newPassword);

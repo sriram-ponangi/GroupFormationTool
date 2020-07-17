@@ -1,5 +1,6 @@
 package com.group14.app.repositories;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Repository;
@@ -16,7 +17,7 @@ public class AnswerManagerRepository implements IAnswerManagerRepository {
 	}
 
 	@Override
-	public void deleteQuestionAsTransaction(int id) {
+	public void deleteQuestionAsTransaction(int id) throws SQLException {
 		List<SQLInput> list = new ArrayList<>();
 		List<Object> params = new ArrayList<>();
 		params.add(id);
