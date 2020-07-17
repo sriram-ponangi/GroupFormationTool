@@ -17,13 +17,13 @@ public class SurveyTest {
 
 		survey = new Survey(1, -1, 1, "CSCI1001");
 		assertEquals(false, survey.isValidSurvey());// Testing for invalid published value
-		
+
 		survey = new Survey(1, 1, 1, "1001");
 		assertEquals(false, survey.isValidSurvey());// Testing for invalid courseID
 
 		survey = new Survey(1, 1, 1, "CSCI1001");
 		assertEquals(true, survey.isValidSurvey());// Testing for valid courseID
-		
+
 		survey = new Survey(1, 1, 3, "CSCI1001");
 		assertEquals(true, survey.isValidSurvey());// Testing for valid groupSize
 

@@ -14,6 +14,15 @@ public class AllQuestions {
 	private Map<String, String> options;
 	private String storedAs;
 	private String displayText;
+	private boolean selected;
+
+	public boolean isSelected() {
+		return selected;
+	}
+
+	public void setSelected(boolean selected) {
+		this.selected = selected;
+	}
 
 	public int getQid() {
 		return qid;
@@ -92,7 +101,6 @@ public class AllQuestions {
 		return "AllQuestions [qid=" + qid + ", instructor_id=" + instructorId + ", title=" + title + ", text=" + text
 				+ ", type=" + type + ", createdDate=" + createdDate + ", options=" + options + ", storedAs=" + storedAs
 				+ ", displayText=" + displayText + "]";
-	
 
-}
+	}
 }

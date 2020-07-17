@@ -24,7 +24,7 @@ public class StudentEnrollmentRepository implements IStudentEnrollmentRepository
 	}
 
 	@Override
-	public int[] enrollStudentToCourse(AppUser user, String courseId) throws SQLException{
+	public int[] enrollStudentToCourse(AppUser user, String courseId) throws SQLException {
 		List<SQLInput> transactionsQueries = new ArrayList<>();
 
 		String isExistingUser = "SELECT user_id FROM Users WHERE user_id= ?";

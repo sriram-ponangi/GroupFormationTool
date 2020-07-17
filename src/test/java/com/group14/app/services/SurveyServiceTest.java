@@ -26,28 +26,28 @@ public class SurveyServiceTest {
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
 	}
-	
+
 	@Test
 	public void getSurveyId() throws SQLException {
-		
-		Survey survey = new Survey(1,1,1, "CSCI1001");
+
+		Survey survey = new Survey(1, 1, 1, "CSCI1001");
 		String courseId = "CSCI1001";
 		when(this.sR.getSurveyInfo(courseId)).thenReturn(survey);
-		
+
 		int response = sS.getSurveyId(courseId);
-		
+
 		assertEquals(survey.getSurveyId(), response);
 	}
-	
+
 	@Test
 	public void createSurvey() throws SQLException {
-		Survey survey = new Survey(1,1,1, "CSCI1001");
+		Survey survey = new Survey(1, 1, 1, "CSCI1001");
 		int mockDBResponse = 1;
-		
+
 		when(this.sR.createSurvey(survey)).thenReturn(mockDBResponse);
-		
+
 		int response = sS.createSurvey(survey);
-		
+
 		assertEquals(1, response);
 	}
 }

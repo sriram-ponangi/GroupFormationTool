@@ -18,7 +18,7 @@ public class CourseRoleMapperRepository implements ICourseRoleMapperRepository {
 
 	private CRUDRepository<SQLInput> db;
 
-	public CourseRoleMapperRepository(CRUDRepository<SQLInput> db) {	
+	public CourseRoleMapperRepository(CRUDRepository<SQLInput> db) {
 		this.db = db;
 	}
 
@@ -63,7 +63,7 @@ public class CourseRoleMapperRepository implements ICourseRoleMapperRepository {
 
 	@Override
 	public ArrayList<CourseRoleMapper> getInstructorId(String courseId) throws SQLException {
-		
+
 		String SQL_GET_USER = "SELECT * FROM CourseRoleMapper WHERE course_id = ?";
 		List<Object> params = new ArrayList<>();
 		params.add(courseId);

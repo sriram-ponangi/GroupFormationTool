@@ -57,16 +57,16 @@ public class MySQLDBOperations implements CRUDRepository<SQLInput> {
 			if (rs.next())
 				return true;
 		} catch (SQLException e) {
-			LOG.error("Could not execute SQL :: "+ entity.getSql());
+			LOG.error("Could not execute SQL :: " + entity.getSql());
 			e.printStackTrace();
 			throw e;
-			
+
 		}
 		return false;
 	}
 
 	@Override
-	public List<HashMap<String, Object>> readData(SQLInput entity)  throws SQLException {
+	public List<HashMap<String, Object>> readData(SQLInput entity) throws SQLException {
 		try (Connection connection = getConnection();
 				PreparedStatement stmt = connection.prepareStatement(entity.getSql())) {
 
@@ -85,15 +85,15 @@ public class MySQLDBOperations implements CRUDRepository<SQLInput> {
 			return data;
 
 		} catch (SQLException e) {
-			LOG.error("Could not execute SQL :: "+ entity.getSql());
+			LOG.error("Could not execute SQL :: " + entity.getSql());
 			e.printStackTrace();
 			throw e;
 		}
-		
+
 	}
 
 	@Override
-	public <S extends SQLInput> int save(S entity)  throws SQLException {
+	public <S extends SQLInput> int save(S entity) throws SQLException {
 		try (Connection connection = getConnection();
 				PreparedStatement stmt = connection.prepareStatement(entity.getSql())) {
 			for (int i = 0; i < entity.getParameters().size(); i++) {
@@ -105,15 +105,15 @@ public class MySQLDBOperations implements CRUDRepository<SQLInput> {
 			return rowsUpdated;
 
 		} catch (SQLException e) {
-			LOG.error("Could not execute SQL :: "+ entity.getSql());
+			LOG.error("Could not execute SQL :: " + entity.getSql());
 			e.printStackTrace();
 			throw e;
 		}
-		
+
 	}
 
 	@Override
-	public <S extends SQLInput> int[] saveTransaction(List<S> entities)  throws SQLException {
+	public <S extends SQLInput> int[] saveTransaction(List<S> entities) throws SQLException {
 		Connection connection = null;
 		try {
 			connection = getConnection();
@@ -141,7 +141,7 @@ public class MySQLDBOperations implements CRUDRepository<SQLInput> {
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 				throw e1;
-			}			
+			}
 		} finally {
 			try {
 				connection.close();

@@ -8,8 +8,8 @@ import com.group14.app.models.SurveyRuleMapper;
 
 public interface IGroupFormationAlgorithmRepository {
 	List<GroupFormationAlgoRule> getAllGroupFormationAlgoRules() throws SQLException;
-		
+
 	boolean saveAlgorithmRules(List<SurveyRuleMapper> surveyQuestionRules) throws SQLException;
-	
+
 	SurveyRuleMapper getSavedAlgorithmRules(Integer surveyResponseId) throws SQLException;
 }

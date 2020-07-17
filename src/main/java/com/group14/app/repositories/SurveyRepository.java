@@ -19,7 +19,7 @@ public class SurveyRepository implements ISurveyRepository {
 
 	private CRUDRepository<SQLInput> db;
 
-	private static final Logger LOG = LoggerFactory.getLogger(SurveyRepository.class);	
+	private static final Logger LOG = LoggerFactory.getLogger(SurveyRepository.class);
 
 	public SurveyRepository(CRUDRepository<SQLInput> db) {
 		this.db = db;
@@ -27,7 +27,7 @@ public class SurveyRepository implements ISurveyRepository {
 
 	@Override
 	public Survey getSurveyInfo(String courseId) throws SQLException {
-		LOG.info("Getting Survey Info from DB for {} courseId",courseId);
+		LOG.info("Getting Survey Info from DB for {} courseId", courseId);
 		final String SQL = " SELECT * FROM Surveys WHERE course_id = ?";
 		final List<Object> params = new ArrayList<>();
 		params.add(courseId);
@@ -88,7 +88,7 @@ public class SurveyRepository implements ISurveyRepository {
 		final SQLInput sqlInput = new SQLInput(SQL, params);
 		return db.save(sqlInput);
 	}
-	
+
 	@Override
 	public int unpublishSurvey(int surveyId) throws SQLException {
 		final String SQL = "UPDATE Surveys SET published = 0 WHERE survey_id = ?";
@@ -100,16 +100,16 @@ public class SurveyRepository implements ISurveyRepository {
 
 	@Override
 	public int createSurvey(Survey survey) throws SQLException {
-		
+
 		String SQL_GET_USER = "insert into Surveys(course_id,published,group_size) values (?,?,?)";
-		
+
 		List<Object> params = new ArrayList<>();
 		params.add(survey.getCourseId());
 		params.add(survey.getPublished());
 		params.add(survey.getGroupSize());
-		
+
 		int rowInserted = db.save(new SQLInput(SQL_GET_USER, params));
-		
+
 		return rowInserted;
 	}
 

@@ -16,12 +16,12 @@ import com.group14.app.utils.MySQLDBOperations;
 import com.group14.app.utils.CRUDRepository;
 
 @Repository
-public class AppUserRepository implements IAppUserRepository{	
+public class AppUserRepository implements IAppUserRepository {
 
 	private static final Logger LOG = LoggerFactory.getLogger(AppUserRepository.class);
-	
+
 	private CRUDRepository<SQLInput> db;
-	
+
 	public AppUserRepository(CRUDRepository<SQLInput> db) {
 		this.db = db;
 	}

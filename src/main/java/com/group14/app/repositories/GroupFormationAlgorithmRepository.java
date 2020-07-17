@@ -26,7 +26,7 @@ public class GroupFormationAlgorithmRepository implements IGroupFormationAlgorit
 	}
 
 	@Override
-	public List<GroupFormationAlgoRule> getAllGroupFormationAlgoRules() throws SQLException{
+	public List<GroupFormationAlgoRule> getAllGroupFormationAlgoRules() throws SQLException {
 		final String SQL = "SELECT * FROM GroupFormationAlgorithmRules";
 		final List<Object> params = new ArrayList<>();
 
@@ -52,7 +52,7 @@ public class GroupFormationAlgorithmRepository implements IGroupFormationAlgorit
 	}
 
 	@Override
-	public boolean saveAlgorithmRules(List<SurveyRuleMapper> surveyQuestionRules) throws SQLException{
+	public boolean saveAlgorithmRules(List<SurveyRuleMapper> surveyQuestionRules) throws SQLException {
 		// Inserting or Updating the survey rules.
 		final String INSERT_SQL = "INSERT INTO  SurveyRuleMapper (rule_id, additional_info, response_id) VALUES (?, ?, ?)";
 		final String UPDATE_SQL = "UPDATE SurveyRuleMapper SET rule_id = ? , additional_info = ? WHERE response_id = ?";
@@ -74,25 +74,25 @@ public class GroupFormationAlgorithmRepository implements IGroupFormationAlgorit
 				LOG.debug("Inserting the RULE for responseId = {}", rule.getResponseId());
 				rowsUpdated = db.save(new SQLInput(INSERT_SQL, params));
 			}
-			
-			if(rowsUpdated<=0) {
+
+			if (rowsUpdated <= 0) {
 				LOG.error("Failed to save the rule: {}", rule);
 				return false;
 			}
 		}
 		return true;
-		
+
 	}
 
 	@Override
-	public SurveyRuleMapper getSavedAlgorithmRules(Integer surveyResponseId) throws SQLException{
+	public SurveyRuleMapper getSavedAlgorithmRules(Integer surveyResponseId) throws SQLException {
 		final String SQL = "SELECT * FROM SurveyRuleMapper WHERE response_id= ?";
 		final List<Object> params = new ArrayList<>();
 		params.add(surveyResponseId);
 		final SurveyRuleMapper savedRule = new SurveyRuleMapper();
 
 		List<HashMap<String, Object>> savedRulesData = db.readData(new SQLInput(SQL, params));
-		
+
 		if (savedRulesData != null) {
 			savedRulesData.stream().forEach(row -> {
 				savedRule.setRuleId((Integer) row.get("rule_id"));

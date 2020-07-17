@@ -21,7 +21,7 @@ import com.group14.app.models.SurveyQuestionMapper;
 import com.group14.app.utils.CRUDRepository;
 
 public class SurveyRepositoryTest {
-	
+
 	@InjectMocks
 	SurveyRepository surveyRepository;
 
@@ -32,7 +32,7 @@ public class SurveyRepositoryTest {
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
 	}
-	
+
 	@Test
 	public void getSurveyInfo_BasicSuccessCase() throws SQLException {
 		List<HashMap<String, Object>> mockDBResponse = new ArrayList<HashMap<String, Object>>();
@@ -42,30 +42,29 @@ public class SurveyRepositoryTest {
 		row1.put("published", 1);
 		row1.put("group_size", 4);
 		mockDBResponse.add(row1);
-		
+
 		when(mockDB.readData(any(SQLInput.class))).thenReturn(mockDBResponse);
-		
+
 		Survey response = surveyRepository.getSurveyInfo("CSCI1001");
 		assertEquals(1, response.getSurveyId());
 		assertEquals("CSCI1001", response.getCourseId());
 		assertEquals(1, response.getPublished());
-		assertEquals(4, response.getGroupSize());		
+		assertEquals(4, response.getGroupSize());
 	}
-	
+
 	@Test
 	public void getSurveyInfo_BasicFailedCase() throws SQLException {
 		List<HashMap<String, Object>> mockDBResponse = new ArrayList<HashMap<String, Object>>();
-		
+
 		when(mockDB.readData(any(SQLInput.class))).thenReturn(mockDBResponse);
-		
+
 		Survey response = surveyRepository.getSurveyInfo("CSCI1001");
 		assertEquals(0, response.getSurveyId());
 		assertEquals(null, response.getCourseId());
 		assertEquals(0, response.getPublished());
-		assertEquals(0, response.getGroupSize());		
+		assertEquals(0, response.getGroupSize());
 	}
-	
-	
+
 	@Test
 	public void getSurveyQuestionsInfoTest_BasicSuccessCase() throws SQLException {
 		List<HashMap<String, Object>> mockDBResponse = new ArrayList<HashMap<String, Object>>();
@@ -78,10 +77,10 @@ public class SurveyRepositoryTest {
 		row2.put("response_id", 2);
 		row2.put("survey_id", 1);
 		mockDBResponse.add(row1);
-		mockDBResponse.add(row2);		
-		
+		mockDBResponse.add(row2);
+
 		when(mockDB.readData(any(SQLInput.class))).thenReturn(mockDBResponse);
-		
+
 		List<SurveyQuestionMapper> response = surveyRepository.getSurveyQuestionsInfo(1);
 		assertEquals(2, response.size());
 		assertEquals(1, response.get(0).getQuestionId());
@@ -89,79 +88,79 @@ public class SurveyRepositoryTest {
 		assertEquals(2, response.get(1).getQuestionId());
 		assertEquals(2, response.get(1).getResponseId());
 	}
-	
+
 	@Test
 	public void getSurveyQuestionsInfoTest_BasicFailedCase() throws SQLException {
 		List<HashMap<String, Object>> mockDBResponse = new ArrayList<HashMap<String, Object>>();
-				
+
 		when(mockDB.readData(any(SQLInput.class))).thenReturn(mockDBResponse);
-		
+
 		List<SurveyQuestionMapper> response = surveyRepository.getSurveyQuestionsInfo(1);
 		assertEquals(0, response.size());
-		
-	}	
-	
+
+	}
+
 	@Test
-	public void publishSurvey_BasicSuccessCase() throws SQLException {		
+	public void publishSurvey_BasicSuccessCase() throws SQLException {
 		int mockDBResponse = 1;
-		
-		when(mockDB.save(any(SQLInput.class))).thenReturn(mockDBResponse);	
-		
-		int response = surveyRepository.publishSurvey(any(Integer.class));
-		assertEquals(1, response);		
-	}
-	
-	@Test
-	public void publishSurvey_BasicFailedCase() throws SQLException {		
-		int mockDBResponse = 0;
-		
-		when(mockDB.save(any(SQLInput.class))).thenReturn(mockDBResponse);	
-		
-		int response = surveyRepository.publishSurvey(any(Integer.class));
-		assertEquals(0, response);		
-	}
-	
-	@Test
-	public void unpublishSurvey_BasicSuccessCase() throws SQLException {		
-		int mockDBResponse = 1;
-		
-		when(mockDB.save(any(SQLInput.class))).thenReturn(mockDBResponse);	
-		
-		int response = surveyRepository.unpublishSurvey(any(Integer.class));
-		assertEquals(1, response);		
-	}
-	
-	@Test
-	public void unpublishSurvey_BasicFailedCase() throws SQLException {		
-		int mockDBResponse = 0;
-		
-		when(mockDB.save(any(SQLInput.class))).thenReturn(mockDBResponse);	
-		
-		int response = surveyRepository.unpublishSurvey(any(Integer.class));
-		assertEquals(0, response);		
-	}
-	
-	@Test
-	public void createSurvey_BasicSuccessCase() throws SQLException {
-		Survey survey = new Survey(1,1,1, "CSCI1001");
-		int mockDBResponse = 1;
-		
+
 		when(mockDB.save(any(SQLInput.class))).thenReturn(mockDBResponse);
-		
-		int response = surveyRepository.createSurvey(survey);
-		
+
+		int response = surveyRepository.publishSurvey(any(Integer.class));
 		assertEquals(1, response);
 	}
-	
+
+	@Test
+	public void publishSurvey_BasicFailedCase() throws SQLException {
+		int mockDBResponse = 0;
+
+		when(mockDB.save(any(SQLInput.class))).thenReturn(mockDBResponse);
+
+		int response = surveyRepository.publishSurvey(any(Integer.class));
+		assertEquals(0, response);
+	}
+
+	@Test
+	public void unpublishSurvey_BasicSuccessCase() throws SQLException {
+		int mockDBResponse = 1;
+
+		when(mockDB.save(any(SQLInput.class))).thenReturn(mockDBResponse);
+
+		int response = surveyRepository.unpublishSurvey(any(Integer.class));
+		assertEquals(1, response);
+	}
+
+	@Test
+	public void unpublishSurvey_BasicFailedCase() throws SQLException {
+		int mockDBResponse = 0;
+
+		when(mockDB.save(any(SQLInput.class))).thenReturn(mockDBResponse);
+
+		int response = surveyRepository.unpublishSurvey(any(Integer.class));
+		assertEquals(0, response);
+	}
+
+	@Test
+	public void createSurvey_BasicSuccessCase() throws SQLException {
+		Survey survey = new Survey(1, 1, 1, "CSCI1001");
+		int mockDBResponse = 1;
+
+		when(mockDB.save(any(SQLInput.class))).thenReturn(mockDBResponse);
+
+		int response = surveyRepository.createSurvey(survey);
+
+		assertEquals(1, response);
+	}
+
 	@Test
 	public void createSurvey_BasicFailedCase() throws SQLException {
-		Survey survey = new Survey(1,1,1, "CSCI1001");
+		Survey survey = new Survey(1, 1, 1, "CSCI1001");
 		int mockDBResponse = 0;
-		
+
 		when(mockDB.save(any(SQLInput.class))).thenReturn(mockDBResponse);
-		
+
 		int response = surveyRepository.createSurvey(survey);
-		
+
 		assertEquals(0, response);
 	}
 }

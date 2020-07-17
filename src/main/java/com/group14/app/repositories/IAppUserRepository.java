@@ -1,6 +1,5 @@
 package com.group14.app.repositories;
 
-
 import java.sql.SQLException;
 
 import com.group14.app.models.AppUser;

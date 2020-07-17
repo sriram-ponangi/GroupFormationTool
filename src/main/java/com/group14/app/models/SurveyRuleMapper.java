@@ -19,7 +19,7 @@ public class SurveyRuleMapper {
 
 	public void setRuleId(int ruleId) {
 		this.ruleId = ruleId;
-	}	
+	}
 
 	public String getAdditionalInfo() {
 		return additionalInfo;

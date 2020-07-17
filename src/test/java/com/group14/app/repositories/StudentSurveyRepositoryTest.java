@@ -30,7 +30,7 @@ class StudentSurveyRepositoryTest {
 
 		when(this.mock.getSurvey(cid)).thenReturn(questionsList);
 	}
-	
+
 	@Test
 	void getSurveyIDTest() throws SQLException {
 
@@ -54,7 +54,7 @@ class StudentSurveyRepositoryTest {
 		verify(mock).addTextSurveyResponse(userId, cid, response, qid);
 
 	}
-	
+
 	@Test
 	void isSurveyPublishedTest() throws SQLException {
 

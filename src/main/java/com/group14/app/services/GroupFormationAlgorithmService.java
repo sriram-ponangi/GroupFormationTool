@@ -42,7 +42,7 @@ public class GroupFormationAlgorithmService implements IGroupFormationAlgorithmS
 		questionIds.stream().forEach(qId -> {
 			try {
 				allQuestionsList.add(questionManagerRepository.getQuestionDetailsById(qId + ""));
-			} catch (SQLException e) {				
+			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		});

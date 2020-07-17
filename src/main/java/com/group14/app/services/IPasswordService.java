@@ -8,10 +8,10 @@ import com.group14.app.models.PasswordValidatorRules;
 
 public interface IPasswordService {
 	/*
-	 * Must be implemented to return all the failed rule description. If all rules are satisfied return
-	 * empty list.
+	 * Must be implemented to return all the failed rule description. If all rules
+	 * are satisfied return empty list.
 	 */
-	List<PasswordValidatorRules> validatePassword(AppUser user, String newPassword) throws SQLException ;
+	List<PasswordValidatorRules> validatePassword(AppUser user, String newPassword) throws SQLException;
 
-	boolean updatePassword(String userId, String newPassword) throws SQLException ;
+	boolean updatePassword(String userId, String newPassword) throws SQLException;
 }

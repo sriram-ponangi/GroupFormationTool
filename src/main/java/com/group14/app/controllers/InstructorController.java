@@ -2,6 +2,8 @@ package com.group14.app.controllers;
 
 import java.sql.SQLException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,7 @@ public class InstructorController {
 	private Courses course = new Courses();
 	private AppUser mAppUser = new AppUser();
 	private AppUser mAppUserStudent = new AppUser();
+	private static final Logger LOG = LoggerFactory.getLogger(InstructorController.class);
 
 	private IInstructorActionsService instructorActionsService;
 
@@ -47,6 +50,7 @@ public class InstructorController {
 		mAppUser.setCourseRoles(appUser.getCourseRoles());
 		model.addAttribute("studentUser", new AppUser());
 		course.setCid(courseId);
+		LOG.info("Displaying page to assign TA.");
 		if (mAppUser.getCourseRoles().get(course.getCid()) != null
 				&& mAppUser.getCourseRoles().get(course.getCid()).equalsIgnoreCase("Instructor")) {
 			model.addAttribute("student", student);
@@ -61,10 +65,9 @@ public class InstructorController {
 	public String AssignTaPost(@ModelAttribute("studentUser") AppUser studentUser, Model model) throws SQLException {
 
 		AppUser user;
-
 		user = instructorActionsService.AddStudentToTAList(course.getCid(), studentUser.getUserId());
 		mAppUserStudent.setUserId(studentUser.getUserId());
-
+		LOG.info("Fetching First name and Last name for BannerId: {}", studentUser.getUserId());
 		if (user != null) {
 			user.setFirstName(user.getFirstName() + " " + user.getLastName());
 			model.addAttribute("student", user);
@@ -78,6 +81,7 @@ public class InstructorController {
 	@PostMapping("/instructor/assigntasubmit")
 	public String AssignTaPosition(Model model) throws SQLException {
 		int res = instructorActionsService.GiveTaPermission(mAppUserStudent.getUserId(), course.getCid());
+		LOG.info("Assigning TA for courseId: {}", course.getCid());
 		if (res > 1) {
 			model.addAttribute("success", "TA is assigned");
 			return "assignta";

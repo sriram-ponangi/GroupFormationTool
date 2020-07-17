@@ -14,15 +14,14 @@ import com.group14.app.repositories.IAppUserRepository;
 @Service
 public class UserPrincipalDetailsService implements UserDetailsService {
 
-	private IAppUserRepository userRepository;	
-	
-	private static final Logger LOG = LoggerFactory.getLogger(UserPrincipalDetailsService.class);
+	private IAppUserRepository userRepository;
 
+	private static final Logger LOG = LoggerFactory.getLogger(UserPrincipalDetailsService.class);
 
 	public UserPrincipalDetailsService(IAppUserRepository userRepository) {
 		this.userRepository = userRepository;
 	}
-	
+
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 

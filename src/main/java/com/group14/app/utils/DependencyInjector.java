@@ -47,12 +47,12 @@ public class DependencyInjector {
 	private IGroupFormationAlgorithmService IGroupFormationAlgorithmService;
 	private ISurveyRepository ISurveyRepository;
 	private IGroupFormationAlgorithmRepository IGroupFormationAlgorithmRepository;
-	
+
 	private ISurveyQuestionMapperService ISurveyQuestionMapperService;
 	private ISurveyQuestionMapperRepository ISurveyQuestionMapperRepository;
-	
+
 	private ISurveyService ISurveyService;
-	
+
 	private IStudentSurveyRepository IStudentSurveyRepository;
 
 	private DependencyInjector() {
@@ -91,12 +91,11 @@ public class DependencyInjector {
 		this.IGroupFormationAlgorithmRepository = new GroupFormationAlgorithmRepository(this.CRUDRepository);
 		this.IGroupFormationAlgorithmService = new GroupFormationAlgorithmService(this.ISurveyRepository,
 				this.IQuestionManagerRepository, this.IGroupFormationAlgorithmRepository);
-		
+
 		this.ISurveyQuestionMapperService = new SurveyQuestionMapperService(this.ISurveyQuestionMapperRepository);
 		this.ISurveyQuestionMapperRepository = new SurveyQuestionMapperRepository(this.CRUDRepository);
 
 		this.IStudentSurveyRepository = new StudentSurveyRepository(this.CRUDRepository);
-		
 
 	}
 

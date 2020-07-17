@@ -32,6 +32,7 @@ public class StudentEnrollmentController {
 	@GetMapping("/upload-csv")
 	public String readUsersFromCSV(@RequestParam("courseId") String courseId, Model model) {
 		model.addAttribute("courseId", courseId);
+		LOG.info("Displaying page to upload csv for courseId: {}", courseId);
 		if (!AppUser.hasInstructorOrTARoleForCourse(courseId)) {
 			model.addAttribute("errorMessage", "Sorry you do not have the permission to perform this action.");
 			return "StudentEnrollmentFormError";
@@ -47,6 +48,7 @@ public class StudentEnrollmentController {
 			model.addAttribute("errorMessage", "Sorry you do not have the permission to perform this action.");
 			return "StudentEnrollmentFormError";
 		}
+		LOG.info("Uploading csv of users to register them for the course with courseId: {}", courseId);
 		if (!file.isEmpty()) {
 			try {
 				List<AppUser> invalidUsersList = studentEnrollmentService.enrollStudentsToCourseFromFile(file,

@@ -52,8 +52,8 @@ public class QuestionManagerRepositoryTest {
 	}
 
 	@Test
-	void getQuestionDetailsByIdTest() throws SQLException{
-		List<HashMap<String, Object>> mockQuestionsData = new ArrayList<HashMap<String,Object>>();
+	void getQuestionDetailsByIdTest() throws SQLException {
+		List<HashMap<String, Object>> mockQuestionsData = new ArrayList<HashMap<String, Object>>();
 		HashMap<String, Object> row1 = new HashMap<>();
 		row1.put("instructor_id", "B00100007");
 		row1.put("question_id", 1);
@@ -61,10 +61,10 @@ public class QuestionManagerRepositoryTest {
 		row1.put("text", "Q1 Text");
 		row1.put("created_date", null);
 		row1.put("type", "MCQS");
-		mockQuestionsData.add(row1);		
-		
+		mockQuestionsData.add(row1);
+
 		when(mockDB.readData(any(SQLInput.class))).thenReturn(mockQuestionsData);
-		
+
 		AllQuestions response = qMR.getQuestionDetailsById("1");
 		assertEquals("B00100007", response.getInstructor_id());
 		assertEquals(1, response.getQid());
@@ -72,7 +72,7 @@ public class QuestionManagerRepositoryTest {
 		assertEquals("Q1 Text", response.getText());
 		assertEquals(null, response.getCreatedDate());
 		assertEquals("MCQS", response.getType());
-		
+
 	}
-	
+
 }

@@ -89,7 +89,7 @@ public class ChoicesRepository implements IChoicesRepository {
 		return true;
 	}
 
-	public boolean addQuestionSingle(String id, String title, String text, String type) throws SQLException{
+	public boolean addQuestionSingle(String id, String title, String text, String type) throws SQLException {
 		String SQL_INSERT_QUESTION = "insert into AllQuestions (instructor_id,title,text,type) values (?,?,?,?)";
 		List<Object> params1 = new ArrayList<>();
 		params1.add(id);

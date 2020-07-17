@@ -11,9 +11,9 @@ import com.group14.app.repositories.ISurveyQuestionMapperRepository;
 
 @Service
 public class SurveyQuestionMapperService implements ISurveyQuestionMapperService {
-	
+
 	private ISurveyQuestionMapperRepository iSurveyQuestionMapperRepository;
-	
+
 	public SurveyQuestionMapperService(ISurveyQuestionMapperRepository iSurveyQuestionMapperRepository) {
 		this.iSurveyQuestionMapperRepository = iSurveyQuestionMapperRepository;
 	}
@@ -27,47 +27,25 @@ public class SurveyQuestionMapperService implements ISurveyQuestionMapperService
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return surveyQuestions;
 	}
 
 	@Override
-	public int deleteSurveyQuestion(int surveyId, int questionId) throws SQLException {
-		
-		int rowsUpdated = 0;
-		try {
-			rowsUpdated = iSurveyQuestionMapperRepository.deleteSurveyQuestion(surveyId, questionId);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		if(rowsUpdated == 0) {
-			return 0;
-		}
-		else 
-		{
-			return rowsUpdated;
-		}
+	public int[] deleteSurveyQuestion(int responseId) throws SQLException {
+
+		int[] rowsUpdated = iSurveyQuestionMapperRepository.deleteSurveyQuestion(responseId);
+
+		return rowsUpdated;
 	}
 
 	@Override
 	public int addSurveyQuestion(int surveyId, int questionId) throws SQLException {
-		int rowsUpdated = 0;
-		try {
-			rowsUpdated = iSurveyQuestionMapperRepository.addSurveyQuestion(surveyId, questionId);
-			
-			if(rowsUpdated == 0) {
-				return 0;
-			}
-			else
-			{
-				return rowsUpdated;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return 0;
-		}
+
+		int rowsUpdated = iSurveyQuestionMapperRepository.addSurveyQuestion(surveyId, questionId);
+
+		return rowsUpdated;
+
 	}
 
-	
 }

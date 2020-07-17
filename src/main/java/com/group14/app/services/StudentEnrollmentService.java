@@ -32,7 +32,8 @@ public class StudentEnrollmentService implements IStudentEnrollmentService {
 	}
 
 	@Override
-	public List<AppUser> enrollStudentsToCourseFromFile(MultipartFile studentsListFile, String courseId) throws SQLException  {
+	public List<AppUser> enrollStudentsToCourseFromFile(MultipartFile studentsListFile, String courseId)
+			throws SQLException {
 		List<AppUser> studentsList = parseCSV.parseFile(studentsListFile);
 		List<AppUser> validUsersList = new ArrayList<>();
 		List<AppUser> invalidUsersList = new ArrayList<>();

@@ -10,14 +10,14 @@ import com.group14.app.models.Survey;
 import com.group14.app.repositories.ISurveyRepository;
 
 @Service
-public class SurveyService implements ISurveyService{
+public class SurveyService implements ISurveyService {
 
 	private ISurveyRepository iSurveyRepository;
 
 	public SurveyService(ISurveyRepository iSurveyRepository) {
 		this.iSurveyRepository = iSurveyRepository;
 	}
-	
+
 	@Override
 	public int getSurveyId(String courseId) throws SQLException {
 		Survey survey = new Survey();
@@ -26,7 +26,7 @@ public class SurveyService implements ISurveyService{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		if(survey == null) {
+		if (survey == null) {
 			return 0;
 		}
 		return survey.getSurveyId();
@@ -47,7 +47,7 @@ public class SurveyService implements ISurveyService{
 	@Override
 	public void publishSurvey(String surveyId) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -59,7 +59,7 @@ public class SurveyService implements ISurveyService{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return rowUpdated;
 	}
 

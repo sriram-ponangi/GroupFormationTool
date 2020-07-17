@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 
 public interface CRUDRepository<T> {
-	<S extends T> boolean existsById(S entity)  throws SQLException;
+	<S extends T> boolean existsById(S entity) throws SQLException;
 
-	List<HashMap<String, Object>> readData(T entity)  throws SQLException;
+	List<HashMap<String, Object>> readData(T entity) throws SQLException;
 
 	<S extends T> int save(S entity) throws SQLException;
 
