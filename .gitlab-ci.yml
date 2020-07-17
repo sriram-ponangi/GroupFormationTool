@@ -13,7 +13,8 @@ variables:
     
 test:
     tags:
-        - grad
+        # - grad
+        - DalOpenStackDocker
     stage: test
     script:
         - echo "Testing"
@@ -23,7 +24,8 @@ test:
         
 build:
     tags:
-        - grad
+        # - grad
+        - DalOpenStackDocker
     stage: build
     script:
         - echo "Building"
@@ -37,8 +39,9 @@ build:
 
 deploy_staging:
     tags:
-        - dalfcs_gitlab_docker_ci
-        - dalfcs_docker_autoscale
+        # - dalfcs_gitlab_docker_ci
+        # - dalfcs_docker_autoscale
+        - DalOpenStackDocker
     image: ruby:2.6
     stage: deploy_staging
     only:
@@ -80,8 +83,9 @@ deploy_prod_openstack:
         
 deploy_prod_heroku:
     tags:
-        - dalfcs_gitlab_docker_ci
-        - dalfcs_docker_autoscale
+        # - dalfcs_gitlab_docker_ci
+        # - dalfcs_docker_autoscale
+        - DalOpenStackDocker
     image: ruby:2.6
     stage: deploy_staging
     only:
