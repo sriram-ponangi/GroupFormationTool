@@ -97,7 +97,7 @@ public class GroupFormationAlgorithmController {
 
 			if (info.getAction().equalsIgnoreCase("RUN")) {
 				if (info.getPublished() == 1) {
-					// Run The Algorithm.
+					return "redirect:/ta/groupFormationResults?courseId=" + info.getCourseId();
 				} else {
 					model.addAttribute("warnMessage",
 							"Survey is not published so cannot run the algorithm, but saving the algorithm is completed.");
